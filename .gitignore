@@ -1,0 +1,41 @@
+# Nuxt
+.nuxt
+.output
+.data
+.nitro
+.cache
+
+# Dependencies
+node_modules/
+
+# Build
+dist/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+.cursor/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Test
+coverage/
+playwright-report/
+test-results/
+
+# Misc
+*.tsbuildinfo

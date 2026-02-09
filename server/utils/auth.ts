@@ -1,0 +1,46 @@
+// Better Auth サーバー設定
+// AUTH-001 仕様書 §12.3 に基づく設定
+
+import { betterAuth } from 'better-auth';
+import { organization } from 'better-auth/plugins';
+import { drizzleAdapter } from 'better-auth/adapters/drizzle';
+import { db } from './db';
+
+const config = useRuntimeConfig();
+
+export const auth = betterAuth({
+  baseURL: config.betterAuthUrl,
+  secret: config.betterAuthSecret,
+
+  database: drizzleAdapter(db, {
+    provider: 'pg',
+  }),
+
+  emailAndPassword: {
+    enabled: true,
+    requireEmailVerification: false,
+  },
+
+  session: {
+    expiresIn: 60 * 60 * 24 * 7,          // 7日（デフォルト）
+    updateAge: 60 * 60 * 24,              // 1日ごとにセッション更新
+    cookieCache: {
+      enabled: true,
+      maxAge: 60 * 5,                     // 5分間のクッキーキャッシュ
+    },
+  },
+
+  socialProviders: {
+    google: {
+      clientId: process.env.GOOGLE_CLIENT_ID || '',
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+    },
+  },
+
+  plugins: [
+    organization(),
+  ],
+});
+
+// サーバーサイドの型定義をエクスポート
+export type Auth = typeof auth;

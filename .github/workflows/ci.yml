@@ -1,0 +1,121 @@
+# CI パイプライン
+# 19_CI_PR_STANDARDS.md に基づく app タイプ CI
+# Stage 1: 静的解析 → Stage 2: 単体テスト → Stage 3: 統合テスト → Stage 4: ビルド
+
+name: CI
+
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: '22'
+
+jobs:
+  # ─────────────────────────────────────────
+  # Stage 1: 静的解析（必須）
+  # ─────────────────────────────────────────
+  lint:
+    name: Lint & Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm nuxi prepare
+      - run: pnpm typecheck
+      - run: pnpm lint
+
+  # ─────────────────────────────────────────
+  # Stage 2: 単体テスト（必須）
+  # ─────────────────────────────────────────
+  unit-test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm nuxi prepare
+      - run: pnpm test:coverage
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+
+  # ─────────────────────────────────────────
+  # Stage 3: 統合テスト（必須）
+  # ─────────────────────────────────────────
+  integration-test:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    needs: lint
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: haishin_plus_hub_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/haishin_plus_hub_test
+      NUXT_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/haishin_plus_hub_test
+      NUXT_BETTER_AUTH_SECRET: ci-test-secret-do-not-use-in-production
+      NUXT_BETTER_AUTH_URL: http://localhost:3000
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm nuxi prepare
+      - run: pnpm db:migrate
+      - run: pnpm test -- --config vitest.integration.config.ts
+
+  # ─────────────────────────────────────────
+  # Stage 4: ビルド（必須）
+  # ─────────────────────────────────────────
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [unit-test, integration-test]
+    env:
+      DATABASE_URL: postgresql://localhost:5432/dummy
+      NUXT_DATABASE_URL: postgresql://localhost:5432/dummy
+      NUXT_BETTER_AUTH_SECRET: build-check-secret
+      NUXT_BETTER_AUTH_URL: http://localhost:3000
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
