@@ -250,12 +250,17 @@ export function useAuth() {
   // ログアウト
   // ──────────────────────────────────────
 
-  /** ログアウト（AUTH-005 で拡張予定） */
+  /** ログアウト（AUTH-005 §13.2 準拠: エラーでもログアウトを完了させる） */
   async function logout() {
-    await authClient.signOut();
-    authStore.reset();
-    tenantStore.reset();
-    await router.push('/login');
+    try {
+      await authClient.signOut();
+    } catch {
+      // ネットワークエラー等でも無視 — ローカル状態をクリアしてリダイレクト
+    } finally {
+      authStore.reset();
+      tenantStore.reset();
+      await router.push('/login?reason=logout');
+    }
   }
 
   // ──────────────────────────────────────
