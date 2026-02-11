@@ -19,6 +19,21 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: false,
+    sendResetPassword: async ({ user, url }) => {
+      // AUTH-006: パスワードリセットメール送信
+      // TODO: Resend 等のメールサービスに差し替え
+      console.info(`[AUTH] Password reset email for ${user.email}: ${url}`);
+    },
+  },
+
+  emailVerification: {
+    sendOnSignUp: true,
+    autoSignInAfterVerification: true,
+    sendVerificationEmail: async ({ user, url }) => {
+      // AUTH-007: メール認証メール送信
+      // TODO: Resend 等のメールサービスに差し替え
+      console.info(`[AUTH] Verification email for ${user.email}: ${url}`);
+    },
   },
 
   session: {

@@ -9,7 +9,7 @@ import { authClient } from '~/lib/auth-client';
 
 export default defineNuxtRouteMiddleware(async (to) => {
   // 認証不要なルート
-  const publicPaths = ['/login', '/signup', '/forgot-password', '/reset-password'];
+  const publicPaths = ['/login', '/signup', '/forgot-password', '/reset-password', '/verify-email'];
   const isPublicRoute = publicPaths.some((path) => to.path === path || to.path.startsWith(`${path}/`));
   const isProtectedRoute = to.path.startsWith('/app');
 
