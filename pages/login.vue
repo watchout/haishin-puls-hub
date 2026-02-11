@@ -7,12 +7,26 @@ definePageMeta({
 });
 
 const { handleOAuthCallback } = useAuth();
+const toast = useToast();
 
-// OAuth コールバック処理
+// OAuth コールバック / ログアウトトースト処理
 const route = useRoute();
+const router = useRouter();
 const oauthError = ref('');
 
 onMounted(async () => {
+  // AUTH-005: ログアウト後のトースト表示
+  if (route.query.reason === 'logout') {
+    toast.add({
+      title: 'ログアウトしました',
+      icon: 'i-lucide-log-out',
+      color: 'success',
+    });
+    // URLからクエリパラメータを除去
+    router.replace({ path: '/login', query: {} });
+  }
+
+  // OAuth コールバック処理
   if (route.query.oauth || route.query.error) {
     const result = await handleOAuthCallback();
     if (!result.success && result.error) {
