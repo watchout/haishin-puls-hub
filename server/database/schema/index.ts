@@ -5,6 +5,7 @@
 export { tenant } from './tenant';
 export { user } from './user';
 export { userTenant } from './user-tenant';
+export { invitation } from './invitation';
 
 // 会場
 export { venue } from './venue';
