@@ -23,6 +23,57 @@ export const loginSchema = z.object({
 
 export type LoginFormValues = z.infer<typeof loginSchema>;
 
+/** サインアップフォームバリデーション（セルフ登録用） ACCT-001 §2 */
+export const signupSchema = z.object({
+  name: z
+    .string({ required_error: '名前を入力してください' })
+    .min(1, '名前を入力してください')
+    .max(100, '名前は100文字以内で入力してください'),
+  email: z
+    .string({ required_error: 'メールアドレスを入力してください' })
+    .min(1, 'メールアドレスを入力してください')
+    .email('有効なメールアドレスを入力してください')
+    .max(255),
+  password: z
+    .string({ required_error: 'パスワードを入力してください' })
+    .min(8, 'パスワードは8文字以上で入力してください')
+    .max(128),
+  passwordConfirm: z
+    .string({ required_error: 'パスワード（確認）を入力してください' })
+    .min(1, 'パスワード（確認）を入力してください'),
+  termsAccepted: z
+    .boolean({ required_error: '利用規約に同意してください' })
+    .refine((val) => val === true, '利用規約に同意してください'),
+}).refine((data) => data.password === data.passwordConfirm, {
+  message: 'パスワードが一致しません',
+  path: ['passwordConfirm'],
+});
+
+export type SignupFormValues = z.infer<typeof signupSchema>;
+
+/** 招待承認フォームバリデーション ACCT-001 §5.3 */
+export const invitationAcceptSchema = z.object({
+  name: z
+    .string({ required_error: '名前を入力してください' })
+    .min(1, '名前を入力してください')
+    .max(100, '名前は100文字以内で入力してください'),
+  password: z
+    .string({ required_error: 'パスワードを入力してください' })
+    .min(8, 'パスワードは8文字以上で入力してください')
+    .max(128),
+  passwordConfirm: z
+    .string({ required_error: 'パスワード（確認）を入力してください' })
+    .min(1, 'パスワード（確認）を入力してください'),
+  termsAccepted: z
+    .boolean({ required_error: '利用規約に同意してください' })
+    .refine((val) => val === true, '利用規約に同意してください'),
+}).refine((data) => data.password === data.passwordConfirm, {
+  message: 'パスワードが一致しません',
+  path: ['passwordConfirm'],
+});
+
+export type InvitationAcceptFormValues = z.infer<typeof invitationAcceptSchema>;
+
 // ──────────────────────────────────────
 // API レスポンス型
 // ──────────────────────────────────────
@@ -66,6 +117,40 @@ export interface LoginContextError {
     message: string;
   };
 }
+
+/** ACCT-001 §5: 招待情報取得レスポンス */
+export interface InvitationInfoResponse {
+  data: {
+    email: string;
+    role: string;
+    tenant: LoginContextTenant;
+  };
+}
+
+/** ACCT-001 §5.3: 招待承認レスポンス */
+export interface InvitationAcceptResponse {
+  data: {
+    user: {
+      id: string;
+      email: string;
+      name: string;
+    };
+    tenant: {
+      id: string;
+      name: string;
+    };
+    role: string;
+    redirectTo: string;
+  };
+}
+
+/** ACCT-001 §2.6: 招待 API エラーコード */
+export type InvitationErrorCode =
+  | 'INVITATION_NOT_FOUND'
+  | 'INVITATION_EXPIRED'
+  | 'INVITATION_ALREADY_USED'
+  | 'VALIDATION_ERROR'
+  | 'CONFLICT';
 
 // ──────────────────────────────────────
 // ロール別リダイレクト先
@@ -125,4 +210,13 @@ export const AUTH_ERROR_MESSAGES = {
   OAUTH_CANCELLED: 'Google ログインがキャンセルされました',
   NETWORK_ERROR: '通信エラーが発生しました。再試行してください',
   SERVER_ERROR: 'システムエラーが発生しました。しばらく経ってから再試行してください',
+} as const;
+
+/** ACCT-001 §8.1 サインアップエラーメッセージ */
+export const SIGNUP_ERROR_MESSAGES = {
+  EMAIL_ALREADY_EXISTS: 'このメールアドレスは既に登録されています',
+  INVITATION_NOT_FOUND: '招待リンクが無効です',
+  INVITATION_EXPIRED: '招待リンクの有効期限が切れています。管理者に再招待をご依頼ください',
+  INVITATION_ALREADY_USED: 'この招待リンクは既に使用されています',
+  SIGNUP_FAILED: 'アカウント作成に失敗しました。再試行してください',
 } as const;
