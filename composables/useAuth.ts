@@ -4,8 +4,8 @@
 import { authClient } from '~/lib/auth-client';
 import { useAuthStore } from '~/stores/auth';
 import { useTenantStore } from '~/stores/tenant';
-import { AUTH_ERROR_MESSAGES } from '~/types/auth';
-import type { LoginFormValues, LoginContextResponse } from '~/types/auth';
+import { AUTH_ERROR_MESSAGES, SIGNUP_ERROR_MESSAGES, ROLE_REDIRECT_MAP } from '~/types/auth';
+import type { LoginFormValues, LoginContextResponse, SignupFormValues, InvitationAcceptFormValues, InvitationAcceptResponse, Role } from '~/types/auth';
 
 export function useAuth() {
   const authStore = useAuthStore();
@@ -157,6 +157,96 @@ export function useAuth() {
   }
 
   // ──────────────────────────────────────
+  // サインアップ（ACCT-001）
+  // ──────────────────────────────────────
+
+  /** セルフ登録サインアップ（ACCT-001 §7.2） */
+  async function signup(values: SignupFormValues): Promise<{ success: boolean; error?: string }> {
+    try {
+      const { data, error } = await authClient.signUp.email({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+      });
+
+      if (error) {
+        return { success: false, error: mapSignupError(error) };
+      }
+
+      if (!data?.user) {
+        return { success: false, error: SIGNUP_ERROR_MESSAGES.SIGNUP_FAILED };
+      }
+
+      // ユーザー情報をストアにセット
+      authStore.setUser({
+        id: data.user.id,
+        email: data.user.email,
+        name: data.user.name,
+        avatarUrl: data.user.image ?? null,
+        emailVerified: data.user.emailVerified,
+      });
+
+      // セルフ登録 → オンボーディングへ
+      await router.push('/app/onboarding');
+      return { success: true };
+    } catch (err: unknown) {
+      return { success: false, error: getNetworkErrorMessage(err) };
+    }
+  }
+
+  /** 招待ベースサインアップ（ACCT-001 §7.1） */
+  async function signupWithInvitation(values: InvitationAcceptFormValues): Promise<{ success: boolean; error?: string }> {
+    const token = useRoute().query.token as string;
+
+    try {
+      const response = await $fetch<InvitationAcceptResponse>(
+        `/api/v1/invitations/${token}/accept`,
+        {
+          method: 'POST',
+          body: {
+            name: values.name,
+            password: values.password,
+            termsAccepted: values.termsAccepted,
+          },
+        },
+      );
+
+      // ユーザー情報をストアにセット
+      authStore.setUser({
+        id: response.data.user.id,
+        email: response.data.user.email,
+        name: response.data.user.name,
+        avatarUrl: null,
+        emailVerified: false,
+      });
+
+      // テナント情報をストアにセット
+      const role = response.data.role as Role;
+      tenantStore.setTenantContext(
+        { id: response.data.tenant.id, name: response.data.tenant.name, slug: '' },
+        role,
+      );
+
+      // ロール別リダイレクト先に遷移
+      const redirectTo = response.data.redirectTo ?? ROLE_REDIRECT_MAP[role] ?? '/app';
+      await router.push(redirectTo);
+      return { success: true };
+    } catch (err: unknown) {
+      return { success: false, error: mapInvitationError(err) };
+    }
+  }
+
+  /** Google OAuth でサインアップ（ACCT-001 §7.3） */
+  async function signupWithGoogle() {
+    const token = useRoute().query.token as string | undefined;
+
+    await authClient.signIn.social({
+      provider: 'google',
+      callbackURL: token ? `/signup?token=${token}&oauth=success` : '/signup?oauth=success',
+    });
+  }
+
+  // ──────────────────────────────────────
   // ログアウト
   // ──────────────────────────────────────
 
@@ -194,6 +284,30 @@ export function useAuth() {
     return AUTH_ERROR_MESSAGES.SERVER_ERROR;
   }
 
+  /** サインアップエラーのマッピング */
+  function mapSignupError(error: { message?: string; status?: number; code?: string }): string {
+    if (error.status === 409) return SIGNUP_ERROR_MESSAGES.EMAIL_ALREADY_EXISTS;
+    if (error.status === 429) return AUTH_ERROR_MESSAGES.RATE_LIMITED;
+    return SIGNUP_ERROR_MESSAGES.SIGNUP_FAILED;
+  }
+
+  /** 招待 API エラーのマッピング */
+  function mapInvitationError(err: unknown): string {
+    if (err && typeof err === 'object' && 'data' in err) {
+      const httpErr = err as { statusCode?: number; data?: { error?: { code?: string; message?: string } } };
+      const code = httpErr.data?.error?.code;
+
+      if (code === 'INVITATION_NOT_FOUND') return SIGNUP_ERROR_MESSAGES.INVITATION_NOT_FOUND;
+      if (code === 'INVITATION_EXPIRED') return SIGNUP_ERROR_MESSAGES.INVITATION_EXPIRED;
+      if (code === 'INVITATION_ALREADY_USED') return SIGNUP_ERROR_MESSAGES.INVITATION_ALREADY_USED;
+      if (code === 'CONFLICT') return SIGNUP_ERROR_MESSAGES.EMAIL_ALREADY_EXISTS;
+      if (httpErr.statusCode === 429) return AUTH_ERROR_MESSAGES.RATE_LIMITED;
+
+      return httpErr.data?.error?.message ?? SIGNUP_ERROR_MESSAGES.SIGNUP_FAILED;
+    }
+    return getNetworkErrorMessage(err);
+  }
+
   /** ネットワークエラーのメッセージ取得 */
   function getNetworkErrorMessage(err: unknown): string {
     if (err instanceof TypeError && err.message.includes('fetch')) {
@@ -215,6 +329,9 @@ export function useAuth() {
     login,
     loginWithGoogle,
     handleOAuthCallback,
+    signup,
+    signupWithInvitation,
+    signupWithGoogle,
     logout,
     fetchSession,
     fetchLoginContext,
