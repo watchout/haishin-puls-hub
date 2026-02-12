@@ -1,0 +1,22 @@
+{
+  "name": "haishin-plus-hub",
+  "type": "app",
+  "version": "1.0.0",
+  "framework": {
+    "version": "3.0",
+    "retrofit": true,
+    "retrofitDate": "2026-02-07"
+  },
+  "stack": {
+    "framework": "nuxt3",
+    "language": "typescript",
+    "database": "postgresql",
+    "orm": "drizzle",
+    "auth": "better-auth"
+  },
+  "knowledgeSource": {
+    "type": "local",
+    "path": "/Users/kaneko/Library/CloudStorage/GoogleDrive-watchout.329@gmail.com/マイドライブ/IYASAKA/知識データベース",
+    "lastSync": "2026-02-10"
+  }
+}
