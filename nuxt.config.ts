@@ -26,6 +26,7 @@ export default defineNuxtConfig({
     // クライアント公開
     public: {
       appName: 'Haishin+ HUB',
+      supportEmail: '',
     },
   },
 
