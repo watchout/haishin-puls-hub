@@ -1,9 +1,10 @@
-import { pgTable, varchar, text, boolean, timestamp, integer, jsonb, index, uniqueIndex } from 'drizzle-orm/pg-core';
+import { pgTable, varchar, text, timestamp, integer, jsonb, index, uniqueIndex } from 'drizzle-orm/pg-core';
 import { tenant } from './tenant';
 import { venue } from './venue';
 import { user } from './user';
 
 // SSOT-4 §2.5: event（イベント）
+// EVT-001-005: AI提案用カラム追加（goal, targetAudience, dateCandidates, aiSuggestions）
 export const event = pgTable('event', {
   id: varchar('id', { length: 26 }).primaryKey(),
   tenantId: varchar('tenant_id', { length: 26 }).notNull().references(() => tenant.id),
@@ -13,16 +14,21 @@ export const event = pgTable('event', {
   eventType: varchar('event_type', { length: 50 }).notNull(), // seminar / presentation / internal / workshop
   format: varchar('format', { length: 50 }).notNull(), // onsite / online / hybrid
   status: varchar('status', { length: 50 }).notNull().default('draft'), // draft / planning / confirmed / ready / in_progress / completed / cancelled
-  startAt: timestamp('start_at', { withTimezone: true }).notNull(),
-  endAt: timestamp('end_at', { withTimezone: true }).notNull(),
+  startAt: timestamp('start_at', { withTimezone: true }),   // NULL OK: draft 時は未定
+  endAt: timestamp('end_at', { withTimezone: true }),       // NULL OK: draft 時は未定
   capacityOnsite: integer('capacity_onsite'),
   capacityOnline: integer('capacity_online'),
   budgetMin: integer('budget_min'),
   budgetMax: integer('budget_max'),
   streamingUrl: text('streaming_url'),
   portalSlug: varchar('portal_slug', { length: 100 }),
+  // EVT-001-005 AI生成用フィールド
+  goal: text('goal'),                                       // イベントの目的（AI生成用）
+  targetAudience: text('target_audience'),                   // ターゲット参加者（AI生成用）
+  dateCandidates: jsonb('date_candidates'),                  // 日程候補リスト [{ date, start_time, end_time, priority }]
+  aiSuggestions: jsonb('ai_suggestions'),                    // AI提案内容 { venues, format, estimate_id }
   settings: jsonb('settings').notNull().default({}),
-  aiGenerated: jsonb('ai_generated'),
+  aiGenerated: jsonb('ai_generated'),                        // レガシー: 下位互換用
   createdBy: varchar('created_by', { length: 26 }).notNull().references(() => user.id),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
