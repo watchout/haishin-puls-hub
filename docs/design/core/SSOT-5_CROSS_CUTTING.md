@@ -1,6 +1,7 @@
-# SSOT-5: 横断的関心事（Cross-Cutting Concerns）
+# SSOT-5: 横断的関心事（Cross-Cutting Concerns） [CONTRACT]
 
 > 認証・認可・マルチテナント・AI統合・エラーハンドリング・ログ等の横断的設計を管理する
+> RFC 2119 準拠: MUST（必須）/ SHOULD（推奨）/ MAY（任意）
 
 ---
 
@@ -14,7 +15,7 @@
 
 ---
 
-## 1. 認証・認可（Authentication & Authorization）
+## §1. 認証・認可（Authentication & Authorization） [CORE]
 
 ### 1.1 認証方式
 
@@ -98,7 +99,7 @@ export function usePermission() {
 
 ---
 
-## 2. マルチテナント設計
+## §2. マルチテナント設計 [CORE]
 
 ### 2.1 テナント分離戦略
 
@@ -145,7 +146,7 @@ export function usePermission() {
 
 ---
 
-## 3. AI 統合設計
+## §3. AI 統合設計 [CONTRACT]
 
 ### 3.1 アーキテクチャ
 
@@ -280,7 +281,7 @@ export const aiTools = {
 
 ---
 
-## 4. エラーハンドリング
+## §4. エラーハンドリング [CONTRACT]
 
 ### 4.1 エラー分類
 
@@ -350,7 +351,7 @@ throw createAppError('VALIDATION_ERROR', '入力内容に問題があります',
 
 ---
 
-## 5. ロギング・監視
+## §5. ロギング・監視 [DETAIL]
 
 ### 5.1 ログ設計
 
@@ -390,7 +391,7 @@ throw createAppError('VALIDATION_ERROR', '入力内容に問題があります',
 
 ---
 
-## 6. セキュリティ
+## §6. セキュリティ [CORE]
 
 ### 6.1 入力バリデーション
 
@@ -436,7 +437,7 @@ throw createAppError('VALIDATION_ERROR', '入力内容に問題があります',
 
 ---
 
-## 7. 国際化（i18n）
+## §7. 国際化（i18n） [DETAIL]
 
 ### 7.1 MVP方針
 
@@ -457,7 +458,7 @@ throw createAppError('VALIDATION_ERROR', '入力内容に問題があります',
 
 ---
 
-## 8. パフォーマンス
+## §8. パフォーマンス [DETAIL]
 
 ### 8.1 パフォーマンス目標
 
@@ -483,7 +484,7 @@ throw createAppError('VALIDATION_ERROR', '入力内容に問題があります',
 
 ---
 
-## 9. デプロイ・運用
+## §9. デプロイ・運用 [DETAIL]
 
 ### 9.1 デプロイ構成
 
@@ -526,7 +527,7 @@ GitHub Actions:
 
 ---
 
-## 10. テスト戦略
+## §10. テスト戦略 [DETAIL]
 
 ### 10.1 テストピラミッド
 
@@ -554,8 +555,26 @@ GitHub Actions:
 
 ---
 
+## §11. 実装優先順位 [DETAIL]
+
+1. Phase 1（MVP）: 認証・認可 + マルチテナント + エラーハンドリング + AI基盤（Claude）
+2. Phase 1.5: ロギング・監視強化 + セキュリティ監査
+3. Phase 2: 国際化 + パフォーマンス最適化 + 運用自動化
+
+---
+
+## §12. 未解決課題（Open Questions） [DETAIL]
+
+| ID | 課題 | 影響範囲 | 担当 |
+|----|------|---------|------|
+| CC-OQ-001 | LLMフォールバック戦略の詳細（Claude → GPT切替条件） | AI統合 | 技術 |
+| CC-OQ-002 | 構造化ログのフォーマット（JSON vs structured text） | ロギング | 技術 |
+
+---
+
 ## 変更履歴
 
 | 日付 | 変更内容 | 変更者 |
 |------|---------|-------|
 | 2026-02-06 | 初版作成（10セクション） | AI |
+| 2026-02-12 | フレームワーク形式適合（§記法、RFC 2119、レイヤーラベル、§11-§12追加） | AI |

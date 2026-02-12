@@ -1,0 +1,119 @@
+{
+  "mode": "ssot",
+  "target": {
+    "id": "SSOT-5_CROSS_CUTTING",
+    "name": "SSOT-5_CROSS_CUTTING.md",
+    "path": "docs/design/core/SSOT-5_CROSS_CUTTING.md",
+    "auditDate": "2026-02-12T00:11:32.287Z",
+    "iteration": 1
+  },
+  "scorecard": [
+    {
+      "category": "Completeness",
+      "maxPoints": 15,
+      "earned": 0,
+      "deductions": [
+        {
+          "reason": "Missing sections: §1, §2, §3, §4, §5, §6, §7, §8, §9, §10, §11, §12",
+          "amount": 15
+        }
+      ]
+    },
+    {
+      "category": "Consistency",
+      "maxPoints": 15,
+      "earned": 15,
+      "deductions": []
+    },
+    {
+      "category": "Clarity",
+      "maxPoints": 10,
+      "earned": 10,
+      "deductions": []
+    },
+    {
+      "category": "Verifiability",
+      "maxPoints": 10,
+      "earned": 10,
+      "deductions": []
+    },
+    {
+      "category": "Traceability",
+      "maxPoints": 10,
+      "earned": 10,
+      "deductions": []
+    },
+    {
+      "category": "Feasibility",
+      "maxPoints": 10,
+      "earned": 10,
+      "deductions": []
+    },
+    {
+      "category": "RFC 2119 Compliance",
+      "maxPoints": 10,
+      "earned": 0,
+      "deductions": [
+        {
+          "reason": "No RFC 2119 keywords found",
+          "amount": 10
+        }
+      ]
+    },
+    {
+      "category": "Test Coverage",
+      "maxPoints": 10,
+      "earned": 10,
+      "deductions": []
+    },
+    {
+      "category": "Cross-SSOT Consistency",
+      "maxPoints": 5,
+      "earned": 5,
+      "deductions": []
+    },
+    {
+      "category": "Document Quality",
+      "maxPoints": 5,
+      "earned": 5,
+      "deductions": []
+    }
+  ],
+  "totalScore": 75,
+  "verdict": "fail",
+  "absoluteConditions": [
+    {
+      "name": "TBD Count = 0",
+      "passed": true
+    },
+    {
+      "name": "Critical Findings = 0",
+      "passed": false,
+      "detail": "1 critical findings"
+    },
+    {
+      "name": "Cross-SSOT Critical/Major = 0",
+      "passed": true
+    }
+  ],
+  "findings": [
+    {
+      "id": 1,
+      "severity": "critical",
+      "category": "Completeness",
+      "location": "Document",
+      "issue": "Missing 12 required sections: §1, §2, §3, §4, §5, §6, §7, §8, §9, §10, §11, §12",
+      "correction": "Add all missing sections per SSOT template",
+      "deduction": 15
+    },
+    {
+      "id": 2,
+      "severity": "major",
+      "category": "RFC 2119 Compliance",
+      "location": "Document",
+      "issue": "No RFC 2119 keywords (MUST, SHOULD, MAY) found",
+      "correction": "Use RFC 2119 keywords to specify requirement levels",
+      "deduction": 10
+    }
+  ]
+}

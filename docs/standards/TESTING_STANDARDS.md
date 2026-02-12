@@ -8,11 +8,10 @@
 
 | 項目 | 内容 |
 |------|------|
-| プロジェクト名 | Haishin+ HUB |
-| テストフレームワーク | Vitest |
-| コンポーネントテスト | @vue/test-utils + Vitest |
-| E2Eフレームワーク | Playwright |
-| 最終更新日 | 2026-02-08 |
+| プロジェクト名 | |
+| テストフレームワーク | Vitest / Jest |
+| E2Eフレームワーク | Playwright / Cypress |
+| 最終更新日 | YYYY-MM-DD |
 
 ---
 
@@ -35,11 +34,11 @@
 
 ### 1.2 テスト種別と目的
 
-| 種別 | 対象 | ツール | 割合目安 |
-|------|------|--------|---------|
-| Unit | 関数、Composable、ユーティリティ | Vitest | 70% |
-| Integration | Nitro API Routes、DB連携 | Vitest | 20% |
-| E2E | ユーザーフロー（ログイン→ダッシュボード等） | Playwright | 10% |
+| 種別 | 対象 | 実行速度 | 割合目安 |
+|------|------|---------|---------|
+| Unit | 関数、コンポーネント | 高速 | 70% |
+| Integration | API、DB連携 | 中程度 | 20% |
+| E2E | ユーザーフロー | 低速 | 10% |
 
 ---
 
@@ -57,29 +56,26 @@
 
 | カテゴリ | 目標 | 理由 |
 |---------|------|------|
-| ビジネスロジック（server/utils/） | 90%+ | 重要なロジック |
-| API ハンドラ（server/api/） | 80%+ | エラーケース含む |
-| Composables | 80%+ | 共有ロジック |
-| Vue コンポーネント | 70%+ | 主要な状態をカバー |
-| ユーティリティ（utils/） | 95%+ | 単純で網羅しやすい |
+| ビジネスロジック | 90%+ | 重要なロジック |
+| APIハンドラ | 80%+ | エラーケース含む |
+| UIコンポーネント | 70%+ | 主要な状態をカバー |
+| ユーティリティ | 95%+ | 単純で網羅しやすい |
 
 ### 2.3 カバレッジ除外
 
-```typescript
+```javascript
 // vitest.config.ts
 export default defineConfig({
   test: {
     coverage: {
       exclude: [
-        'types/**',
-        '**/*.types.ts',
+        'src/types/**',
+        'src/constants/**',
         '**/*.config.*',
         '**/*.d.ts',
-        'server/database/migrations/**',
-        'server/database/seed.ts',
-      ],
-    },
-  },
+      ]
+    }
+  }
 });
 ```
 
@@ -87,52 +83,36 @@ export default defineConfig({
 
 ## 3. テストファイル配置
 
-### 3.1 配置パターン（同階層配置）
+### 3.1 配置パターン
+
+**パターン A: 同階層配置（推奨）**
 
 ```
-server/
-├── api/
-│   ├── events/
-│   │   ├── index.get.ts
-│   │   └── index.get.test.ts       ← 同階層
-│   └── auth/
-│       ├── [...all].ts
-│       └── [...all].test.ts
-├── utils/
-│   ├── ai.ts
-│   └── ai.test.ts
-
-composables/
-├── useAuth.ts
-└── useAuth.test.ts
-
-components/features/auth/
-├── LoginForm.vue
-└── LoginForm.test.ts
+src/
+├── components/
+│   ├── Button.tsx
+│   └── Button.test.tsx    ← 同階層
+├── lib/
+│   ├── utils.ts
+│   └── utils.test.ts      ← 同階層
 ```
 
-### 3.2 E2E テストは tests/e2e/ に集約
+**パターン B: __tests__ディレクトリ**
 
 ```
-tests/
-├── e2e/
-│   ├── auth/
-│   │   └── login.e2e.ts
-│   ├── event/
-│   │   └── create-event.e2e.ts
-│   └── fixtures/
-│       └── test-users.ts
-└── factories/
-    ├── user.factory.ts
-    └── event.factory.ts
+src/
+├── components/
+│   ├── __tests__/
+│   │   └── Button.test.tsx
+│   └── Button.tsx
 ```
 
-### 3.3 命名規則
+### 3.2 命名規則
 
 | 種別 | パターン | 例 |
 |------|---------|-----|
-| Unit | `{name}.test.ts` | `useAuth.test.ts` |
-| Integration | `{name}.test.ts`（server/api/ 配下） | `index.get.test.ts` |
+| Unit | `{name}.test.ts(x)` | `utils.test.ts` |
+| Integration | `{name}.integration.test.ts` | `api.integration.test.ts` |
 | E2E | `{flow}.e2e.ts` | `login.e2e.ts` |
 
 ---
@@ -142,18 +122,22 @@ tests/
 ### 4.1 基本構造（AAA パターン）
 
 ```typescript
-describe('EventService', () => {
-  describe('createEvent', () => {
-    it('should create event when valid data is provided', async () => {
+describe('UserService', () => {
+  describe('getUser', () => {
+    it('should return user when valid id is provided', async () => {
       // Arrange（準備）
-      const input = createEventInput({ title: 'テストセミナー' });
+      const userId = 'user-123';
+      const mockUser = { id: userId, name: 'John' };
+      mockDb.users.findUnique.mockResolvedValue(mockUser);
 
       // Act（実行）
-      const result = await eventService.createEvent(input);
+      const result = await userService.getUser(userId);
 
       // Assert（検証）
-      expect(result.title).toBe('テストセミナー');
-      expect(result.status).toBe('draft');
+      expect(result).toEqual(mockUser);
+      expect(mockDb.users.findUnique).toHaveBeenCalledWith({
+        where: { id: userId }
+      });
     });
   });
 });
@@ -163,27 +147,28 @@ describe('EventService', () => {
 
 ```typescript
 // ✅ Good: should + 期待動作 + 条件
-it('should return null when event is not found', () => {});
-it('should throw error when title is empty', () => {});
-it('should update event when user has organizer role', () => {});
+it('should return null when user is not found', () => {});
+it('should throw error when email is invalid', () => {});
+it('should update user when valid data is provided', () => {});
 
 // ❌ Bad: 曖昧、条件がない
 it('works correctly', () => {});
-it('handles event', () => {});
+it('handles user', () => {});
 ```
 
-### 4.3 describe のネスト
+### 4.3 describeのネスト
 
 ```typescript
 describe('AuthService', () => {
   describe('login', () => {
     describe('when credentials are valid', () => {
-      it('should return session token', () => {});
-      it('should set tenant context', () => {});
+      it('should return access token', () => {});
+      it('should create session', () => {});
     });
 
     describe('when password is incorrect', () => {
       it('should throw AuthenticationError', () => {});
+      it('should increment failed attempts', () => {});
     });
 
     describe('when account is locked', () => {
@@ -201,39 +186,33 @@ describe('AuthService', () => {
 
 | 対象 | モック | 理由 |
 |------|-------|------|
-| 外部API（Claude/GPT） | ✅ する | 不安定、コスト |
+| 外部API | ✅ する | 不安定、コスト |
 | データベース | ✅ する（Unit） | 速度 |
-| メール送信 | ✅ する | 副作用 |
+| ファイルシステム | ✅ する | 副作用 |
 | 日時 | ✅ する | 再現性 |
-| Better Auth | ✅ する（Unit） | 外部依存 |
+| 他のサービスクラス | 場合による | 依存関係 |
 
 ### 5.2 モックの書き方
 
 ```typescript
-// Drizzle ORM のモック
-vi.mock('~/server/utils/db', () => ({
-  db: {
-    select: vi.fn().mockReturnThis(),
-    from: vi.fn().mockReturnThis(),
-    where: vi.fn().mockReturnThis(),
-    limit: vi.fn().mockResolvedValue([]),
-    insert: vi.fn().mockReturnThis(),
-    values: vi.fn().mockReturnThis(),
-    returning: vi.fn().mockResolvedValue([]),
-  },
-}));
+// 関数のモック
+const mockFetch = vi.fn();
+vi.stubGlobal('fetch', mockFetch);
 
-// LLM のモック
-vi.mock('~/server/utils/ai', () => ({
-  createLLMClient: vi.fn().mockReturnValue({
-    generateText: vi.fn().mockResolvedValue({ text: 'AI response' }),
-  }),
+// モジュールのモック
+vi.mock('@/lib/db', () => ({
+  db: {
+    users: {
+      findUnique: vi.fn(),
+      create: vi.fn(),
+    }
+  }
 }));
 
 // 日時のモック
 beforeEach(() => {
   vi.useFakeTimers();
-  vi.setSystemTime(new Date('2026-02-08'));
+  vi.setSystemTime(new Date('2024-01-15'));
 });
 
 afterEach(() => {
@@ -245,98 +224,111 @@ afterEach(() => {
 
 ```typescript
 beforeEach(() => {
-  vi.clearAllMocks();
+  vi.clearAllMocks();  // 呼び出し履歴をクリア
 });
 
 afterEach(() => {
-  vi.resetAllMocks();
+  vi.resetAllMocks();  // 実装もリセット
 });
 ```
 
 ---
 
-## 6. Vue コンポーネントテスト
+## 6. Reactコンポーネントテスト
 
-### 6.1 @vue/test-utils
+### 6.1 Testing Library
 
 ```typescript
-import { mount } from '@vue/test-utils';
-import { describe, it, expect, vi } from 'vitest';
-import LoginForm from './LoginForm.vue';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { LoginForm } from './LoginForm';
 
 describe('LoginForm', () => {
-  it('should emit submit event with email and password', async () => {
-    const wrapper = mount(LoginForm);
+  it('should submit form with email and password', async () => {
+    const user = userEvent.setup();
+    const onSubmit = vi.fn();
+    
+    render(<LoginForm onSubmit={onSubmit} />);
 
     // 入力
-    await wrapper.find('input[name="email"]').setValue('test@example.com');
-    await wrapper.find('input[name="password"]').setValue('password123');
-
+    await user.type(screen.getByLabelText('メールアドレス'), 'test@example.com');
+    await user.type(screen.getByLabelText('パスワード'), 'password123');
+    
     // 送信
-    await wrapper.find('form').trigger('submit');
+    await user.click(screen.getByRole('button', { name: 'ログイン' }));
 
     // 検証
-    expect(wrapper.emitted('submit')).toBeTruthy();
-    expect(wrapper.emitted('submit')![0]).toEqual([
-      { email: 'test@example.com', password: 'password123' },
-    ]);
+    await waitFor(() => {
+      expect(onSubmit).toHaveBeenCalledWith({
+        email: 'test@example.com',
+        password: 'password123'
+      });
+    });
   });
 
-  it('should show validation error when email is empty', async () => {
-    const wrapper = mount(LoginForm);
+  it('should show error when email is invalid', async () => {
+    const user = userEvent.setup();
+    render(<LoginForm onSubmit={vi.fn()} />);
 
-    await wrapper.find('form').trigger('submit');
+    await user.type(screen.getByLabelText('メールアドレス'), 'invalid');
+    await user.click(screen.getByRole('button', { name: 'ログイン' }));
 
-    expect(wrapper.text()).toContain('メールアドレスは必須です');
+    expect(screen.getByText('有効なメールアドレスを入力してください')).toBeInTheDocument();
   });
 });
 ```
 
-### 6.2 Composable テスト
+### 6.2 クエリ優先順位
 
-```typescript
-import { describe, it, expect } from 'vitest';
-import { useEvent } from './useEvent';
-
-describe('useEvent', () => {
-  it('should fetch event by id', async () => {
-    // useFetch をモック（Nuxt auto-import）
-    const mockEvent = { id: '1', title: 'テストセミナー' };
-
-    // Composable を実行
-    const { event, isLoading } = useEvent('1');
-
-    // 検証
-    expect(isLoading.value).toBe(true);
-  });
-});
-```
+| 優先度 | クエリ | 用途 |
+|-------|-------|------|
+| 1 | `getByRole` | アクセシビリティ |
+| 2 | `getByLabelText` | フォーム要素 |
+| 3 | `getByPlaceholderText` | 入力フィールド |
+| 4 | `getByText` | テキスト |
+| 5 | `getByTestId` | 最終手段 |
 
 ---
 
-## 7. Nitro API テスト
+## 7. APIテスト
 
-### 7.1 API ハンドラテスト
+### 7.1 ハンドラテスト
 
 ```typescript
-import { describe, it, expect, vi } from 'vitest';
+import { createMocks } from 'node-mocks-http';
+import { POST } from '@/app/api/auth/login/route';
 
-describe('GET /api/v1/events', () => {
-  it('should return events list', async () => {
-    // Nitro のテストユーティリティを使用
-    const result = await $fetch('/api/v1/events', {
-      method: 'GET',
-      headers: { Authorization: 'Bearer test-token' },
+describe('POST /api/auth/login', () => {
+  it('should return 200 with token when credentials are valid', async () => {
+    const { req } = createMocks({
+      method: 'POST',
+      body: {
+        email: 'test@example.com',
+        password: 'password123'
+      }
     });
 
-    expect(result).toHaveProperty('data');
-    expect(Array.isArray(result.data)).toBe(true);
+    const response = await POST(req);
+    const data = await response.json();
+
+    expect(response.status).toBe(200);
+    expect(data).toHaveProperty('access_token');
   });
 
-  it('should return 401 when not authenticated', async () => {
-    await expect(
-      $fetch('/api/v1/events', { method: 'GET' }),
-    ).rejects.toThrow();
+  it('should return 401 when password is incorrect', async () => {
+    const { req } = createMocks({
+      method: 'POST',
+      body: {
+        email: 'test@example.com',
+        password: 'wrong-password'
+      }
+    });
+
+    const response = await POST(req);
+    const data = await response.json();
+
+    expect(response.status).toBe(401);
+    expect(data.error.code).toBe('AUTH_001');
   });
 });
 ```
@@ -345,14 +337,14 @@ describe('GET /api/v1/events', () => {
 
 ## 8. E2Eテスト
 
-### 8.1 Playwright 設定
+### 8.1 Playwright設定
 
 ```typescript
 // playwright.config.ts
 import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
-  testDir: './tests/e2e',
+  testDir: './e2e',
   fullyParallel: true,
   retries: process.env.CI ? 2 : 0,
   use: {
@@ -368,34 +360,32 @@ export default defineConfig({
 });
 ```
 
-### 8.2 E2E テスト例
+### 8.2 E2Eテスト例
 
 ```typescript
-// tests/e2e/auth/login.e2e.ts
+// e2e/login.e2e.ts
 import { test, expect } from '@playwright/test';
 
-test.describe('ログインフロー', () => {
-  test('正しい認証情報でログインできる', async ({ page }) => {
+test.describe('Login Flow', () => {
+  test('should login successfully with valid credentials', async ({ page }) => {
     await page.goto('/login');
 
-    await page.fill('input[name="email"]', 'test@example.com');
-    await page.fill('input[name="password"]', 'password123');
+    await page.fill('[name="email"]', 'test@example.com');
+    await page.fill('[name="password"]', 'password123');
     await page.click('button[type="submit"]');
 
     await expect(page).toHaveURL('/app');
     await expect(page.locator('text=ダッシュボード')).toBeVisible();
   });
 
-  test('不正な認証情報でエラーが表示される', async ({ page }) => {
+  test('should show error with invalid credentials', async ({ page }) => {
     await page.goto('/login');
 
-    await page.fill('input[name="email"]', 'test@example.com');
-    await page.fill('input[name="password"]', 'wrong-password');
+    await page.fill('[name="email"]', 'test@example.com');
+    await page.fill('[name="password"]', 'wrong-password');
     await page.click('button[type="submit"]');
 
-    await expect(
-      page.locator('text=メールアドレスまたはパスワードが正しくありません'),
-    ).toBeVisible();
+    await expect(page.locator('text=メールアドレスまたはパスワードが正しくありません')).toBeVisible();
   });
 });
 ```
@@ -407,60 +397,45 @@ test.describe('ログインフロー', () => {
 ### 9.1 Factory パターン
 
 ```typescript
-// tests/factories/event.factory.ts
-import type { Event } from '~/types/event.types';
+// tests/factories/user.factory.ts
+import { faker } from '@faker-js/faker';
+import type { User } from '@/types';
 
-let counter = 0;
-
-export function createEvent(overrides?: Partial<Event>): Event {
-  counter++;
+export function createUser(overrides?: Partial<User>): User {
   return {
-    id: `evt-${counter}`,
-    title: `テストイベント ${counter}`,
-    description: 'テスト用のイベントです',
-    eventDate: new Date('2026-04-01'),
-    format: 'hybrid',
-    status: 'draft',
-    tenantId: 'tenant-1',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    ...overrides,
+    id: faker.string.uuid(),
+    email: faker.internet.email(),
+    name: faker.person.fullName(),
+    createdAt: faker.date.past(),
+    ...overrides
   };
 }
 
-export function createEventInput(overrides?: Partial<Event>) {
-  const event = createEvent(overrides);
-  const { id, createdAt, updatedAt, ...input } = event;
-  return input;
-}
+// 使用例
+const user = createUser({ name: 'Test User' });
 ```
 
 ### 9.2 Fixture
 
 ```typescript
-// tests/e2e/fixtures/test-users.ts
+// tests/fixtures/users.ts
 export const testUsers = {
-  organizer: {
-    email: 'organizer@example.com',
-    password: 'test-password-123',
-    role: 'organizer',
+  admin: {
+    id: 'user-admin',
+    email: 'admin@example.com',
+    role: 'admin'
   },
-  venueStaff: {
-    email: 'venue@example.com',
-    password: 'test-password-123',
-    role: 'venue_staff',
-  },
-  streamingOperator: {
-    email: 'streaming@example.com',
-    password: 'test-password-123',
-    role: 'streaming_operator',
-  },
+  user: {
+    id: 'user-normal',
+    email: 'user@example.com',
+    role: 'user'
+  }
 };
 ```
 
 ---
 
-## 10. CI 設定
+## 10. CI設定
 
 ### 10.1 GitHub Actions
 
@@ -473,41 +448,33 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:16-alpine
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: haishin_plus_hub_test
-        ports:
-          - 5432:5432
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20
           cache: 'pnpm'
-
+      
       - run: pnpm install
       - run: pnpm test:coverage
+      
+      - uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage/lcov.info
 
   e2e:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: 'pnpm'
-
+      
       - run: pnpm install
       - run: pnpm exec playwright install --with-deps
       - run: pnpm test:e2e
-
-      - uses: actions/upload-artifact@v4
+      
+      - uses: actions/upload-artifact@v3
         if: failure()
         with:
           name: playwright-report
@@ -523,8 +490,6 @@ jobs:
 - [ ] 正常系をテストした
 - [ ] 異常系（エラーケース）をテストした
 - [ ] 境界値をテストした
-- [ ] 権限チェックをテストした（ロール別）
-- [ ] テナント分離をテストした（マルチテナント）
 - [ ] モックを適切に使用した
 - [ ] テスト名が明確
 
@@ -541,4 +506,4 @@ jobs:
 
 | 日付 | 変更内容 | 変更者 |
 |------|---------|-------|
-| 2026-02-08 | 初版作成（Vitest + Playwright + Vue/Nuxt 向けにカスタマイズ） | AI |
+| | 初版作成 | |

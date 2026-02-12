@@ -8,12 +8,9 @@
 
 | 項目 | 内容 |
 |------|------|
-| プロジェクト名 | Haishin+ HUB |
+| プロジェクト名 | |
 | 言語 | TypeScript |
-| フレームワーク | Nuxt 3 (Vue 3 + Nitro) |
-| UI | Nuxt UI v3 (Tailwind CSS v4) |
-| ORM | Drizzle ORM |
-| 最終更新日 | 2026-02-08 |
+| 最終更新日 | YYYY-MM-DD |
 
 ---
 
@@ -24,10 +21,7 @@
 | 種類 | 規則 | 例 |
 |------|------|-----|
 | ディレクトリ | kebab-case | `user-settings/` |
-| Vue コンポーネント | PascalCase | `UserProfile.vue` |
-| Nuxt ページ | kebab-case | `pages/event-detail.vue` |
-| Composable | camelCase (use 接頭辞) | `composables/useAuth.ts` |
-| Server API | kebab-case | `server/api/events/[id].get.ts` |
+| Reactコンポーネント | PascalCase | `UserProfile.tsx` |
 | その他のファイル | kebab-case | `api-client.ts` |
 | テストファイル | 同名 + `.test` | `api-client.test.ts` |
 | 型定義ファイル | 同名 + `.types` | `user.types.ts` |
@@ -39,31 +33,28 @@
 | 変数 | camelCase | `userName` |
 | 定数 | UPPER_SNAKE_CASE | `MAX_RETRY_COUNT` |
 | 関数 | camelCase | `getUserById()` |
-| Composable | use + PascalCase | `useAuth()` |
+| クラス | PascalCase | `UserService` |
 | 型/インターフェース | PascalCase | `UserProfile` |
 | Enum | PascalCase + UPPER_SNAKE_CASE | `enum Status { ACTIVE, INACTIVE }` |
 | 真偽値変数 | is/has/can + 名詞 | `isLoading`, `hasError`, `canEdit` |
 | イベントハンドラ | handle + イベント名 | `handleClick`, `handleSubmit` |
-| emit イベント名 | kebab-case | `emit('update:model-value')` |
 
-### 1.3 Vue コンポーネント
+### 1.3 コンポーネント
 
 | 種類 | 規則 | 例 |
 |------|------|-----|
-| コンポーネントファイル | PascalCase.vue | `UserProfile.vue` |
-| テンプレート内の参照 | PascalCase | `<UserProfile />` |
-| Props 型 | コンポーネント名 + Props | `UserProfileProps` |
-| Emit 型 | コンポーネント名 + Emits | `UserProfileEmits` |
-| Composable | use + 名詞 | `useUserProfile` |
+| コンポーネント | PascalCase | `UserProfile` |
+| Props型 | コンポーネント名 + Props | `UserProfileProps` |
+| カスタムフック | use + 名詞 | `useUserProfile` |
+| Context | 名詞 + Context | `AuthContext` |
 
 ### 1.4 API・DB
 
 | 種類 | 規則 | 例 |
 |------|------|-----|
-| API エンドポイント | kebab-case, 複数形 | `/api/v1/user-profiles` |
+| APIエンドポイント | kebab-case, 複数形 | `/api/v1/user-profiles` |
 | テーブル名 | snake_case, 複数形 | `user_profiles` |
 | カラム名 | snake_case | `created_at` |
-| Drizzle スキーマ変数 | camelCase | `userProfiles` |
 
 ---
 
@@ -72,87 +63,53 @@
 ### 2.1 プロジェクト構造
 
 ```
-.
-├── CLAUDE.md
-├── nuxt.config.ts
-├── app.vue
-├── assets/                    # 静的アセット（CSS等）
-│   └── css/
-│       └── main.css
-├── components/                # コンポーネント
-│   ├── ui/                    # UIプリミティブ（Nuxt UI で提供されないもの）
-│   ├── forms/                 # フォーム関連
-│   ├── layouts/               # レイアウト部品（Header, Sidebar等）
-│   └── features/              # 機能別コンポーネント
+src/
+├── app/                    # Next.js App Router
+│   ├── (auth)/             # 認証グループ
+│   │   ├── login/
+│   │   └── signup/
+│   ├── (dashboard)/        # ダッシュボードグループ
+│   │   └── ...
+│   ├── api/                # API Routes
+│   │   └── v1/
+│   ├── layout.tsx
+│   └── page.tsx
+│
+├── components/             # 共有コンポーネント
+│   ├── ui/                 # UIプリミティブ（Button, Input等）
+│   ├── forms/              # フォーム関連
+│   ├── layouts/            # レイアウト（Header, Footer等）
+│   └── features/           # 機能別コンポーネント
 │       ├── auth/
-│       ├── event/
-│       └── task/
-├── composables/               # Composables（Vue 3 Composition API）
-│   ├── useAuth.ts
-│   ├── useEvent.ts
-│   └── useTenant.ts
-├── layouts/                   # Nuxt レイアウト
-│   ├── default.vue
-│   ├── auth.vue
-│   └── dashboard.vue
-├── middleware/                # クライアントミドルウェア
-│   └── auth.ts
-├── pages/                     # Nuxt ページ（ファイルベースルーティング）
-│   ├── index.vue
-│   ├── login.vue
-│   ├── signup.vue
-│   └── app/
-│       ├── index.vue          # ダッシュボード
-│       ├── events/
-│       └── settings/
-├── plugins/                   # Nuxt プラグイン
-├── server/                    # Nitro サーバー
-│   ├── api/                   # API Routes
-│   │   ├── auth/
-│   │   │   └── [...all].ts    # Better Auth ハンドラ
-│   │   ├── events/
-│   │   ├── tasks/
-│   │   └── ai/
-│   ├── middleware/            # サーバーミドルウェア
-│   │   ├── auth.ts
-│   │   └── tenant.ts
-│   ├── utils/                 # サーバーユーティリティ
-│   │   ├── db.ts              # Drizzle ORM インスタンス
-│   │   ├── ai.ts              # LLM 抽象化レイヤー
-│   │   └── mail.ts
-│   └── database/              # DB 関連
-│       ├── schema/            # Drizzle スキーマ定義
-│       │   ├── users.ts
-│       │   ├── events.ts
-│       │   └── index.ts
-│       ├── migrations/        # マイグレーションファイル
-│       └── seed.ts            # シードデータ
-├── stores/                    # Pinia ストア
-│   ├── auth.ts
-│   └── event.ts
-├── types/                     # 共有型定義
+│       └── user/
+│
+├── hooks/                  # カスタムフック
+│   ├── use-auth.ts
+│   └── use-user.ts
+│
+├── lib/                    # ユーティリティ・設定
+│   ├── api/                # APIクライアント
+│   ├── db/                 # DB接続・クエリ
+│   ├── auth/               # 認証ロジック
+│   └── utils/              # 汎用ユーティリティ
+│
+├── types/                  # 型定義
 │   ├── api.types.ts
-│   ├── event.types.ts
 │   └── user.types.ts
-├── utils/                     # クライアントユーティリティ
-│   └── format.ts
-├── tests/                     # テスト
-│   ├── unit/
-│   ├── integration/
-│   ├── e2e/
-│   └── factories/
-└── docs/                      # ドキュメント（SSOT）
+│
+└── constants/              # 定数
+    └── index.ts
 ```
 
 ### 2.2 コンポーネント構造
 
 ```
-components/features/event/
-├── EventCard.vue              # メインコンポーネント
-├── EventCard.test.ts          # テスト
-├── EventTimeline.vue          # サブコンポーネント
-├── event-card.types.ts        # 型定義
-└── index.ts                   # エクスポート
+components/features/user/
+├── UserProfile.tsx         # メインコンポーネント
+├── UserProfile.test.tsx    # テスト
+├── UserAvatar.tsx          # サブコンポーネント
+├── user-profile.types.ts   # 型定義
+└── index.ts                # エクスポート
 ```
 
 ---
@@ -170,8 +127,8 @@ interface User {
 }
 
 // ✅ Good: 型エイリアスは Union/Intersection に使用
-type EventStatus = 'draft' | 'published' | 'completed' | 'cancelled';
-type UserWithRole = User & { role: RoleType };
+type Status = 'active' | 'inactive' | 'pending';
+type UserWithStatus = User & { status: Status };
 
 // ❌ Bad: any は使用しない
 const data: any = fetchData();
@@ -208,121 +165,74 @@ export interface User {
 export type UserStatus = 'active' | 'inactive';
 
 // 使用側
-import type { User, UserStatus } from '~/types/user.types';
+import type { User, UserStatus } from '@/types/user.types';
 ```
 
 ---
 
-## 4. Vue 3 / Nuxt 3
+## 4. React
 
 ### 4.1 コンポーネント定義
 
-```vue
-<script setup lang="ts">
-// ✅ Good: <script setup> + TypeScript
-
-interface Props {
-  event: Event;
-  editable?: boolean;
-}
-
-interface Emits {
-  (e: 'update', value: Event): void;
-  (e: 'delete', id: string): void;
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  editable: false,
-});
-
-const emit = defineEmits<Emits>();
-
-// Composable の使用
-const { user } = useAuth();
-
-// リアクティブな状態
-const isExpanded = ref(false);
-
-// 算出プロパティ
-const canEdit = computed(() => props.editable && user.value?.role === 'organizer');
-
-// メソッド
-function handleDelete() {
-  emit('delete', props.event.id);
-}
-</script>
-
-<template>
-  <div>
-    <h2>{{ event.title }}</h2>
-    <UButton v-if="canEdit" @click="handleDelete">削除</UButton>
-  </div>
-</template>
-```
-
-### 4.2 Composables
-
 ```typescript
-// composables/useEvent.ts
-// ✅ Good: Composable の命名と構造
-export function useEvent(eventId: MaybeRef<string>) {
-  const id = toRef(eventId);
+// ✅ Good: 関数コンポーネント + Props型
+interface UserProfileProps {
+  user: User;
+  onEdit?: () => void;
+}
 
-  const { data: event, status, error, refresh } = useFetch(
-    () => `/api/v1/events/${id.value}`,
+export function UserProfile({ user, onEdit }: UserProfileProps) {
+  return (
+    <div>
+      <h1>{user.name}</h1>
+      {onEdit && <button onClick={onEdit}>Edit</button>}
+    </div>
   );
-
-  const isLoading = computed(() => status.value === 'pending');
-
-  return { event, isLoading, error, refresh };
 }
+
+// ❌ Bad: デフォルトエクスポート（名前付きエクスポートを推奨）
+export default function UserProfile() {}
 ```
 
-### 4.3 Server API Routes
+### 4.2 Hooks
 
 ```typescript
-// server/api/events/[id].get.ts
-// ✅ Good: Nitro API ルートの定義
-export default defineEventHandler(async (event) => {
-  const id = getRouterParam(event, 'id');
-  if (!id) {
-    throw createError({ statusCode: 400, message: 'Event ID is required' });
-  }
+// ✅ Good: カスタムフックの命名と構造
+export function useUser(userId: string) {
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
 
-  const result = await db
-    .select()
-    .from(events)
-    .where(eq(events.id, id))
-    .limit(1);
+  useEffect(() => {
+    // fetch logic
+  }, [userId]);
 
-  if (result.length === 0) {
-    throw createError({ statusCode: 404, message: 'Event not found' });
-  }
+  return { user, isLoading, error };
+}
 
-  return result[0];
-});
+// ✅ Good: 早期リターン
+if (isLoading) return <Spinner />;
+if (error) return <ErrorMessage error={error} />;
+return <UserProfile user={user} />;
 ```
 
-### 4.4 Pinia ストア
+### 4.3 イベントハンドラ
 
 ```typescript
-// stores/auth.ts
-// ✅ Good: Setup Store パターン（Composition API スタイル）
-export const useAuthStore = defineStore('auth', () => {
-  const user = ref<User | null>(null);
-  const isAuthenticated = computed(() => user.value !== null);
+// ✅ Good: handle + イベント名
+const handleSubmit = async (e: FormEvent) => {
+  e.preventDefault();
+  // ...
+};
 
-  async function login(email: string, password: string) {
-    // Better Auth のログイン
-  }
+const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  setValue(e.target.value);
+};
 
-  function logout() {
-    user.value = null;
-    navigateTo('/login');
-  }
-
-  return { user, isAuthenticated, login, logout };
-});
+// ✅ Good: useCallbackは必要な場合のみ
+const handleClick = useCallback(() => {
+  // 重い処理 or 子コンポーネントに渡す場合
+}, [dependency]);
 ```
 
 ---
@@ -332,39 +242,40 @@ export const useAuthStore = defineStore('auth', () => {
 ### 5.1 インポート順序
 
 ```typescript
-// 1. Vue / Nuxt（auto-import されるため通常不要）
-// import { ref, computed } from 'vue';
+// 1. React
+import { useState, useEffect } from 'react';
 
 // 2. 外部ライブラリ
+import { useQuery } from '@tanstack/react-query';
 import { z } from 'zod';
-import { eq, and } from 'drizzle-orm';
 
-// 3. 内部モジュール（Nuxt エイリアス）
-import { events, users } from '~/server/database/schema';
-import { validateRequest } from '~/server/utils/validation';
+// 3. 内部モジュール（絶対パス）
+import { Button } from '@/components/ui/button';
+import { useAuth } from '@/hooks/use-auth';
+import { api } from '@/lib/api';
 
 // 4. 型（type import）
-import type { Event, EventStatus } from '~/types/event.types';
+import type { User } from '@/types/user.types';
 
 // 5. 相対パス（同階層・下位）
-import EventCard from './EventCard.vue';
+import { UserAvatar } from './UserAvatar';
+import styles from './styles.module.css';
 ```
 
-### 5.2 Nuxt Auto-Import
+### 5.2 パスエイリアス
 
 ```typescript
-// Nuxt 3 では以下が自動インポートされる（明示不要）:
-// - Vue API: ref, computed, watch, onMounted 等
-// - Nuxt API: useFetch, useRoute, navigateTo 等
-// - composables/ 内のエクスポート
-// - utils/ 内のエクスポート
-// - Pinia: defineStore, storeToRefs 等
+// tsconfig.json
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
 
-// ❌ Bad: auto-import されるものを手動で import しない
-import { ref } from 'vue';
-
-// ✅ Good: そのまま使う
-const count = ref(0);
+// 使用例
+import { Button } from '@/components/ui/button';
 ```
 
 ---
@@ -375,15 +286,34 @@ const count = ref(0);
 
 ```typescript
 // ✅ Good: WHY（なぜ）を説明
-// Better Auth の Organization プラグインは tenant_id を session.organizationId に格納する
-const tenantId = session.organizationId;
+// レート制限により、リクエスト間に100ms待機が必要
+await sleep(100);
 
 // ❌ Bad: WHAT（何を）は自明なので不要
-// eventIdでイベントを取得
-const event = await getEvent(eventId);
+// userIdでユーザーを取得
+const user = await getUser(userId);
 ```
 
-### 6.2 TODO/FIXME
+### 6.2 JSDoc
+
+```typescript
+/**
+ * ユーザーのプロフィールを更新する
+ * 
+ * @param userId - 更新対象のユーザーID
+ * @param data - 更新データ
+ * @returns 更新後のユーザー
+ * @throws {NotFoundError} ユーザーが存在しない場合
+ */
+export async function updateUser(
+  userId: string,
+  data: UpdateUserInput
+): Promise<User> {
+  // ...
+}
+```
+
+### 6.3 TODO/FIXME
 
 ```typescript
 // TODO: パフォーマンス改善 - キャッシュ導入を検討
@@ -395,149 +325,121 @@ const event = await getEvent(eventId);
 
 ## 7. エラーハンドリング
 
-### 7.1 サーバー側
+### 7.1 基本パターン
 
 ```typescript
-// ✅ Good: Nitro の createError を使用
-export default defineEventHandler(async (event) => {
-  const body = await readBody(event);
-
-  const parsed = loginSchema.safeParse(body);
-  if (!parsed.success) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: 'Validation Error',
-      data: { errors: parsed.error.flatten().fieldErrors },
-    });
+// ✅ Good: 明示的なエラーハンドリング
+try {
+  const user = await getUser(userId);
+  return user;
+} catch (error) {
+  if (error instanceof NotFoundError) {
+    return null;
   }
+  throw error; // 予期しないエラーは再スロー
+}
 
-  // ビジネスロジックのエラー
-  const user = await findUser(parsed.data.email);
-  if (!user) {
-    throw createError({
-      statusCode: 401,
-      statusMessage: 'メールアドレスまたはパスワードが正しくありません',
-    });
-  }
-});
+// ✅ Good: Result型パターン（任意）
+type Result<T, E = Error> = 
+  | { success: true; data: T }
+  | { success: false; error: E };
 ```
 
-### 7.2 クライアント側
+### 7.2 API エラー
 
 ```typescript
-// ✅ Good: useFetch のエラーハンドリング
-const { data, error } = await useFetch('/api/v1/events');
+// lib/api/errors.ts
+export class ApiError extends Error {
+  constructor(
+    public code: string,
+    public message: string,
+    public status: number
+  ) {
+    super(message);
+  }
+}
 
-if (error.value) {
-  // エラー通知を表示
-  const toast = useToast();
-  toast.add({ title: 'エラー', description: error.value.message, color: 'error' });
+// 使用例
+if (!response.ok) {
+  const error = await response.json();
+  throw new ApiError(error.code, error.message, response.status);
 }
 ```
 
 ---
 
-## 8. バリデーション
+## 8. フォーマット設定
 
-### 8.1 Zod スキーマ
+### 8.1 Prettier
 
-```typescript
-// ✅ Good: Zod でバリデーションスキーマを定義
-import { z } from 'zod';
-
-export const createEventSchema = z.object({
-  title: z.string().min(1, 'タイトルは必須です').max(200),
-  description: z.string().max(5000).optional(),
-  eventDate: z.string().datetime(),
-  format: z.enum(['onsite', 'online', 'hybrid']),
-  maxParticipants: z.number().int().positive().max(10000),
-});
-
-export type CreateEventInput = z.infer<typeof createEventSchema>;
+```json
+// .prettierrc
+{
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "printWidth": 80,
+  "plugins": ["prettier-plugin-tailwindcss"]
+}
 ```
 
-### 8.2 Drizzle スキーマとの連携
+### 8.2 ESLint
 
-```typescript
-// server/database/schema/events.ts
-import { pgTable, text, timestamp, integer } from 'drizzle-orm/pg-core';
-import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
-
-export const events = pgTable('events', {
-  id: text('id').primaryKey(),
-  title: text('title').notNull(),
-  description: text('description'),
-  eventDate: timestamp('event_date').notNull(),
-  maxParticipants: integer('max_participants').notNull(),
-});
-
-// Drizzle スキーマから Zod スキーマを自動生成
-export const insertEventSchema = createInsertSchema(events);
-export const selectEventSchema = createSelectSchema(events);
-```
-
----
-
-## 9. フォーマット設定
-
-### 9.1 ESLint
-
-```typescript
-// eslint.config.mjs（Nuxt の @nuxt/eslint を使用）
-import { createConfigForNuxt } from '@nuxt/eslint-config/flat';
-
-export default createConfigForNuxt({
-  features: {
-    tooling: true,
-    stylistic: true,
-  },
-}).append({
+```javascript
+// .eslintrc.js
+module.exports = {
+  extends: [
+    'next/core-web-vitals',
+    'plugin:@typescript-eslint/recommended',
+    'prettier'
+  ],
   rules: {
-    'no-console': ['warn', { allow: ['warn', 'error'] }],
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-  },
-});
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    'prefer-const': 'error',
+    'no-console': ['warn', { allow: ['warn', 'error'] }]
+  }
+};
 ```
 
 ---
 
-## 10. Git コミット前チェック
+## 9. Git コミット前チェック
 
-### 10.1 lint-staged
+### 9.1 lint-staged
 
 ```json
 // package.json
 {
   "lint-staged": {
-    "*.{ts,vue}": [
-      "eslint --fix"
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
     ]
   }
 }
 ```
 
-### 10.2 husky
+### 9.2 husky
 
 ```bash
 # .husky/pre-commit
 pnpm lint-staged
-pnpm typecheck
+pnpm type-check
 ```
 
 ---
 
-## 11. 禁止事項
+## 10. 禁止事項
 
 | 禁止事項 | 理由 | 代替案 |
 |---------|------|-------|
 | `any` 型の使用 | 型安全性が失われる | `unknown` + 型ガード |
 | `// @ts-ignore` | 型エラーを隠蔽 | 適切な型定義 |
-| `console.log` (本番) | デバッグコードの残留 | ロガー（Pino）を使用 |
+| `console.log` (本番) | デバッグコードの残留 | ロガーを使用 |
 | マジックナンバー | 意味が不明 | 定数として定義 |
 | ネストの深いコード | 可読性低下 | 早期リターン、関数分割 |
-| Options API | Composition API に統一 | `<script setup>` を使用 |
-| 環境変数のハードコード | セキュリティリスク | `useRuntimeConfig()` を使用 |
-| エラーの握りつぶし | デバッグ困難 | 必ずハンドリングする |
 
 ---
 
@@ -545,4 +447,4 @@ pnpm typecheck
 
 | 日付 | 変更内容 | 変更者 |
 |------|---------|-------|
-| 2026-02-08 | 初版作成（Nuxt 3 / Vue 3 / Drizzle ORM 向けにカスタマイズ） | AI |
+| | 初版作成 | |
