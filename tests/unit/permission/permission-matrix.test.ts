@@ -28,14 +28,15 @@ describe('権限マトリクス定数', () => {
     expect(ACTIONS).toContain('manage');
   });
 
-  it('8つのリソースが定義されている', () => {
-    expect(RESOURCES).toHaveLength(8);
+  it('9つのリソースが定義されている', () => {
+    expect(RESOURCES).toHaveLength(9);
     expect(RESOURCES).toContain('tenant');
     expect(RESOURCES).toContain('member');
     expect(RESOURCES).toContain('event');
     expect(RESOURCES).toContain('venue');
     expect(RESOURCES).toContain('streaming');
     expect(RESOURCES).toContain('task');
+    expect(RESOURCES).toContain('speaker');
     expect(RESOURCES).toContain('participant');
     expect(RESOURCES).toContain('ai_chat');
   });
