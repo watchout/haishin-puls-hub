@@ -40,5 +40,9 @@ export { aiConversation, promptTemplate } from './ai';
 // ファイル
 export { fileUpload } from './file';
 
-// 認証ログ
-export { loginAttempts } from './auth';
+// Better Auth テーブル + 認証ログ
+export {
+  account, session, verification,
+  organization as orgTable, member, organizationInvitation,
+  loginAttempts,
+} from './auth';

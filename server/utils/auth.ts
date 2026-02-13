@@ -5,6 +5,7 @@ import { betterAuth } from 'better-auth';
 import { organization } from 'better-auth/plugins';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { db } from './db';
+import * as schema from '../database/schema';
 
 export const auth = betterAuth({
   baseURL: process.env.NUXT_BETTER_AUTH_URL || 'http://localhost:4300',
@@ -12,6 +13,12 @@ export const auth = betterAuth({
 
   database: drizzleAdapter(db, {
     provider: 'pg',
+    schema: {
+      user: schema.user,
+      account: schema.account,
+      session: schema.session,
+      verification: schema.verification,
+    },
   }),
 
   emailAndPassword: {
