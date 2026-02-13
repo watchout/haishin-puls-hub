@@ -57,6 +57,6 @@ onMounted(async () => {
       @update:open="oauthError = ''"
     />
 
-    <LoginForm />
+    <FeaturesAuthLoginForm />
   </div>
 </template>

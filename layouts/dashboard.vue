@@ -31,6 +31,6 @@ const showSidebar = computed(() => !isPortalLayout(tenantStore.currentRole))
     <MobileBottomTabs v-if="showSidebar" />
 
     <!-- EVT-050-051: AIチャットパネル（スライドオーバー） -->
-    <FeaturesAiAIChatPanel />
+    <FeaturesAIChatPanel />
   </div>
 </template>
