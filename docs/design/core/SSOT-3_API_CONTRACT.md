@@ -396,6 +396,118 @@ data: {"type":"done","usage":{"input_tokens":150,"output_tokens":420}}
 
 ---
 
+## §3-E. 入出力例 [CONTRACT]
+
+> API契約の主要な入出力パターン（正常系2件・異常系3件）
+
+### E-1: イベント作成API（正常系）
+
+| 項目 | 値 |
+|------|-----|
+| 入力 | POST /api/v1/events, body: { title: "AIセミナー", date: "2026-04-01T14:00:00+09:00", venue_id: "01J..." } |
+| 出力 | 201 Created, { id: "01J...", title: "AIセミナー", status: "draft", created_at: "..." } |
+
+### E-2: 会話一覧取得API（正常系）
+
+| 項目 | 値 |
+|------|-----|
+| 入力 | GET /api/v1/ai/conversations?limit=20&offset=0 |
+| 出力 | 200 OK, { conversations: [...], total: 5, has_more: false } |
+
+### E-3: 認証なしアクセス（異常系）
+
+| 項目 | 値 |
+|------|-----|
+| 入力 | GET /api/v1/events（Cookie/Authorizationヘッダなし） |
+| 出力 | 401 Unauthorized, { error: { code: "UNAUTHORIZED", message: "認証が必要です" } } |
+
+### E-4: テナント外リソースアクセス（異常系）
+
+| 項目 | 値 |
+|------|-----|
+| 入力 | GET /api/v1/events/01J_OTHER_TENANT（別テナントのイベントID） |
+| 出力 | 404 Not Found, { error: { code: "NOT_FOUND", message: "リソースが見つかりません" } } |
+
+### E-5: バリデーションエラー（異常系）
+
+| 項目 | 値 |
+|------|-----|
+| 入力 | POST /api/v1/events, body: { title: "" }（空タイトル） |
+| 出力 | 400 Bad Request, { error: { code: "VALIDATION_ERROR", message: "入力内容に誤りがあります", details: [{ field: "title", message: "タイトルは必須です" }] } } |
+
+---
+
+## §3-F. 境界値 [CONTRACT]
+
+| データ項目 | 下限 | 上限 | 境界パターン |
+|-----------|------|------|------------|
+| リクエストボディサイズ | 0 byte | 1MB | 1MB超→413 Payload Too Large |
+| ページネーション limit | 1 | 100 | 0以下→400、101以上→400 |
+| ページネーション offset | 0 | データ総数 | 負数→400 |
+| 文字列フィールド（title等） | 1文字 | 各フィールド定義に準拠 | 空文字→400、上限超→400 |
+| ULID形式ID | 26文字固定 | 26文字固定 | 不正形式→400 |
+| レート制限（AI API） | 1回/分 | 20回/分 | 21回目→429 RATE_LIMITED |
+| レート制限（認証API） | 1回/分 | 10回/分 | 11回目→429 RATE_LIMITED |
+| ファイルアップロード | 1 byte | 50MB | 50MB超→413 |
+
+---
+
+## §3-G. 例外応答 [CONTRACT]
+
+| HTTPステータス | エラーコード | メッセージ | 発生条件 |
+|--------------|------------|----------|---------|
+| 400 | VALIDATION_ERROR | 入力内容に誤りがあります | Zodバリデーション失敗 |
+| 401 | UNAUTHORIZED | 認証が必要です | セッション切れ・未認証 |
+| 403 | FORBIDDEN | 権限がありません | ロール不足・他テナントリソース |
+| 404 | NOT_FOUND | リソースが見つかりません | ID不正・削除済み・テナント外 |
+| 409 | CONFLICT | 競合が発生しました | 同時更新・重複作成 |
+| 413 | PAYLOAD_TOO_LARGE | リクエストが大きすぎます | ボディサイズ超過・ファイルサイズ超過 |
+| 429 | RATE_LIMITED | リクエスト頻度が高すぎます | レート制限超過 |
+| 500 | INTERNAL_ERROR | サーバーエラーが発生しました | 未捕捉例外・DB接続エラー |
+
+---
+
+## §3-H. Gherkin シナリオ [CONTRACT]
+
+```gherkin
+Scenario: 認証済みユーザーのイベント作成
+  Given ユーザーが "organizer" ロールで認証済みである
+  When POST /api/v1/events に正常なイベントデータを送信する
+  Then 201 Created が返される
+  And レスポンスに作成されたイベントのIDが含まれる
+
+Scenario: 未認証ユーザーのAPI拒否
+  Given ユーザーが認証されていない
+  When GET /api/v1/events にリクエストする
+  Then 401 Unauthorized が返される
+
+Scenario: テナント分離の保証
+  Given ユーザーがテナントAに所属している
+  When テナントBのイベントIDでGETリクエストする
+  Then 404 Not Found が返される（テナント外は見えない）
+
+Scenario: バリデーションエラー応答
+  Given ユーザーが認証済みである
+  When POST /api/v1/events に空のタイトルを送信する
+  Then 400 Bad Request が返される
+  And エラー詳細にフィールド名とメッセージが含まれる
+
+Scenario: レート制限の適用
+  Given ユーザーが認証済みである
+  When AI APIに1分間で21回リクエストする
+  Then 21回目のリクエストに429 RATE_LIMITEDが返される
+  And Retry-Afterヘッダーが含まれる
+
+Scenario: SSEストリーミング応答
+  Given ユーザーが認証済みである
+  When POST /api/v1/ai/chat にストリーミングリクエストする
+  Then Content-Type: text/event-stream が返される
+  And data: で始まるイベントが順次送信される
+  And 最後に type: "done" イベントが送信される
+```
+
+---
+
 ## §4. レート制限 [DETAIL]
 
 | エンドポイント | 制限 | ウィンドウ |

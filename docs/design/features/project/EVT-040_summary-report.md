@@ -365,6 +365,8 @@ export default defineEventHandler(async (event) => {
 
 ### §3-E. 入出力例 [CONTRACT]
 
+> サマリーレポートAPIの主要な入出力パターン（正常系2件・異常系3件）
+
 #### E-1: レポート生成
 
 **リクエスト**: `POST /api/v1/events/evt_001/report`
@@ -573,6 +575,8 @@ Content-Length: 245760
 ---
 
 ### §3-H. 受け入れテスト（Gherkin） [CONTRACT]
+
+> 全MUSTシナリオのGherkin形式テスト（9シナリオ）
 
 #### AT-040-01: イベント完了時の自動レポート生成
 

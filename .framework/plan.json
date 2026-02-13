@@ -1,0 +1,228 @@
+{
+  "status": "active",
+  "generatedAt": "2026-02-13T14:00:00.000Z",
+  "updatedAt": "2026-02-13T14:40:00.000Z",
+  "waves": [
+    {
+      "number": 1,
+      "phase": "common",
+      "layer": 0,
+      "title": "認証・権限基盤",
+      "features": [
+        {
+          "id": "AUTH-001",
+          "name": "ログイン機能",
+          "priority": "P0",
+          "size": "M",
+          "type": "common",
+          "dependencies": [],
+          "dependencyCount": 8
+        },
+        {
+          "id": "AUTH-005",
+          "name": "ログアウト機能",
+          "priority": "P0",
+          "size": "S",
+          "type": "common",
+          "dependencies": ["AUTH-001"],
+          "dependencyCount": 0
+        },
+        {
+          "id": "AUTH-006-010",
+          "name": "Better Auth統合",
+          "priority": "P0",
+          "size": "M",
+          "type": "common",
+          "dependencies": ["AUTH-001"],
+          "dependencyCount": 2
+        },
+        {
+          "id": "ACCT-001",
+          "name": "サインアップ・招待",
+          "priority": "P0",
+          "size": "L",
+          "type": "common",
+          "dependencies": ["AUTH-001"],
+          "dependencyCount": 1
+        },
+        {
+          "id": "ROLE-001-004",
+          "name": "RBAC権限管理",
+          "priority": "P0",
+          "size": "L",
+          "type": "common",
+          "dependencies": ["AUTH-001"],
+          "dependencyCount": 6
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "phase": "common",
+      "layer": 1,
+      "title": "共通基盤・UI",
+      "features": [
+        {
+          "id": "SEC-001-007",
+          "name": "セキュリティ基盤",
+          "priority": "P0",
+          "size": "L",
+          "type": "common",
+          "dependencies": ["AUTH-001"],
+          "dependencyCount": 5
+        },
+        {
+          "id": "ERR-001-003",
+          "name": "エラーページ",
+          "priority": "P0",
+          "size": "S",
+          "type": "common",
+          "dependencies": [],
+          "dependencyCount": 0
+        },
+        {
+          "id": "NAV-001-002-006",
+          "name": "ナビゲーション",
+          "priority": "P0",
+          "size": "M",
+          "type": "common",
+          "dependencies": ["AUTH-001", "ROLE-001-004"],
+          "dependencyCount": 0
+        },
+        {
+          "id": "CRUD-001-004",
+          "name": "CRUD共通パターン",
+          "priority": "P0",
+          "size": "M",
+          "type": "common",
+          "dependencies": ["AUTH-001", "ROLE-001-004"],
+          "dependencyCount": 4
+        },
+        {
+          "id": "LIST-001-003",
+          "name": "リスト共通パターン",
+          "priority": "P0",
+          "size": "M",
+          "type": "common",
+          "dependencies": ["CRUD-001-004"],
+          "dependencyCount": 3
+        },
+        {
+          "id": "NOTIF-001-002",
+          "name": "通知システム",
+          "priority": "P0",
+          "size": "M",
+          "type": "common",
+          "dependencies": ["AUTH-001"],
+          "dependencyCount": 0
+        },
+        {
+          "id": "ACCT-002",
+          "name": "プロフィール表示",
+          "priority": "P0",
+          "size": "S",
+          "type": "common",
+          "dependencies": ["AUTH-001", "ACCT-001"],
+          "dependencyCount": 0
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "phase": "individual",
+      "layer": 2,
+      "title": "イベント・会場管理",
+      "features": [
+        {
+          "id": "EVT-001-005",
+          "name": "イベント企画・管理",
+          "priority": "P0",
+          "size": "XL",
+          "type": "proprietary",
+          "dependencies": ["AUTH-001", "ROLE-001-004", "CRUD-001-004"],
+          "dependencyCount": 4
+        },
+        {
+          "id": "VENUE-001-004",
+          "name": "会場管理",
+          "priority": "P0",
+          "size": "L",
+          "type": "proprietary",
+          "dependencies": ["AUTH-001", "ROLE-001-004", "CRUD-001-004"],
+          "dependencyCount": 2
+        },
+        {
+          "id": "AI-001-003-008",
+          "name": "AIプラットフォーム基盤",
+          "priority": "P0",
+          "size": "XL",
+          "type": "proprietary",
+          "dependencies": ["AUTH-001", "SEC-001-007"],
+          "dependencyCount": 2
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "phase": "individual",
+      "layer": 3,
+      "title": "スケジュール・登壇者・参加者",
+      "features": [
+        {
+          "id": "EVT-010-014",
+          "name": "マスタースケジュール",
+          "priority": "P0",
+          "size": "XL",
+          "type": "proprietary",
+          "dependencies": ["EVT-001-005"],
+          "dependencyCount": 1
+        },
+        {
+          "id": "EVT-020-021",
+          "name": "登壇者管理",
+          "priority": "P0",
+          "size": "L",
+          "type": "proprietary",
+          "dependencies": ["EVT-001-005"],
+          "dependencyCount": 1
+        },
+        {
+          "id": "EVT-030-031-033",
+          "name": "参加者ポータル・チェックイン",
+          "priority": "P0",
+          "size": "XL",
+          "type": "proprietary",
+          "dependencies": ["EVT-001-005"],
+          "dependencyCount": 1
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "phase": "individual",
+      "layer": 4,
+      "title": "レポート・AIアシスタント",
+      "features": [
+        {
+          "id": "EVT-040",
+          "name": "サマリーレポートAI自動生成",
+          "priority": "P1",
+          "size": "L",
+          "type": "proprietary",
+          "dependencies": ["EVT-001-005", "EVT-030-031-033", "AI-001-003-008"],
+          "dependencyCount": 0
+        },
+        {
+          "id": "EVT-050-051",
+          "name": "AIアシスタントUI（HUBコンシェルジュ）",
+          "priority": "P0",
+          "size": "XL",
+          "type": "proprietary",
+          "dependencies": ["AUTH-001", "ROLE-001-004", "AI-001-003-008"],
+          "dependencyCount": 0
+        }
+      ]
+    }
+  ],
+  "circularDependencies": []
+}
