@@ -10,6 +10,9 @@ const authStore = useAuthStore()
 const tenantStore = useTenantStore()
 const { userMenuItems } = useUserMenu()
 
+// EVT-050-051: AIチャットパネル連携
+const { openPanel } = useAIChat()
+
 const notificationCount = computed(() => navigationStore.notificationCount)
 const notificationBadge = computed(() => formatNotificationCount(notificationCount.value))
 const tenantName = computed(() => truncateTenantName(tenantStore.tenantName))
@@ -18,6 +21,22 @@ const userAvatar = computed(() => authStore.user?.avatarUrl ?? undefined)
 
 /** モバイルサイドバーをトグル (FR-005) */
 const toggleSidebar = () => navigationStore.toggleMobileSidebar()
+
+/** FR-050-2: Cmd+K / Ctrl+K ショートカットでチャットパネル起動 */
+function handleGlobalKeydown(event: KeyboardEvent) {
+  if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
+    event.preventDefault()
+    openPanel()
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', handleGlobalKeydown)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleGlobalKeydown)
+})
 </script>
 
 <template>
@@ -45,13 +64,14 @@ const toggleSidebar = () => navigationStore.toggleMobileSidebar()
     </div>
 
     <!-- AI Input placeholder (BR-003 / EVT-050 entry point) -->
+    <!-- FR-050-1: クリックでチャットパネル展開 -->
     <div class="flex-1 max-w-xl mx-4 hidden md:block">
       <UInput
-        placeholder="AIに聞く・頼む（Ctrl+K）"
+        placeholder="AIに聞く・頼む（⌘K）"
         icon="i-heroicons-sparkles"
         readonly
         aria-label="AIアシスタント"
-        @click="navigateTo('/ai-assistant')"
+        @click="openPanel"
       />
     </div>
 

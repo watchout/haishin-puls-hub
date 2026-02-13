@@ -9,6 +9,10 @@ export const aiConversation = pgTable('ai_conversation', {
   tenantId: varchar('tenant_id', { length: 26 }).notNull().references(() => tenant.id),
   userId: varchar('user_id', { length: 26 }).notNull().references(() => user.id),
   eventId: varchar('event_id', { length: 26 }).references(() => event.id),
+  // EVT-050-051 §4: 会話メタデータ
+  title: varchar('title', { length: 200 }), // 最初のメッセージから自動生成
+  contextType: varchar('context_type', { length: 50 }), // event_detail | task_list | venue_management | general
+  contextId: varchar('context_id', { length: 26 }), // event_id, venue_id 等
   messages: jsonb('messages').notNull(), // [{role, content, timestamp}]
   usecase: varchar('usecase', { length: 100 }), // planning / faq / report
   modelProvider: varchar('model_provider', { length: 50 }).notNull(), // claude / openai
@@ -21,6 +25,7 @@ export const aiConversation = pgTable('ai_conversation', {
 }, (table) => [
   index('ai_conversation_tenant_user_idx').on(table.tenantId, table.userId),
   index('ai_conversation_event_idx').on(table.eventId),
+  index('ai_conversation_context_idx').on(table.contextType, table.contextId),
   index('ai_conversation_created_idx').on(table.createdAt),
 ]);
 
