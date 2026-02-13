@@ -23,12 +23,12 @@ describe('ロール別メニュー定義 (BR-001)', () => {
     }
   })
 
-  it('system_admin は4項目', () => {
-    expect(NAVIGATION_MENUS.system_admin).toHaveLength(4)
+  it('system_admin は5項目', () => {
+    expect(NAVIGATION_MENUS.system_admin).toHaveLength(5)
   })
 
-  it('tenant_admin は5項目', () => {
-    expect(NAVIGATION_MENUS.tenant_admin).toHaveLength(5)
+  it('tenant_admin は6項目', () => {
+    expect(NAVIGATION_MENUS.tenant_admin).toHaveLength(6)
   })
 
   it('organizer は4項目', () => {

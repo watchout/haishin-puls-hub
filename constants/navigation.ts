@@ -23,6 +23,7 @@ export const NAVIGATION_MENUS: Record<Role, MenuItem[]> = {
     { path: '/admin/dashboard', label: 'ダッシュボード', icon: 'i-heroicons-home' },
     { path: '/admin/tenants', label: 'テナント管理', icon: 'i-heroicons-building-office' },
     { path: '/admin/users', label: 'ユーザー管理', icon: 'i-heroicons-users' },
+    { path: '/admin/ai/prompt-templates', label: 'AIテンプレート', icon: 'i-heroicons-cpu-chip' },
     { path: '/admin/settings', label: 'システム設定', icon: 'i-heroicons-cog-6-tooth' },
   ],
 
@@ -31,6 +32,7 @@ export const NAVIGATION_MENUS: Record<Role, MenuItem[]> = {
     { path: '/events', label: 'イベント管理', icon: 'i-heroicons-calendar-days' },
     { path: '/members', label: 'メンバー管理', icon: 'i-heroicons-users' },
     { path: '/venues', label: '会場管理', icon: 'i-heroicons-building-office-2' },
+    { path: '/admin/ai/prompt-templates', label: 'AIテンプレート', icon: 'i-heroicons-cpu-chip' },
     { path: '/settings', label: '設定', icon: 'i-heroicons-cog-6-tooth' },
   ],
 
