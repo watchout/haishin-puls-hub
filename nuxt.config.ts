@@ -12,7 +12,7 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
   ],
 
-  css: [],
+  css: ['~/assets/css/main.css'],
 
   runtimeConfig: {
     // サーバーのみ（秘密鍵）
