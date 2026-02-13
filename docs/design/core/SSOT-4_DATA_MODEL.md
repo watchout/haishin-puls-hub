@@ -511,6 +511,114 @@
 
 ---
 
+## §3-E. 入出力例 [CONTRACT]
+
+> データモデルの主要な入出力パターン（正常系2件・異常系3件）
+
+### E-1: イベントレコード作成（正常系）
+
+| 項目 | 値 |
+|------|-----|
+| 入力 | INSERT INTO event (id, tenant_id, title, status, ...) VALUES ('01JABC...', '01JTEN...', 'AIセミナー', 'draft', ...) |
+| 出力 | 1 row inserted, id='01JABC...', created_at=現在時刻 |
+
+### E-2: テナント分離クエリ（正常系）
+
+| 項目 | 値 |
+|------|-----|
+| 入力 | SELECT * FROM event WHERE tenant_id = '01JTEN...' AND id = '01JABC...' |
+| 出力 | 該当テナントのイベントレコード1件 |
+
+### E-3: 外部キー制約違反（異常系）
+
+| 項目 | 値 |
+|------|-----|
+| 入力 | INSERT INTO task (id, event_id, ...) VALUES ('01JTSK...', 'nonexistent_id', ...) |
+| 出力 | エラー: foreign key violation（event_id が event テーブルに存在しない） |
+
+### E-4: ユニーク制約違反（異常系）
+
+| 項目 | 値 |
+|------|-----|
+| 入力 | INSERT INTO user_tenant (user_id, tenant_id, role) VALUES ('01JUSR...', '01JTEN...', 'organizer')（既に同一組み合わせが存在） |
+| 出力 | エラー: unique constraint violation on (user_id, tenant_id) |
+
+### E-5: NULL制約違反（異常系）
+
+| 項目 | 値 |
+|------|-----|
+| 入力 | INSERT INTO event (id, tenant_id, title, status) VALUES ('01JABC...', NULL, 'テスト', 'draft') |
+| 出力 | エラー: not null violation on tenant_id |
+
+---
+
+## §3-F. 境界値 [CONTRACT]
+
+| データ項目 | 下限 | 上限 | 境界パターン |
+|-----------|------|------|------------|
+| id (ULID) | 26文字固定 | 26文字固定 | VARCHAR(26) に収まること |
+| title (event) | 1文字 | 200文字 | VARCHAR(200)、空文字はNOT NULLで拒否 |
+| description (event) | 0文字（NULL許可） | 10,000文字 | TEXT型、NULLと空文字を区別 |
+| email (user) | 5文字（a@b.c） | 255文字 | VARCHAR(255)、ユニーク制約 |
+| role (user_tenant) | 定義済みロール値 | 定義済みロール値 | VARCHAR(50)、10ロールのいずれか |
+| max_capacity (venue) | 1 | 100,000 | INTEGER、0以下は無効 |
+| messages (ai_conversation) | JSONB空配列 [] | 200メッセージ | JSONB、アプリ層で200件制限 |
+| token_count (ai_conversation) | 0 | 2,147,483,647 | INTEGER、APIレスポンスから記録 |
+
+---
+
+## §3-G. 例外応答 [CONTRACT]
+
+| エラーケース | DBエラー | アプリ層の対応 |
+|------------|---------|-------------|
+| FK制約違反 | 23503 foreign_key_violation | 400 Bad Request「参照先が存在しません」 |
+| ユニーク制約違反 | 23505 unique_violation | 409 Conflict「既に登録されています」 |
+| NOT NULL違反 | 23502 not_null_violation | 400 Bad Request「必須項目が未入力です」 |
+| チェック制約違反 | 23514 check_violation | 400 Bad Request「入力値が範囲外です」 |
+| テーブル不存在 | 42P01 undefined_table | 500 Internal Error（マイグレーション未適用） |
+| 接続エラー | 08006 connection_failure | 500 Internal Error「データベースに接続できません」 |
+
+---
+
+## §3-H. Gherkin シナリオ [CONTRACT]
+
+```gherkin
+Scenario: イベントの作成とテナント分離
+  Given テナントAとテナントBが存在する
+  When テナントAにイベントを作成する
+  Then テナントBからそのイベントは参照できない
+
+Scenario: 外部キー制約の整合性
+  Given イベントが存在する
+  When そのイベントにタスクを追加する
+  Then タスクのevent_idはイベントのidと一致する
+  And 存在しないevent_idでの追加は拒否される
+
+Scenario: ユーザーのマルチテナント所属
+  Given ユーザーが存在する
+  When 同一ユーザーをテナントAとテナントBに追加する
+  Then user_tenantに2レコード作成される
+  And 各テナントで異なるロールを持てる
+
+Scenario: カスケード削除
+  Given イベントに紐づくタスクが5件存在する
+  When イベントを削除する
+  Then 紐づくタスク5件も削除される
+
+Scenario: AI会話のJSONBメッセージ格納
+  Given AI会話レコードが存在する
+  When メッセージをJSONB配列に追加する
+  Then messagesカラムにJSON配列として保存される
+  And 200件を超えるメッセージはアプリ層で拒否される
+
+Scenario: マイグレーションの整合性
+  Given 全マイグレーションが適用されている
+  When drizzle-kit checkを実行する
+  Then スキーマの不整合が報告されない
+```
+
+---
+
 ## §3. Better Auth 管理テーブル [CONTRACT]
 
 Better Auth が自動生成・管理するテーブル（直接操作しない）:

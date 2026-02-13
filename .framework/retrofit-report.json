@@ -1,7 +1,7 @@
 {
   "projectDir": "/Users/kaneko/haishin-plus-hub",
   "projectName": "haishin-plus-hub",
-  "scannedAt": "2026-02-12T00:10:34.250Z",
+  "scannedAt": "2026-02-13T00:07:25.531Z",
   "directory": {
     "hasSrc": false,
     "hasDocs": true,
@@ -13,6 +13,7 @@
     "topLevelDirs": [
       "components",
       "composables",
+      "constants",
       "docs",
       "layouts",
       "lib",
@@ -53,17 +54,53 @@
     }
   ],
   "fileStats": {
-    "totalFiles": 284,
-    "totalLines": 81770,
+    "totalFiles": 346,
+    "totalLines": 92755,
     "byExtension": {
-      ".md": 131,
-      ".json": 32,
-      ".ts": 118,
+      ".md": 140,
+      ".json": 36,
+      ".ts": 167,
       ".css": 2,
       ".js": 1
     }
   },
   "existingDocs": [
+    {
+      "path": "docs/.audit/SSOT-0.md",
+      "name": "SSOT-0.md",
+      "sizeBytes": 1695,
+      "category": ".audit"
+    },
+    {
+      "path": "docs/.audit/SSOT-1.md",
+      "name": "SSOT-1.md",
+      "sizeBytes": 1587,
+      "category": ".audit"
+    },
+    {
+      "path": "docs/.audit/SSOT-2.md",
+      "name": "SSOT-2.md",
+      "sizeBytes": 1554,
+      "category": ".audit"
+    },
+    {
+      "path": "docs/.audit/SSOT-3.md",
+      "name": "SSOT-3.md",
+      "sizeBytes": 1566,
+      "category": ".audit"
+    },
+    {
+      "path": "docs/.audit/SSOT-4.md",
+      "name": "SSOT-4.md",
+      "sizeBytes": 1560,
+      "category": ".audit"
+    },
+    {
+      "path": "docs/.audit/SSOT-5.md",
+      "name": "SSOT-5.md",
+      "sizeBytes": 1398,
+      "category": ".audit"
+    },
     {
       "path": "docs/INDEX.md",
       "name": "INDEX.md",
@@ -79,25 +116,25 @@
     {
       "path": "docs/design/core/SSOT-2_UI_STATE.md",
       "name": "SSOT-2_UI_STATE.md",
-      "sizeBytes": 19169,
+      "sizeBytes": 21132,
       "category": "core"
     },
     {
       "path": "docs/design/core/SSOT-3_API_CONTRACT.md",
       "name": "SSOT-3_API_CONTRACT.md",
-      "sizeBytes": 16159,
+      "sizeBytes": 18594,
       "category": "core"
     },
     {
       "path": "docs/design/core/SSOT-4_DATA_MODEL.md",
       "name": "SSOT-4_DATA_MODEL.md",
-      "sizeBytes": 22355,
+      "sizeBytes": 24935,
       "category": "core"
     },
     {
       "path": "docs/design/core/SSOT-5_CROSS_CUTTING.md",
       "name": "SSOT-5_CROSS_CUTTING.md",
-      "sizeBytes": 21894,
+      "sizeBytes": 22855,
       "category": "core"
     },
     {
@@ -263,6 +300,18 @@
       "category": "management"
     },
     {
+      "path": "docs/operations/DEPLOYMENT.md",
+      "name": "DEPLOYMENT.md",
+      "sizeBytes": 199,
+      "category": "operations"
+    },
+    {
+      "path": "docs/operations/ENVIRONMENTS.md",
+      "name": "ENVIRONMENTS.md",
+      "sizeBytes": 201,
+      "category": "operations"
+    },
+    {
       "path": "docs/pain-points.md",
       "name": "pain-points.md",
       "sizeBytes": 20272,
@@ -283,13 +332,13 @@
     {
       "path": "docs/requirements/SSOT-0_PRD.md",
       "name": "SSOT-0_PRD.md",
-      "sizeBytes": 17059,
+      "sizeBytes": 18893,
       "category": "requirements"
     },
     {
       "path": "docs/requirements/SSOT-1_FEATURE_CATALOG.md",
       "name": "SSOT-1_FEATURE_CATALOG.md",
-      "sizeBytes": 26965,
+      "sizeBytes": 27546,
       "category": "requirements"
     },
     {
@@ -529,7 +578,13 @@
     {
       "path": "CLAUDE.md",
       "name": "CLAUDE.md",
-      "sizeBytes": 15948,
+      "sizeBytes": 16416,
+      "category": "root"
+    },
+    {
+      "path": "FRAMEWORK_v34_OPERATIONS.md",
+      "name": "FRAMEWORK_v34_OPERATIONS.md",
+      "sizeBytes": 4342,
       "category": "root"
     },
     {
@@ -621,15 +676,15 @@
       "ssoId": "OPS-ENV",
       "name": "Environments",
       "path": "docs/operations/ENVIRONMENTS.md",
-      "status": "missing",
-      "recommendation": "Optional: Generate Environments when ready"
+      "status": "exists",
+      "recommendation": "Audit with 'framework audit ssot' to verify quality"
     },
     {
       "ssoId": "OPS-DEPLOY",
       "name": "Deployment",
       "path": "docs/operations/DEPLOYMENT.md",
-      "status": "missing",
-      "recommendation": "Optional: Generate Deployment when ready"
+      "status": "exists",
+      "recommendation": "Audit with 'framework audit ssot' to verify quality"
     }
   ],
   "readiness": {

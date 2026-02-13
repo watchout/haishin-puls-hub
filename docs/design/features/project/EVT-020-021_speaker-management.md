@@ -161,7 +161,7 @@ so that イベントページに自分の情報が正確に表示され、事前
 | FR-054 | サムネイル生成 | 顔写真は 200x200px のサムネイル自動生成 |
 | FR-055 | ファイル削除 | 登壇者削除時、関連ファイルも物理削除 |
 
-### [CONTRACT] 3-E 入出力例
+### §3-E. 入出力例 [CONTRACT]
 
 | # | 操作 | リクエスト | レスポンス |
 |---|------|-----------|-----------|
@@ -174,7 +174,7 @@ so that イベントページに自分の情報が正確に表示され、事前
 | 7 | 公開フォーム取得 | `GET /api/v1/speaker-form/:token` | `200 OK` `{ "data": { "event": { "title": "AI活用セミナー", ... }, "speaker": { "id": "01HSPK...", ... } } }` |
 | 8 | 公開フォーム送信 | `POST /api/v1/speaker-form/:token` `multipart/form-data (name, title, photo, ...)` | `200 OK` `{ "data": { "submission_status": "submitted" }, "message": "登壇者情報を受け付けました" }` |
 
-### [CONTRACT] 3-F 境界値
+### §3-F. 境界値 [CONTRACT]
 
 | フィールド | 下限 | 上限 | 備考 |
 |-----------|------|------|------|
@@ -189,7 +189,7 @@ so that イベントページに自分の情報が正確に表示され、事前
 | photo ファイルサイズ | 1 byte | 50 MB | JPG, PNG のみ |
 | materials ファイルサイズ | 1 byte | 50 MB | PDF, PPT, PPTX, JPG, PNG のみ |
 
-### [CONTRACT] 3-G 例外レスポンス
+### §3-G. 例外応答 [CONTRACT]
 
 | error.code | HTTPステータス | 発生条件 | レスポンス例 |
 |-----------|--------------|---------|-------------|
@@ -201,7 +201,7 @@ so that イベントページに自分の情報が正確に表示され、事前
 | UNSUPPORTED_FILE_TYPE | 400 | 非対応のファイル形式 | `{ "error": { "code": "UNSUPPORTED_FILE_TYPE", "message": "対応していない形式です" } }` |
 | EVENT_CANCELLED | 410 | イベントがキャンセル済みの状態でフォームアクセス | `{ "error": { "code": "EVENT_CANCELLED", "message": "イベントはキャンセルされました" } }` |
 
-### [CONTRACT] 3-H 受け入れテスト（Gherkin）
+### §3-H. 受け入れテスト（Gherkin） [CONTRACT]
 
 ```gherkin
 Feature: EVT-020/021 登壇者情報管理

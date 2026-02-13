@@ -158,7 +158,7 @@
 - エラー時: 赤色トースト（5秒間表示）
 - 情報: 青色トースト（3秒間表示）
 
-### 3.6 入出力例 [CONTRACT]
+### §3-E. 入出力例 [CONTRACT]
 
 CRUD全操作の代表的な入出力パターンを示す。
 
@@ -365,7 +365,7 @@ Authorization: Bearer <session_token_viewer>
 }
 ```
 
-### 3.7 境界値 [CONTRACT]
+### §3-F. 境界値 [CONTRACT]
 
 | フィールド | 制約 | 最小値 | 最大値 | デフォルト | 備考 |
 |-----------|------|--------|--------|-----------|------|
@@ -387,7 +387,7 @@ const boundarySchema = z.object({
 });
 ```
 
-### 3.8 例外レスポンス [CONTRACT]
+### §3-G. 例外応答 [CONTRACT]
 
 全CRUD操作で発生しうるエラーレスポンスの一覧。
 
@@ -418,7 +418,9 @@ const boundarySchema = z.object({
   - `CONFLICT`: `{ "server_updated_at": "2026-02-09T14:30:00Z" }`（最新のタイムスタンプを返却）
   - その他: `{}` または省略
 
-### 3.9 受け入れテスト（Gherkin） [CONTRACT]
+### §3-H. 受け入れテスト（Gherkin） [CONTRACT]
+
+> 全CRUD操作のMUSTシナリオを網羅するGherkin形式テスト
 
 #### AT-CRUD-001: 新規作成 - 成功
 

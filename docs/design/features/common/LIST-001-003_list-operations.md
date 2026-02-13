@@ -146,7 +146,7 @@
 
 ---
 
-### 3.4 入出力例 [CONTRACT]
+### §3-E. 入出力例 [CONTRACT]
 
 > AUTH-001 Gold Standard 準拠: リスト操作の主要I/Oパターンを網羅
 
@@ -349,7 +349,7 @@ GET /api/v1/events?q=AI&start_at_gte=2026-03-01&start_at_lte=2026-06-30&sort=sta
 
 ---
 
-### 3.5 境界値 [CONTRACT]
+### §3-F. 境界値 [CONTRACT]
 
 > パラメータの境界値とエッジケースの定義
 
@@ -374,7 +374,7 @@ GET /api/v1/events?q=AI&start_at_gte=2026-03-01&start_at_lte=2026-06-30&sort=sta
 
 ---
 
-### 3.6 例外レスポンス [CONTRACT]
+### §3-G. 例外応答 [CONTRACT]
 
 > リスト操作で発生しうるエラーレスポンスの網羅的定義
 
@@ -407,7 +407,7 @@ GET /api/v1/events?q=AI&start_at_gte=2026-03-01&start_at_lte=2026-06-30&sort=sta
 
 ---
 
-### 3.7 受け入れテスト（Gherkin） [CONTRACT]
+### §3-H. 受け入れテスト（Gherkin） [CONTRACT]
 
 ```gherkin
 Feature: リスト操作（ページネーション・ソート・フィルタ）

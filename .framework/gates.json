@@ -1,0 +1,248 @@
+{
+  "gateA": {
+    "status": "passed",
+    "checks": [
+      {
+        "name": "package.json exists",
+        "passed": true,
+        "message": "package.json exists: found"
+      },
+      {
+        "name": "Dependencies installed (node_modules/)",
+        "passed": true,
+        "message": "Dependencies installed (node_modules/): found"
+      },
+      {
+        "name": "Environment config (.env or .env.example)",
+        "passed": true,
+        "message": "Environment config found"
+      },
+      {
+        "name": "Docker Compose config",
+        "passed": true,
+        "message": "Docker Compose config found"
+      },
+      {
+        "name": "CI configuration (.github/workflows/)",
+        "passed": true,
+        "message": "CI configuration found"
+      },
+      {
+        "name": "Framework management (.framework/)",
+        "passed": true,
+        "message": "Framework management (.framework/): found"
+      }
+    ],
+    "checkedAt": "2026-02-13T07:02:41.245Z"
+  },
+  "gateB": {
+    "status": "passed",
+    "checks": [
+      {
+        "name": "Implementation plan (.framework/plan.json)",
+        "passed": true,
+        "message": "Plan found: 5 waves, status=active"
+      },
+      {
+        "name": "Plan contains features",
+        "passed": true,
+        "message": "20 features across 5 waves"
+      },
+      {
+        "name": "Project profile configured (.framework/project.json)",
+        "passed": true,
+        "message": "Project profile found"
+      }
+    ],
+    "checkedAt": "2026-02-13T07:02:41.247Z"
+  },
+  "gateC": {
+    "status": "passed",
+    "checks": [
+      {
+        "name": "docs/design/features/common/ACCT-001_signup.md",
+        "passed": true,
+        "message": "docs/design/features/common/ACCT-001_signup.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/design/features/common/ACCT-001_signup.md",
+        "missingSections": []
+      },
+      {
+        "name": "docs/design/features/common/ACCT-002_profile-view.md",
+        "passed": true,
+        "message": "docs/design/features/common/ACCT-002_profile-view.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/design/features/common/ACCT-002_profile-view.md",
+        "missingSections": []
+      },
+      {
+        "name": "docs/design/features/common/AUTH-001_login.md",
+        "passed": true,
+        "message": "docs/design/features/common/AUTH-001_login.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/design/features/common/AUTH-001_login.md",
+        "missingSections": []
+      },
+      {
+        "name": "docs/design/features/common/AUTH-005_logout.md",
+        "passed": true,
+        "message": "docs/design/features/common/AUTH-005_logout.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/design/features/common/AUTH-005_logout.md",
+        "missingSections": []
+      },
+      {
+        "name": "docs/design/features/common/AUTH-006-010_better-auth.md",
+        "passed": true,
+        "message": "docs/design/features/common/AUTH-006-010_better-auth.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/design/features/common/AUTH-006-010_better-auth.md",
+        "missingSections": []
+      },
+      {
+        "name": "docs/design/features/common/CRUD-001-004_crud-operations.md",
+        "passed": true,
+        "message": "docs/design/features/common/CRUD-001-004_crud-operations.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/design/features/common/CRUD-001-004_crud-operations.md",
+        "missingSections": []
+      },
+      {
+        "name": "docs/design/features/common/ERR-001-003_error-pages.md",
+        "passed": true,
+        "message": "docs/design/features/common/ERR-001-003_error-pages.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/design/features/common/ERR-001-003_error-pages.md",
+        "missingSections": []
+      },
+      {
+        "name": "docs/design/features/common/LIST-001-003_list-operations.md",
+        "passed": true,
+        "message": "docs/design/features/common/LIST-001-003_list-operations.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/design/features/common/LIST-001-003_list-operations.md",
+        "missingSections": []
+      },
+      {
+        "name": "docs/design/features/common/NAV-001-002-006_navigation.md",
+        "passed": true,
+        "message": "docs/design/features/common/NAV-001-002-006_navigation.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/design/features/common/NAV-001-002-006_navigation.md",
+        "missingSections": []
+      },
+      {
+        "name": "docs/design/features/common/NOTIF-001-002_notifications.md",
+        "passed": true,
+        "message": "docs/design/features/common/NOTIF-001-002_notifications.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/design/features/common/NOTIF-001-002_notifications.md",
+        "missingSections": []
+      },
+      {
+        "name": "docs/design/features/common/ROLE-001-004_rbac.md",
+        "passed": true,
+        "message": "docs/design/features/common/ROLE-001-004_rbac.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/design/features/common/ROLE-001-004_rbac.md",
+        "missingSections": []
+      },
+      {
+        "name": "docs/design/features/common/SEC-001-007_security.md",
+        "passed": true,
+        "message": "docs/design/features/common/SEC-001-007_security.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/design/features/common/SEC-001-007_security.md",
+        "missingSections": []
+      },
+      {
+        "name": "docs/design/features/project/AI-001-003-008_ai-platform.md",
+        "passed": true,
+        "message": "docs/design/features/project/AI-001-003-008_ai-platform.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/design/features/project/AI-001-003-008_ai-platform.md",
+        "missingSections": []
+      },
+      {
+        "name": "docs/design/features/project/EVT-001-005_event-planning.md",
+        "passed": true,
+        "message": "docs/design/features/project/EVT-001-005_event-planning.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/design/features/project/EVT-001-005_event-planning.md",
+        "missingSections": []
+      },
+      {
+        "name": "docs/design/features/project/EVT-010-014_master-schedule.md",
+        "passed": true,
+        "message": "docs/design/features/project/EVT-010-014_master-schedule.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/design/features/project/EVT-010-014_master-schedule.md",
+        "missingSections": []
+      },
+      {
+        "name": "docs/design/features/project/EVT-020-021_speaker-management.md",
+        "passed": true,
+        "message": "docs/design/features/project/EVT-020-021_speaker-management.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/design/features/project/EVT-020-021_speaker-management.md",
+        "missingSections": []
+      },
+      {
+        "name": "docs/design/features/project/EVT-030-031-033_participant-portal.md",
+        "passed": true,
+        "message": "docs/design/features/project/EVT-030-031-033_participant-portal.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/design/features/project/EVT-030-031-033_participant-portal.md",
+        "missingSections": []
+      },
+      {
+        "name": "docs/design/features/project/EVT-040_summary-report.md",
+        "passed": true,
+        "message": "docs/design/features/project/EVT-040_summary-report.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/design/features/project/EVT-040_summary-report.md",
+        "missingSections": []
+      },
+      {
+        "name": "docs/design/features/project/EVT-050-051_ai-assistant-ui.md",
+        "passed": true,
+        "message": "docs/design/features/project/EVT-050-051_ai-assistant-ui.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/design/features/project/EVT-050-051_ai-assistant-ui.md",
+        "missingSections": []
+      },
+      {
+        "name": "docs/design/features/project/VENUE-001-004_venue-management.md",
+        "passed": true,
+        "message": "docs/design/features/project/VENUE-001-004_venue-management.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/design/features/project/VENUE-001-004_venue-management.md",
+        "missingSections": []
+      },
+      {
+        "name": "docs/design/core/SSOT-2_UI_STATE.md",
+        "passed": true,
+        "message": "docs/design/core/SSOT-2_UI_STATE.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/design/core/SSOT-2_UI_STATE.md",
+        "missingSections": []
+      },
+      {
+        "name": "docs/design/core/SSOT-3_API_CONTRACT.md",
+        "passed": true,
+        "message": "docs/design/core/SSOT-3_API_CONTRACT.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/design/core/SSOT-3_API_CONTRACT.md",
+        "missingSections": []
+      },
+      {
+        "name": "docs/design/core/SSOT-4_DATA_MODEL.md",
+        "passed": true,
+        "message": "docs/design/core/SSOT-4_DATA_MODEL.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/design/core/SSOT-4_DATA_MODEL.md",
+        "missingSections": []
+      },
+      {
+        "name": "docs/design/core/SSOT-5_CROSS_CUTTING.md",
+        "passed": true,
+        "message": "docs/design/core/SSOT-5_CROSS_CUTTING.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/design/core/SSOT-5_CROSS_CUTTING.md",
+        "missingSections": []
+      },
+      {
+        "name": "docs/requirements/SSOT-0_PRD.md",
+        "passed": true,
+        "message": "docs/requirements/SSOT-0_PRD.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/requirements/SSOT-0_PRD.md",
+        "missingSections": []
+      },
+      {
+        "name": "docs/requirements/SSOT-1_FEATURE_CATALOG.md",
+        "passed": true,
+        "message": "docs/requirements/SSOT-1_FEATURE_CATALOG.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/requirements/SSOT-1_FEATURE_CATALOG.md",
+        "missingSections": []
+      }
+    ],
+    "checkedAt": "2026-02-13T07:02:41.279Z"
+  },
+  "updatedAt": "2026-02-13T07:02:41.281Z"
+}

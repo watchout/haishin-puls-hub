@@ -86,6 +86,8 @@
 
 ### §3-E. 入出力例 [CONTRACT]
 
+> AIチャットAPIの主要な入出力パターン（正常系3件・異常系3件）
+
 #### E-1: AIチャット送信
 
 **リクエスト**: `POST /api/v1/ai/chat`
@@ -299,6 +301,8 @@ data: {"type":"done","conversation_id":"conv-001-uuid","tokens":1234}
 ---
 
 ### §3-H. 受け入れテスト（Gherkin） [CONTRACT]
+
+> 全MUSTシナリオのGherkin形式テスト（9シナリオ）
 
 #### AT-050-1: AIチャットの基本送受信
 

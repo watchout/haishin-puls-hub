@@ -142,7 +142,7 @@
 | FR-SEC-007-04 | SHOULD | HSTS の `max-age` を最低6ヶ月（15768000秒）に設定する |
 | FR-SEC-007-05 | MAY | HSTS プリロードリストへの登録を検討する |
 
-### 3-E 入出力例 [CONTRACT]
+### §3-E. 入出力例 [CONTRACT]
 
 | # | シナリオ | 入力（リクエスト） | 期待出力（レスポンス） |
 |---|---------|-------------------|----------------------|
@@ -157,7 +157,7 @@
 | 9 | CORS: 不正オリジン | `OPTIONS /api/v1/events` + `Origin: https://attacker.com` | `204 No Content`（`Access-Control-Allow-Origin` ヘッダーなし） |
 | 10 | HTTPS: HTTPアクセス（本番） | `GET http://haishin-plus-hub.com/` | `301 Moved Permanently` → `https://haishin-plus-hub.com/` |
 
-### 3-F 境界値 [CONTRACT]
+### §3-F. 境界値 [CONTRACT]
 
 | # | 対象 | 境界 | 値 | 期待結果 |
 |---|------|------|----|----------|
@@ -180,7 +180,7 @@
 | 17 | Referer ヘッダー | 空文字（Origin もなし） | `Referer: ""` | `403 Forbidden` |
 | 18 | Referer ヘッダー | 正当値（Originなし） | `Referer: https://haishin-plus-hub.com/events` | CSRF チェック通過 |
 
-### 3-G 例外レスポンス [CONTRACT]
+### §3-G. 例外応答 [CONTRACT]
 
 | エラーコード | HTTP ステータス | statusMessage | message | 発生条件 | 備考 |
 |-------------|----------------|---------------|---------|----------|------|
@@ -209,7 +209,7 @@
 }
 ```
 
-### 3-H 受け入れテスト（Gherkin） [CONTRACT]
+### §3-H. 受け入れテスト（Gherkin） [CONTRACT]
 
 ```gherkin
 Feature: SEC-001-007 セキュリティ機能
