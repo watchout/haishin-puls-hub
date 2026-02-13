@@ -583,16 +583,16 @@ describe('recalculateDueDates', () => {
     expect(result).toHaveLength(3)
 
     // t1: May 1 - 30 = April 1
-    expect(result[0].dueAt.getMonth()).toBe(3) // April
-    expect(result[0].dueAt.getDate()).toBe(1)
+    expect(result[0]!.dueAt.getMonth()).toBe(3) // April
+    expect(result[0]!.dueAt.getDate()).toBe(1)
 
     // t2: May 1
-    expect(result[1].dueAt.getMonth()).toBe(4) // May
-    expect(result[1].dueAt.getDate()).toBe(1)
+    expect(result[1]!.dueAt.getMonth()).toBe(4) // May
+    expect(result[1]!.dueAt.getDate()).toBe(1)
 
     // t3: May 1 + 5 = May 6
-    expect(result[2].dueAt.getMonth()).toBe(4)
-    expect(result[2].dueAt.getDate()).toBe(6)
+    expect(result[2]!.dueAt.getMonth()).toBe(4)
+    expect(result[2]!.dueAt.getDate()).toBe(6)
   })
 
   it('空配列は空配列を返す', () => {

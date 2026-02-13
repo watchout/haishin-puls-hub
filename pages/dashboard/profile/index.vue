@@ -30,7 +30,7 @@ const {
 
 const user = computed(() => authStore.user)
 const isEmailVerified = computed(() => user.value?.emailVerified ?? false)
-const avatarUrl = computed(() => user.value?.image ?? null)
+const avatarUrl = computed(() => user.value?.avatarUrl ?? null)
 const userName = computed(() => user.value?.name ?? '')
 const userEmail = computed(() => user.value?.email ?? '')
 

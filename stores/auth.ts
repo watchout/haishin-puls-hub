@@ -2,7 +2,7 @@
 // AUTH-001 仕様書に基づくユーザー・セッション状態管理
 
 import { defineStore } from 'pinia';
-import type { AuthUser, AuthState } from '~/types/auth';
+import type { AuthUser } from '~/types/auth';
 
 export const useAuthStore = defineStore('auth', () => {
   // ──────────────────────────────────────

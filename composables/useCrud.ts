@@ -237,7 +237,7 @@ export function useCrud<T extends Record<string, unknown> = Record<string, unkno
   async function restore(id: string) {
     isLoading.value = true
     try {
-      await $fetch(`/api/v1/${resource}/${id}/restore`, {
+      await $fetch<unknown>(`/api/v1/${resource}/${id}/restore` as string, {
         method: 'POST',
       })
 

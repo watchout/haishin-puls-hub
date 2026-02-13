@@ -146,8 +146,8 @@ export function getStatusLabel(status: EventStatus): string {
   return EVENT_STATUS_LABELS[status] ?? status
 }
 
-export function getStatusColor(status: EventStatus): string {
-  return EVENT_STATUS_COLORS[status] ?? 'neutral'
+export function getStatusColor(status: EventStatus) {
+  return (EVENT_STATUS_COLORS[status] ?? 'neutral') as 'neutral' | 'info' | 'success' | 'warning' | 'error'
 }
 
 export function getEventTypeLabel(type: EventType): string {

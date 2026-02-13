@@ -80,9 +80,9 @@ describe('PromptTemplate 型定義', () => {
     const template = createMockTemplate()
     const event = template.variables.event
     expect(event).toBeDefined()
-    expect(event.type).toBe('object')
-    expect(event.required).toContain('title')
-    expect(event.fields.title.type).toBe('string')
+    expect(event!.type).toBe('object')
+    expect(event!.required).toContain('title')
+    expect(event!.fields!.title!.type).toBe('string')
   })
 })
 

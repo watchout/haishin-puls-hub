@@ -134,9 +134,9 @@ describe('validateVariables', () => {
     };
 
     const result = validateVariables(definition, variables);
-    expect(result.event.title).toBe('セミナー');
-    expect(result.event.startDate).toBe('2026-03-15');
-    expect(result.user.name).toBe('田中');
+    expect(result.event!.title).toBe('セミナー');
+    expect(result.event!.startDate).toBe('2026-03-15');
+    expect(result.user!.name).toBe('田中');
   });
 
   it('デフォルト値を自動補完する', () => {
@@ -146,7 +146,7 @@ describe('validateVariables', () => {
     };
 
     const result = validateVariables(definition, variables);
-    expect(result.event.venue).toBe('未定');
+    expect(result.event!.venue).toBe('未定');
   });
 
   it('required変数にデフォルト値がある場合は補完される', () => {
@@ -161,7 +161,7 @@ describe('validateVariables', () => {
     };
 
     const result = validateVariables(defWithDefault, { event: {} });
-    expect(result.event.title).toBe('デフォルトタイトル');
+    expect(result.event!.title).toBe('デフォルトタイトル');
   });
 
   // §10.1 異常系: required変数未指定

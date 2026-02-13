@@ -57,8 +57,8 @@ export default defineEventHandler(async (h3Event) => {
 
     // 締め切り計算
     let dueAt: Date | null = null
-    if (data.relative_day !== undefined && eventRecord[0].startAt) {
-      dueAt = calculateDueAt(eventRecord[0].startAt, data.relative_day)
+    if (data.relative_day !== undefined && eventRecord[0]!.startAt) {
+      dueAt = calculateDueAt(eventRecord[0]!.startAt, data.relative_day)
     } else if (data.due_at) {
       dueAt = new Date(data.due_at)
     }

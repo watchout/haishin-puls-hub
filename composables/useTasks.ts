@@ -109,16 +109,16 @@ export function getTaskStatusLabel(status: TaskStatus): string {
   return TASK_STATUS_LABELS[status] ?? status
 }
 
-export function getTaskStatusColor(status: TaskStatus): string {
-  return TASK_STATUS_COLORS[status] ?? 'neutral'
+export function getTaskStatusColor(status: TaskStatus) {
+  return (TASK_STATUS_COLORS[status] ?? 'neutral') as 'neutral' | 'info' | 'success' | 'warning'
 }
 
 export function getTaskPriorityLabel(priority: TaskPriority): string {
   return TASK_PRIORITY_LABELS[priority] ?? priority
 }
 
-export function getTaskPriorityColor(priority: TaskPriority): string {
-  return TASK_PRIORITY_COLORS[priority] ?? 'neutral'
+export function getTaskPriorityColor(priority: TaskPriority) {
+  return (TASK_PRIORITY_COLORS[priority] ?? 'neutral') as 'error' | 'warning' | 'neutral'
 }
 
 export function getTaskRoleLabel(role: string | null): string {

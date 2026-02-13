@@ -6,11 +6,9 @@ import { organization } from 'better-auth/plugins';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { db } from './db';
 
-const config = useRuntimeConfig();
-
 export const auth = betterAuth({
-  baseURL: config.betterAuthUrl,
-  secret: config.betterAuthSecret,
+  baseURL: process.env.NUXT_BETTER_AUTH_URL || 'http://localhost:4300',
+  secret: process.env.NUXT_BETTER_AUTH_SECRET || '',
 
   database: drizzleAdapter(db, {
     provider: 'pg',

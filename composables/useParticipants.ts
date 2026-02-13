@@ -91,8 +91,8 @@ export function getRegistrationStatusLabel(status: RegistrationStatus | string):
   return REGISTRATION_STATUS_LABELS[status as RegistrationStatus] ?? status
 }
 
-export function getRegistrationStatusColor(status: RegistrationStatus | string): string {
-  return REGISTRATION_STATUS_COLORS[status as RegistrationStatus] ?? 'neutral'
+export function getRegistrationStatusColor(status: RegistrationStatus | string) {
+  return (REGISTRATION_STATUS_COLORS[status as RegistrationStatus] ?? 'neutral') as 'info' | 'success' | 'error' | 'neutral'
 }
 
 export function getCheckinMethodLabel(method: CheckinMethod | string | null): string {

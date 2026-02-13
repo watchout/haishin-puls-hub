@@ -232,8 +232,8 @@ describe('validateListQuery', () => {
       { status: 'active', category: 'seminar' },
       options,
     )
-    expect(result.status).toBe('active')
-    expect(result.category).toBe('seminar')
+    expect((result as Record<string, unknown>).status).toBe('active')
+    expect((result as Record<string, unknown>).category).toBe('seminar')
   })
 
   it('page / per_page / sort / order / q はフィルタに含まれない', () => {
@@ -242,7 +242,7 @@ describe('validateListQuery', () => {
       options,
     )
     // extra のみがフィルタとして含まれるべき
-    expect(result.extra).toBe('value')
+    expect((result as Record<string, unknown>).extra).toBe('value')
     // 標準パラメータはトップレベルに
     expect(result.page).toBe(1)
     expect(result.per_page).toBe(20)

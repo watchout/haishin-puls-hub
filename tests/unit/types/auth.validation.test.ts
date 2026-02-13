@@ -29,7 +29,7 @@ describe('loginSchema', () => {
     });
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('有効なメールアドレスを入力してください');
+      expect(result.error.issues[0]!.message).toBe('有効なメールアドレスを入力してください');
     }
   });
 });
@@ -53,7 +53,7 @@ describe('signupSchema', () => {
     const result = signupSchema.safeParse({ ...validData, name: '' });
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('名前を入力してください');
+      expect(result.error.issues[0]!.message).toBe('名前を入力してください');
     }
   });
 
@@ -61,7 +61,7 @@ describe('signupSchema', () => {
     const result = signupSchema.safeParse({ ...validData, name: 'a'.repeat(101) });
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('名前は100文字以内で入力してください');
+      expect(result.error.issues[0]!.message).toBe('名前は100文字以内で入力してください');
     }
   });
 
@@ -79,7 +79,7 @@ describe('signupSchema', () => {
     const result = signupSchema.safeParse({ ...validData, email: 'abc' });
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('有効なメールアドレスを入力してください');
+      expect(result.error.issues[0]!.message).toBe('有効なメールアドレスを入力してください');
     }
   });
 
@@ -92,7 +92,7 @@ describe('signupSchema', () => {
     });
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('パスワードは8文字以上で入力してください');
+      expect(result.error.issues[0]!.message).toBe('パスワードは8文字以上で入力してください');
     }
   });
 

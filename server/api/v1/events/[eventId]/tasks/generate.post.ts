@@ -40,7 +40,7 @@ export default defineEventHandler(async (h3Event) => {
       throw createError({ statusCode: 404, statusMessage: 'NOT_FOUND', message: 'イベントが見つかりません' })
     }
 
-    const evt = eventRecord[0]
+    const evt = eventRecord[0]!
 
     // overwrite=true の場合は既存タスクを削除
     if (data.overwrite) {

@@ -3,7 +3,7 @@
 // URL: /reports/:id
 definePageMeta({
   layout: 'dashboard',
-  middleware: 'auth',
+  middleware: ['auth'],
 })
 
 const route = useRoute()

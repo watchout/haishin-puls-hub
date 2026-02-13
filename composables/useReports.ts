@@ -87,8 +87,8 @@ export function getReportStatusLabel(status: ReportStatus | string): string {
   return REPORT_STATUS_LABELS[status as ReportStatus] ?? status
 }
 
-export function getReportStatusColor(status: ReportStatus | string): string {
-  return REPORT_STATUS_COLORS[status as ReportStatus] ?? 'neutral'
+export function getReportStatusColor(status: ReportStatus | string) {
+  return (REPORT_STATUS_COLORS[status as ReportStatus] ?? 'neutral') as 'warning' | 'success' | 'neutral'
 }
 
 export function getGeneratedByLabel(generatedBy: ReportGeneratedBy | string): string {

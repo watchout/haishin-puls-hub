@@ -84,7 +84,7 @@ async function handleDeleteConversation(id: string, event: Event) {
   <USlideover
     v-model:open="isPanelOpen"
     side="right"
-    :ui="{ width: 'max-w-[480px] w-full' }"
+    class="max-w-[480px] w-full"
   >
     <template #content>
       <div class="flex flex-col h-full">

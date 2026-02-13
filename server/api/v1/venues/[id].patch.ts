@@ -55,7 +55,7 @@ export default defineEventHandler(async (event) => {
     }
 
     // 楽観的ロック
-    const record = existing[0]
+    const record = existing[0]!
     if (body.updated_at && record.updatedAt) {
       const clientTime = new Date(body.updated_at as string).getTime()
       const serverTime = record.updatedAt.getTime()

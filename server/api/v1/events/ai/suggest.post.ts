@@ -124,13 +124,13 @@ export default defineEventHandler(async (h3Event) => {
 
     // 会場をスコアリングして上位3-5件を返す
     const scoredVenues: Array<VenueSuggestion & { score: number }> = venues
-      .filter(v => v.capacity >= requiredCapacity)
+      .filter(v => (v.capacity ?? 0) >= requiredCapacity)
       .map((v) => {
         let score = 50
         const equipment = (v.equipment as Record<string, unknown>) ?? {}
 
         // キャパシティ適合度（ちょうど良いサイズが高スコア）
-        const capacityRatio = requiredCapacity / v.capacity
+        const capacityRatio = requiredCapacity / (v.capacity ?? 0)
         if (capacityRatio >= 0.5 && capacityRatio <= 0.9) score += 30
         else if (capacityRatio >= 0.3) score += 15
 
@@ -145,9 +145,9 @@ export default defineEventHandler(async (h3Event) => {
           venue_id: v.id,
           name: v.name,
           branch_name: v.branchName,
-          address: v.address,
-          capacity: v.capacity,
-          reason: generateVenueReason(v, requiredCapacity, needsStreaming),
+          address: v.address ?? '',
+          capacity: v.capacity ?? 0,
+          reason: generateVenueReason({ name: v.name, capacity: v.capacity ?? 0, equipment: v.equipment }, requiredCapacity, needsStreaming),
           availability: true, // MVP: 常に空きあり（外部カレンダー未連携）
           equipment_match: needsStreaming ? hasStreamingEquipment : true,
           score,

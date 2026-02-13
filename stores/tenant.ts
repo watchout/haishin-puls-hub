@@ -2,7 +2,7 @@
 // AUTH-001 仕様書に基づくテナント・ロール状態管理
 
 import { defineStore } from 'pinia';
-import type { LoginContextTenant, Role, TenantState } from '~/types/auth';
+import type { LoginContextTenant, Role } from '~/types/auth';
 import { ROLE_REDIRECT_MAP } from '~/types/auth';
 
 export const useTenantStore = defineStore('tenant', () => {

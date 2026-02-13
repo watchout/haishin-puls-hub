@@ -111,8 +111,8 @@ export function getSubmissionStatusLabel(status: SubmissionStatus): string {
   return SUBMISSION_STATUS_LABELS[status] ?? status
 }
 
-export function getSubmissionStatusColor(status: SubmissionStatus): string {
-  return SUBMISSION_STATUS_COLORS[status] ?? 'neutral'
+export function getSubmissionStatusColor(status: SubmissionStatus) {
+  return (SUBMISSION_STATUS_COLORS[status] ?? 'neutral') as 'neutral' | 'warning' | 'success'
 }
 
 export function getSpeakerFormatLabel(format: string | null): string {

@@ -76,7 +76,7 @@ export default defineEventHandler(async (h3Event) => {
       const dateStr = current.toISOString().split('T')[0]
       const dayEvents = events.filter((e) => {
         if (!e.startAt) return false
-        return e.startAt.toISOString().startsWith(dateStr)
+        return e.startAt.toISOString().startsWith(dateStr!)
       })
 
       if (dayEvents.length > 0) {
@@ -100,7 +100,7 @@ export default defineEventHandler(async (h3Event) => {
 
     return {
       venue_id: venueId,
-      venue_name: `${venueRecord[0].name}${venueRecord[0].branchName ? ` ${venueRecord[0].branchName}` : ''}`,
+      venue_name: `${venueRecord[0]!.name}${venueRecord[0]!.branchName ? ` ${venueRecord[0]!.branchName}` : ''}`,
       availability,
     }
   } catch (err) {

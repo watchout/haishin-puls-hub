@@ -1,4 +1,4 @@
-import { pgTable, varchar, text, timestamp, jsonb, index, uniqueIndex } from 'drizzle-orm/pg-core';
+import { pgTable, varchar, timestamp, jsonb, index, uniqueIndex } from 'drizzle-orm/pg-core';
 import { tenant } from './tenant';
 import { event } from './event';
 import { user } from './user';
