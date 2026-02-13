@@ -9,25 +9,7 @@ const tenantStore = useTenantStore()
 /** participant ロールはポータルレイアウト (BR-002) */
 const showSidebar = computed(() => !isPortalLayout(tenantStore.currentRole))
 
-/** Ctrl+K / Cmd+K でAIアシスタント起動 (BR-003) */
-function handleKeydown(e: KeyboardEvent) {
-  if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-    e.preventDefault()
-    navigateTo('/ai-assistant')
-  }
-}
-
-onMounted(() => {
-  if (import.meta.client) {
-    window.addEventListener('keydown', handleKeydown)
-  }
-})
-
-onUnmounted(() => {
-  if (import.meta.client) {
-    window.removeEventListener('keydown', handleKeydown)
-  }
-})
+// EVT-050-051: Cmd+K / Ctrl+K ショートカットは AppHeader に移動済み
 </script>
 
 <template>
@@ -47,5 +29,8 @@ onUnmounted(() => {
 
     <!-- Mobile Bottom Tabs (FR-006) -->
     <MobileBottomTabs v-if="showSidebar" />
+
+    <!-- EVT-050-051: AIチャットパネル（スライドオーバー） -->
+    <FeaturesAiAIChatPanel />
   </div>
 </template>
