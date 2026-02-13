@@ -12,6 +12,7 @@ export const estimate = pgTable('estimate', {
   items: jsonb('items').notNull(), // [{name, quantity, unit_price, subtotal}]
   totalAmount: integer('total_amount').notNull(),
   status: varchar('status', { length: 50 }).notNull().default('draft'), // draft / sent / approved
+  generatedBy: varchar('generated_by', { length: 50 }),     // 'ai' | 'manual' (EVT-004)
   createdBy: varchar('created_by', { length: 26 }).notNull().references(() => user.id),
   notes: text('notes'),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
