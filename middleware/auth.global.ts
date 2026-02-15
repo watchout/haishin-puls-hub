@@ -4,8 +4,14 @@
 // ルール:
 // - /app/* ルートはセッション必須 → 未認証なら /login へリダイレクト
 // - /login, /signup はセッションあればロール別ページへリダイレクト
+//
+// SSR時は $fetch がブラウザのCookieを自動転送しないため、
+// useRequestHeaders() でCookieヘッダーを明示的に渡す。
 
-import { authClient } from '~/lib/auth-client';
+interface SessionResponse {
+  session: { userId: string } | null;
+  user: { id: string; name: string; email: string } | null;
+}
 
 export default defineNuxtRouteMiddleware(async (to) => {
   // 認証不要なルート
@@ -16,10 +22,21 @@ export default defineNuxtRouteMiddleware(async (to) => {
   // 認証不要かつ保護対象外なら何もしない
   if (!isPublicRoute && !isProtectedRoute) return;
 
-  // セッション取得
-  const { data: session } = await authClient.useSession(useFetch);
+  // SSR時にブラウザのCookieを$fetchに転送するためのヘッダー
+  const headers = import.meta.server
+    ? useRequestHeaders(['cookie'])
+    : undefined;
 
-  const isAuthenticated = !!session.value?.user;
+  // セッション取得
+  let isAuthenticated = false;
+  try {
+    const session = await $fetch<SessionResponse>('/api/auth/get-session', {
+      headers,
+    });
+    isAuthenticated = !!session?.user;
+  } catch {
+    isAuthenticated = false;
+  }
 
   // 保護ルートに未認証でアクセス → /login へ
   if (isProtectedRoute && !isAuthenticated) {
@@ -31,12 +48,12 @@ export default defineNuxtRouteMiddleware(async (to) => {
 
   // 認証済みで公開ルート（/login 等）にアクセス → ロール別リダイレクト先へ
   if (isPublicRoute && isAuthenticated) {
-    // login-context API からリダイレクト先を取得
     try {
-      const response = await $fetch<{ data: { redirectTo: string } }>('/api/v1/auth/login-context');
+      const response = await $fetch<{ data: { redirectTo: string } }>('/api/v1/auth/login-context', {
+        headers,
+      });
       return navigateTo(response.data.redirectTo);
     } catch {
-      // login-context エラー時はデフォルトのダッシュボードへ
       return navigateTo('/app');
     }
   }

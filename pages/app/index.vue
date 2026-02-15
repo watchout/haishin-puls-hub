@@ -4,7 +4,6 @@
 
 definePageMeta({
   layout: 'dashboard',
-  middleware: ['auth'],
 });
 
 const { user, currentTenant, currentRole } = useAuth();
