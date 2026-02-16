@@ -77,7 +77,7 @@ async function upsertUserTenant() {
     return;
   }
 
-  const userId = users[0].id;
+  const userId = users[0]!.id;
 
   const existing = await sql`
     SELECT id FROM user_tenant

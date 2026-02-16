@@ -120,8 +120,8 @@ framework plan
 
 ## チェックリスト
 
-- [ ] `framework retrofit` 実行済み
-- [ ] `framework status` が動作する
-- [ ] `framework audit ssot` で core/ と common/ を監査済み
-- [ ] 優先機能の §3-E/F/G/H を補完済み
-- [ ] `framework plan` で実装計画を生成済み
+- [x] `framework retrofit` 実行済み（2026-02-13）
+- [x] `framework status` が動作する（Gate A/B/C 全PASSED）
+- [x] `framework audit ssot` で core/ と common/ を監査済み（20 SSOT 全PASS）
+- [x] 優先機能の §3-E/F/G/H を補完済み（全セクション present）
+- [x] `framework plan` で実装計画を生成済み（5 waves, 20 features）
