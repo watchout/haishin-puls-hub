@@ -10,6 +10,16 @@
             "statusMessage": "Pre-Code Gate check..."
           }
         ]
+      },
+      {
+        "matcher": "Skill",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/skill-tracker.sh\"",
+            "statusMessage": "Tracking skill activation..."
+          }
+        ]
       }
     ]
   }

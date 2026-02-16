@@ -1,7 +1,7 @@
 {
   "repo": "https://github.com/watchout/ai-dev-framework.git",
-  "version": "local:1f852ff3",
-  "fetchedAt": "2026-02-13T23:24:32.080Z",
+  "version": "local:97ceb2a9",
+  "fetchedAt": "2026-02-16T02:47:11.149Z",
   "files": [
     "docs/standards/CHANGES.md",
     "docs/standards/CODING_STANDARDS.md",
@@ -30,6 +30,7 @@
     "docs/standards/growth/METRICS_DEFINITION.md",
     "docs/standards/hooks/pre-code-gate.sh",
     "docs/standards/hooks/pre-commit",
+    "docs/standards/hooks/skill-tracker.sh",
     "docs/standards/idea/COMPETITOR_ANALYSIS.md",
     "docs/standards/idea/IDEA_CANVAS.md",
     "docs/standards/idea/USER_PERSONA.md",
