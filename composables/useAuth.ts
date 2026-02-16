@@ -250,15 +250,18 @@ export function useAuth() {
   // ログアウト
   // ──────────────────────────────────────
 
-  /** ログアウト（AUTH-005 §13.2 準拠: エラーでもログアウトを完了させる） */
+  /** ログアウト（AUTH-005 §7.1 準拠: エラーでもログアウトを完了させる） */
   async function logout() {
     try {
       await authClient.signOut();
     } catch {
-      // ネットワークエラー等でも無視 — ローカル状態をクリアしてリダイレクト
+      // ネットワークエラー等でも無視 — ローカル状態をクリアしてリダイレクト (§8.1)
     } finally {
+      // 全ストアをリセット (§2.7 Gherkin: Piniaストアクリアシナリオ)
       authStore.reset();
       tenantStore.reset();
+      const navigationStore = useNavigationStore();
+      navigationStore.reset();
       await router.push('/login?reason=logout');
     }
   }
