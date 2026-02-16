@@ -6,7 +6,7 @@
 // クライアントサイドでもフルURLを使うことで統一する。
 
 import { createAuthClient } from 'better-auth/vue';
-import { organizationClient } from 'better-auth/client/plugins';
+import { organizationClient, multiSessionClient } from 'better-auth/client/plugins';
 
 function resolveBaseURL(): string {
   // SSR: 環境変数からベースURL取得
@@ -25,5 +25,7 @@ export const authClient = createAuthClient({
   baseURL: resolveBaseURL(),
   plugins: [
     organizationClient(),
+    // AUTH-009 §7.4: 同時セッション制限クライアント
+    multiSessionClient(),
   ],
 });

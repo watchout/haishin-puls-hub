@@ -4,7 +4,7 @@
 import { authClient } from '~/lib/auth-client';
 import { useAuthStore } from '~/stores/auth';
 import { useTenantStore } from '~/stores/tenant';
-import { AUTH_ERROR_MESSAGES, SIGNUP_ERROR_MESSAGES, ROLE_REDIRECT_MAP } from '~/types/auth';
+import { AUTH_ERROR_MESSAGES, SIGNUP_ERROR_MESSAGES, PASSWORD_RESET_ERROR_MESSAGES, EMAIL_VERIFICATION_ERROR_MESSAGES, ROLE_REDIRECT_MAP } from '~/types/auth';
 import type { LoginFormValues, LoginContextResponse, SignupFormValues, InvitationAcceptFormValues, InvitationAcceptResponse, Role } from '~/types/auth';
 
 export function useAuth() {
@@ -267,6 +267,76 @@ export function useAuth() {
   }
 
   // ──────────────────────────────────────
+  // パスワードリセット（AUTH-006）
+  // ──────────────────────────────────────
+
+  /** パスワードリセットメール送信（AUTH-006 §7.1） */
+  async function requestPasswordReset(email: string): Promise<{ success: boolean; error?: string }> {
+    try {
+      const { error } = await authClient.requestPasswordReset({
+        email,
+        redirectTo: '/reset-password',
+      });
+
+      if (error) {
+        if (error.status === 429) return { success: false, error: AUTH_ERROR_MESSAGES.RATE_LIMITED };
+        if (error.status === 500) return { success: false, error: PASSWORD_RESET_ERROR_MESSAGES.SEND_FAILED };
+        // 情報漏洩防止: 未登録メールでも成功として扱う
+      }
+
+      // §7.1: 登録済み・未登録に関わらず同じ成功メッセージ
+      return { success: true };
+    } catch {
+      return { success: false, error: AUTH_ERROR_MESSAGES.NETWORK_ERROR };
+    }
+  }
+
+  /** パスワードリセット実行（AUTH-006 §7.1） */
+  async function resetPassword(token: string, newPassword: string): Promise<{ success: boolean; error?: string }> {
+    try {
+      const { error } = await authClient.resetPassword({
+        newPassword,
+        token,
+      });
+
+      if (error) {
+        return { success: false, error: mapResetPasswordError(error) };
+      }
+
+      return { success: true };
+    } catch {
+      return { success: false, error: AUTH_ERROR_MESSAGES.NETWORK_ERROR };
+    }
+  }
+
+  // ──────────────────────────────────────
+  // メール認証（AUTH-007）
+  // ──────────────────────────────────────
+
+  /** 確認メール再送信（AUTH-007 §7.2） */
+  async function resendVerificationEmail(): Promise<{ success: boolean; error?: string }> {
+    if (!authStore.user?.email) {
+      return { success: false, error: AUTH_ERROR_MESSAGES.SERVER_ERROR };
+    }
+
+    try {
+      const { error } = await authClient.sendVerificationEmail({
+        email: authStore.user.email,
+        callbackURL: '/verify-email',
+      });
+
+      if (error) {
+        if (error.status === 429) return { success: false, error: AUTH_ERROR_MESSAGES.RATE_LIMITED };
+        return { success: false, error: EMAIL_VERIFICATION_ERROR_MESSAGES.RESEND_FAILED };
+      }
+
+      return { success: true };
+    } catch {
+      return { success: false, error: AUTH_ERROR_MESSAGES.NETWORK_ERROR };
+    }
+  }
+
+  // ──────────────────────────────────────
   // エラーマッピング
   // ──────────────────────────────────────
 
@@ -297,6 +367,16 @@ export function useAuth() {
     if (error.status === 409) return SIGNUP_ERROR_MESSAGES.EMAIL_ALREADY_EXISTS;
     if (error.status === 429) return AUTH_ERROR_MESSAGES.RATE_LIMITED;
     return SIGNUP_ERROR_MESSAGES.SIGNUP_FAILED;
+  }
+
+  /** パスワードリセットエラーのマッピング（AUTH-006 §8.1） */
+  function mapResetPasswordError(error: { message?: string; status?: number; code?: string }): string {
+    const code = error.code;
+    if (error.status === 429) return AUTH_ERROR_MESSAGES.RATE_LIMITED;
+    if (code === 'TOKEN_EXPIRED') return PASSWORD_RESET_ERROR_MESSAGES.TOKEN_EXPIRED;
+    if (code === 'TOKEN_ALREADY_USED') return PASSWORD_RESET_ERROR_MESSAGES.TOKEN_ALREADY_USED;
+    if (code === 'INVALID_TOKEN' || error.status === 400) return PASSWORD_RESET_ERROR_MESSAGES.INVALID_TOKEN;
+    return AUTH_ERROR_MESSAGES.SERVER_ERROR;
   }
 
   /** 招待 API エラーのマッピング */
@@ -343,5 +423,12 @@ export function useAuth() {
     logout,
     fetchSession,
     fetchLoginContext,
+
+    // AUTH-006: パスワードリセット
+    requestPasswordReset,
+    resetPassword,
+
+    // AUTH-007: メール認証
+    resendVerificationEmail,
   };
 }

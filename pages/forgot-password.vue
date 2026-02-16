@@ -1,20 +1,22 @@
 <script setup lang="ts">
 // AUTH-006: パスワードリセット依頼ページ
-// Better Auth の forgetPassword を使用
+// SSOT: docs/design/features/common/AUTH-006-010_better-auth.md §3.2 SCR-FORGOT
 
 import { z } from 'zod';
 import type { FormSubmitEvent } from '@nuxt/ui';
-import { authClient } from '~/lib/auth-client';
 
 definePageMeta({
   layout: 'auth',
 });
 
+const { requestPasswordReset } = useAuth();
+
 const forgotPasswordSchema = z.object({
   email: z
     .string({ required_error: 'メールアドレスを入力してください' })
     .min(1, 'メールアドレスを入力してください')
-    .email('有効なメールアドレスを入力してください'),
+    .email('有効なメールアドレスを入力してください')
+    .max(255),
 });
 
 type ForgotPasswordForm = z.infer<typeof forgotPasswordSchema>;
@@ -31,18 +33,16 @@ async function onSubmit(event: FormSubmitEvent<ForgotPasswordForm>) {
   isSubmitting.value = true;
   errorMessage.value = '';
 
-  try {
-    await authClient.requestPasswordReset({
-      email: event.data.email,
-      redirectTo: '/reset-password',
-    });
-    // 情報漏洩防止: メールが存在しなくても成功レスポンスを表示
+  const result = await requestPasswordReset(event.data.email);
+
+  if (result.success) {
+    // §7.1: 登録済み・未登録に関わらず同じ成功メッセージ（情報漏洩防止）
     isSuccess.value = true;
-  } catch {
-    errorMessage.value = '通信エラーが発生しました。再試行してください';
-  } finally {
-    isSubmitting.value = false;
+  } else if (result.error) {
+    errorMessage.value = result.error;
   }
+
+  isSubmitting.value = false;
 }
 </script>
 
@@ -52,7 +52,7 @@ async function onSubmit(event: FormSubmitEvent<ForgotPasswordForm>) {
       パスワードリセット
     </h1>
 
-    <!-- 送信成功 -->
+    <!-- 送信成功（§3.4 SCR-FORGOT 送信完了状態） -->
     <div v-if="isSuccess" class="space-y-4">
       <UAlert
         title="メールを送信しました"

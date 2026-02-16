@@ -1,44 +1,41 @@
 <script setup lang="ts">
 // AUTH-007: メール未確認時のダッシュボードバナー
-// user.emailVerified === false の場合に表示
+// SSOT: docs/design/features/common/AUTH-006-010_better-auth.md §3.2 CMP-VERIFY-BANNER
+// user.emailVerified === false の場合にダッシュボード上部に表示
 
-import { authClient } from '~/lib/auth-client';
-
-const { user } = useAuth();
+const { user, resendVerificationEmail } = useAuth();
 const toast = useToast();
 
 const isResending = ref(false);
 const isDismissed = ref(false);
 
+/** §7.3: メール未確認かつ非表示にしていない場合に表示 */
 const shouldShow = computed(() =>
   !isDismissed.value && user.value && !user.value.emailVerified,
 );
 
-async function resendVerification() {
+async function handleResend() {
   isResending.value = true;
 
-  try {
-    await authClient.sendVerificationEmail({
-      email: user.value!.email,
-      callbackURL: '/verify-email',
-    });
+  const result = await resendVerificationEmail();
 
+  if (result.success) {
     toast.add({
       title: '確認メールを送信しました',
       description: 'メールをご確認ください',
       icon: 'i-lucide-mail-check',
       color: 'success',
     });
-  } catch {
+  } else {
     toast.add({
       title: 'メール送信に失敗しました',
-      description: 'しばらく時間をおいて再試行してください',
+      description: result.error ?? 'しばらく時間をおいて再試行してください',
       icon: 'i-lucide-alert-circle',
       color: 'error',
     });
-  } finally {
-    isResending.value = false;
   }
+
+  isResending.value = false;
 }
 </script>
 
@@ -62,7 +59,7 @@ async function resendVerification() {
         color="warning"
         variant="solid"
         :loading="isResending"
-        @click="resendVerification"
+        @click="handleResend"
       >
         再送信
       </UButton>
