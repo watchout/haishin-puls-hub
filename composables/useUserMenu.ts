@@ -1,5 +1,6 @@
 // NAV-001-002-006 ユーザーメニュー Composable
 // 仕様書: docs/design/features/common/NAV-001-002-006_navigation.md §6
+// ログアウト処理は AUTH-005 §7.1 に準拠（useAuth().logout() に委譲）
 
 /**
  * ユーザードロップダウンメニュー Composable (FR-008)
@@ -8,6 +9,7 @@
  */
 export function useUserMenu() {
   const router = useRouter()
+  const { logout } = useAuth()
 
   /** ユーザーメニュー項目 (Nuxt UI v3 UDropdownMenu 用) */
   const userMenuItems = computed(() => [
@@ -29,31 +31,13 @@ export function useUserMenu() {
       {
         label: 'ログアウト',
         icon: 'i-heroicons-arrow-right-on-rectangle',
-        click: () => handleLogout(),
+        click: () => logout(),
       },
     ],
   ])
 
-  /** ログアウト処理 */
-  async function handleLogout() {
-    try {
-      await $fetch('/api/auth/sign-out', { method: 'POST' })
-    } finally {
-      // ネットワークエラー時も冪等にクリア (AUTH-005)
-      const authStore = useAuthStore()
-      const tenantStore = useTenantStore()
-      const navigationStore = useNavigationStore()
-
-      authStore.reset()
-      tenantStore.reset()
-      navigationStore.reset()
-
-      await router.push('/login?reason=logout')
-    }
-  }
-
   return {
     userMenuItems,
-    handleLogout,
+    logout,
   }
 }

@@ -91,7 +91,7 @@ onMounted(async () => {
     </div>
 
     <!-- サインアップフォーム -->
-    <SignupForm
+    <FeaturesAuthSignupForm
       v-else-if="!token || invitationData"
       :invitation="invitationData"
     />

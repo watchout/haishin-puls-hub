@@ -12,7 +12,7 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
   ],
 
-  css: [],
+  css: ['~/assets/css/main.css'],
 
   runtimeConfig: {
     // サーバーのみ（秘密鍵）
@@ -28,6 +28,10 @@ export default defineNuxtConfig({
       appName: 'Haishin+ HUB',
       supportEmail: '',
     },
+  },
+
+  devServer: {
+    port: 4300,
   },
 
   devtools: { enabled: true },

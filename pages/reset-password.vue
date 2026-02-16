@@ -1,15 +1,21 @@
 <script setup lang="ts">
 // AUTH-006: パスワードリセット実行ページ
-// Better Auth の resetPassword を使用
+// SSOT: docs/design/features/common/AUTH-006-010_better-auth.md §3.2 SCR-RESET
 // URL: /reset-password?token=xxx
 
 import { z } from 'zod';
 import type { FormSubmitEvent } from '@nuxt/ui';
-import { authClient } from '~/lib/auth-client';
 
 definePageMeta({
   layout: 'auth',
 });
+
+const { resetPassword } = useAuth();
+const router = useRouter();
+const route = useRoute();
+const toast = useToast();
+
+const token = computed(() => route.query.token as string | undefined);
 
 const resetPasswordSchema = z.object({
   password: z
@@ -26,12 +32,6 @@ const resetPasswordSchema = z.object({
 
 type ResetPasswordForm = z.infer<typeof resetPasswordSchema>;
 
-const route = useRoute();
-const router = useRouter();
-const toast = useToast();
-
-const token = computed(() => route.query.token as string | undefined);
-
 const state = reactive<ResetPasswordForm>({
   password: '',
   passwordConfirm: '',
@@ -45,30 +45,20 @@ const showPasswordConfirm = ref(false);
 // トークンがない場合はエラー
 const hasToken = computed(() => !!token.value);
 
+// §8.1: トークンエラー時に再リクエストリンクを表示するか
+const showRetryLink = ref(false);
+
 async function onSubmit(event: FormSubmitEvent<ResetPasswordForm>) {
   if (!token.value) return;
 
   isSubmitting.value = true;
   errorMessage.value = '';
+  showRetryLink.value = false;
 
-  try {
-    const { error } = await authClient.resetPassword({
-      newPassword: event.data.password,
-      token: token.value,
-    });
+  const result = await resetPassword(token.value, event.data.password);
 
-    if (error) {
-      if (error.status === 400) {
-        errorMessage.value = 'リセットリンクが無効または期限切れです。再度パスワードリセットを行ってください。';
-      } else if (error.status === 429) {
-        errorMessage.value = 'しばらく時間をおいて再試行してください';
-      } else {
-        errorMessage.value = 'パスワードの更新に失敗しました';
-      }
-      return;
-    }
-
-    // 成功 → ログイン画面にリダイレクト + トースト
+  if (result.success) {
+    // §7.1: 成功 → /login にリダイレクト + トースト（AC-006-006）
     toast.add({
       title: 'パスワードが更新されました',
       description: '新しいパスワードでログインしてください',
@@ -76,11 +66,13 @@ async function onSubmit(event: FormSubmitEvent<ResetPasswordForm>) {
       color: 'success',
     });
     await router.push('/login');
-  } catch {
-    errorMessage.value = '通信エラーが発生しました。再試行してください';
-  } finally {
-    isSubmitting.value = false;
+  } else if (result.error) {
+    errorMessage.value = result.error;
+    // トークン系エラーの場合は再リクエストリンクを表示
+    showRetryLink.value = true;
   }
+
+  isSubmitting.value = false;
 }
 </script>
 
@@ -122,6 +114,16 @@ async function onSubmit(event: FormSubmitEvent<ResetPasswordForm>) {
         }"
         @update:open="errorMessage = ''"
       />
+
+      <!-- §8.1: トークンエラー時の再リクエストリンク -->
+      <div v-if="showRetryLink" class="text-center">
+        <NuxtLink
+          to="/forgot-password"
+          class="text-sm text-primary hover:underline"
+        >
+          パスワードリセットをやり直す
+        </NuxtLink>
+      </div>
 
       <UForm
         :schema="resetPasswordSchema"

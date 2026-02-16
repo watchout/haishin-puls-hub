@@ -37,9 +37,20 @@ export const RATE_LIMIT_CONFIG = {
 export type RateLimitType = keyof typeof RATE_LIMIT_CONFIG;
 
 /**
+ * レート制限を除外するパス
+ * get-session はセッション確認（読み取り専用）でリクエスト頻度が高いため除外
+ */
+const RATE_LIMIT_EXEMPT_PATHS = [
+  '/api/auth/get-session',
+] as const;
+
+/**
  * リクエストパスからレート制限タイプを判定
  */
 export function getRateLimitType(path: string): RateLimitType | null {
+  // 除外パスはレート制限対象外
+  if (RATE_LIMIT_EXEMPT_PATHS.some((exempt) => path === exempt)) return null;
+
   if (path.startsWith('/api/auth/')) return 'auth';
   if (path.startsWith('/api/v1/ai/')) return 'ai';
   if (path.startsWith('/api/v1/files/upload')) return 'upload';

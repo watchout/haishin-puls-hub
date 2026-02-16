@@ -66,7 +66,7 @@ export default defineEventHandler(async (h3Event) => {
 
     // 見積番号の自動採番: Q-YYYYMMDD-NNN
     const today = new Date()
-    const dateStr = today.toISOString().split('T')[0].replace(/-/g, '')
+    const dateStr = today.toISOString().split('T')[0]!.replace(/-/g, '')
     const countResult = await db.select({
       count: sql<number>`count(*)::int`,
     })

@@ -6,6 +6,7 @@
 const navigationStore = useNavigationStore()
 const tenantStore = useTenantStore()
 const { getMenuItems, isActive } = useNavigation()
+const { logout } = useUserMenu()
 
 const isCollapsed = computed(() => navigationStore.isSidebarCollapsed)
 const isMobileOpen = computed(() => navigationStore.isMobileSidebarOpen)
@@ -30,7 +31,7 @@ onMounted(() => {
     role="navigation"
     aria-label="メインナビゲーション"
     :class="[
-      'h-full bg-gray-50 dark:bg-gray-950 border-r border-gray-200 dark:border-gray-800 transition-all duration-300 shrink-0',
+      'h-full flex flex-col bg-gray-50 dark:bg-gray-950 border-r border-gray-200 dark:border-gray-800 transition-all duration-300 shrink-0',
       isCollapsed ? 'w-16' : 'w-64',
       isMobileOpen
         ? 'fixed inset-y-0 left-0 z-40'
@@ -58,7 +59,7 @@ onMounted(() => {
     </div>
 
     <!-- Menu Items (FR-002) -->
-    <nav class="p-2">
+    <nav class="flex-1 p-2">
       <ul role="list" class="space-y-1">
         <li v-for="item in menuItems" :key="item.path">
           <NuxtLink
@@ -80,6 +81,20 @@ onMounted(() => {
         </li>
       </ul>
     </nav>
+
+    <!-- AUTH-005 §3.1: モバイルサイドバー最下部にログアウトボタン -->
+    <div class="p-2 border-t border-gray-200 dark:border-gray-800">
+      <UButton
+        variant="ghost"
+        color="neutral"
+        class="w-full justify-start"
+        :title="isCollapsed ? 'ログアウト' : undefined"
+        @click="logout"
+      >
+        <UIcon name="i-heroicons-arrow-right-on-rectangle" class="w-5 h-5 shrink-0" />
+        <span v-if="!isCollapsed">ログアウト</span>
+      </UButton>
+    </div>
   </aside>
 
   <!-- Mobile Overlay (FR-005) -->

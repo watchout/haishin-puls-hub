@@ -45,6 +45,9 @@
   "devDependencies": {
     "@commitlint/cli": "^19.0.0",
     "@commitlint/config-conventional": "^19.0.0",
+    "@iconify-json/heroicons": "^1.2.3",
+    "@iconify-json/lucide": "^1.2.90",
+    "@iconify-json/simple-icons": "^1.2.70",
     "@nuxt/eslint": "^0.7.0",
     "@playwright/test": "^1.50.0",
     "@types/dompurify": "^3.2.0",

@@ -1,7 +1,7 @@
 {
   "projectDir": "/Users/kaneko/haishin-plus-hub",
   "projectName": "haishin-plus-hub",
-  "scannedAt": "2026-02-13T00:07:25.531Z",
+  "scannedAt": "2026-02-15T22:55:19.239Z",
   "directory": {
     "hasSrc": false,
     "hasDocs": true,
@@ -11,6 +11,7 @@
     "hasClaudeMd": true,
     "hasPackageJson": true,
     "topLevelDirs": [
+      "assets",
       "components",
       "composables",
       "constants",
@@ -54,13 +55,13 @@
     }
   ],
   "fileStats": {
-    "totalFiles": 346,
-    "totalLines": 92755,
+    "totalFiles": 448,
+    "totalLines": 113262,
     "byExtension": {
-      ".md": 140,
-      ".json": 36,
-      ".ts": 167,
-      ".css": 2,
+      ".md": 138,
+      ".json": 38,
+      ".ts": 268,
+      ".css": 3,
       ".js": 1
     }
   },
@@ -116,25 +117,25 @@
     {
       "path": "docs/design/core/SSOT-2_UI_STATE.md",
       "name": "SSOT-2_UI_STATE.md",
-      "sizeBytes": 21132,
+      "sizeBytes": 26309,
       "category": "core"
     },
     {
       "path": "docs/design/core/SSOT-3_API_CONTRACT.md",
       "name": "SSOT-3_API_CONTRACT.md",
-      "sizeBytes": 18594,
+      "sizeBytes": 23552,
       "category": "core"
     },
     {
       "path": "docs/design/core/SSOT-4_DATA_MODEL.md",
       "name": "SSOT-4_DATA_MODEL.md",
-      "sizeBytes": 24935,
+      "sizeBytes": 29557,
       "category": "core"
     },
     {
       "path": "docs/design/core/SSOT-5_CROSS_CUTTING.md",
       "name": "SSOT-5_CROSS_CUTTING.md",
-      "sizeBytes": 22855,
+      "sizeBytes": 27922,
       "category": "core"
     },
     {
@@ -164,13 +165,13 @@
     {
       "path": "docs/design/features/common/AUTH-006-010_better-auth.md",
       "name": "AUTH-006-010_better-auth.md",
-      "sizeBytes": 76338,
+      "sizeBytes": 76414,
       "category": "common"
     },
     {
       "path": "docs/design/features/common/CRUD-001-004_crud-operations.md",
       "name": "CRUD-001-004_crud-operations.md",
-      "sizeBytes": 52084,
+      "sizeBytes": 52160,
       "category": "common"
     },
     {
@@ -182,7 +183,7 @@
     {
       "path": "docs/design/features/common/LIST-001-003_list-operations.md",
       "name": "LIST-001-003_list-operations.md",
-      "sizeBytes": 48001,
+      "sizeBytes": 48004,
       "category": "common"
     },
     {
@@ -194,7 +195,7 @@
     {
       "path": "docs/design/features/common/NOTIF-001-002_notifications.md",
       "name": "NOTIF-001-002_notifications.md",
-      "sizeBytes": 59147,
+      "sizeBytes": 59268,
       "category": "common"
     },
     {
@@ -206,7 +207,7 @@
     {
       "path": "docs/design/features/common/SEC-001-007_security.md",
       "name": "SEC-001-007_security.md",
-      "sizeBytes": 43646,
+      "sizeBytes": 43649,
       "category": "common"
     },
     {
@@ -230,7 +231,7 @@
     {
       "path": "docs/design/features/project/EVT-020-021_speaker-management.md",
       "name": "EVT-020-021_speaker-management.md",
-      "sizeBytes": 61043,
+      "sizeBytes": 61046,
       "category": "project"
     },
     {
@@ -242,13 +243,13 @@
     {
       "path": "docs/design/features/project/EVT-040_summary-report.md",
       "name": "EVT-040_summary-report.md",
-      "sizeBytes": 47122,
+      "sizeBytes": 47288,
       "category": "project"
     },
     {
       "path": "docs/design/features/project/EVT-050-051_ai-assistant-ui.md",
       "name": "EVT-050-051_ai-assistant-ui.md",
-      "sizeBytes": 47224,
+      "sizeBytes": 47380,
       "category": "project"
     },
     {
@@ -332,13 +333,13 @@
     {
       "path": "docs/requirements/SSOT-0_PRD.md",
       "name": "SSOT-0_PRD.md",
-      "sizeBytes": 18893,
+      "sizeBytes": 23596,
       "category": "requirements"
     },
     {
       "path": "docs/requirements/SSOT-1_FEATURE_CATALOG.md",
       "name": "SSOT-1_FEATURE_CATALOG.md",
-      "sizeBytes": 27546,
+      "sizeBytes": 31454,
       "category": "requirements"
     },
     {
@@ -399,6 +400,12 @@
       "path": "docs/standards/RISKS.md",
       "name": "RISKS.md",
       "sizeBytes": 7905,
+      "category": "standards"
+    },
+    {
+      "path": "docs/standards/SECURITY_STRIPE.md",
+      "name": "SECURITY_STRIPE.md",
+      "sizeBytes": 13419,
       "category": "standards"
     },
     {
@@ -482,7 +489,7 @@
     {
       "path": "docs/standards/project/CLAUDE.md",
       "name": "CLAUDE.md",
-      "sizeBytes": 12341,
+      "sizeBytes": 14322,
       "category": "project"
     },
     {
@@ -506,85 +513,49 @@
     {
       "path": "docs/standards/skills/SKILLS_INDEX.md",
       "name": "SKILLS_INDEX.md",
-      "sizeBytes": 16285,
+      "sizeBytes": 1934,
       "category": "skills"
     },
     {
-      "path": "docs/standards/skills/_deliberation/DELIBERATION_PROTOCOL.md",
-      "name": "DELIBERATION_PROTOCOL.md",
-      "sizeBytes": 7094,
-      "category": "_deliberation"
-    },
-    {
-      "path": "docs/standards/skills/business-design/SKILL.md",
+      "path": "docs/standards/skills/design/SKILL.md",
       "name": "SKILL.md",
-      "sizeBytes": 2935,
-      "category": "business-design"
-    },
-    {
-      "path": "docs/standards/skills/code-audit/SKILL.md",
-      "name": "SKILL.md",
-      "sizeBytes": 3719,
-      "category": "code-audit"
+      "sizeBytes": 7355,
+      "category": "design"
     },
     {
       "path": "docs/standards/skills/discovery/SKILL.md",
       "name": "SKILL.md",
-      "sizeBytes": 5279,
+      "sizeBytes": 6527,
       "category": "discovery"
     },
     {
-      "path": "docs/standards/skills/feature-spec/SKILL.md",
+      "path": "docs/standards/skills/implement/SKILL.md",
       "name": "SKILL.md",
-      "sizeBytes": 8594,
-      "category": "feature-spec"
+      "sizeBytes": 5226,
+      "category": "implement"
     },
     {
-      "path": "docs/standards/skills/implementation/SKILL.md",
+      "path": "docs/standards/skills/review/SKILL.md",
       "name": "SKILL.md",
-      "sizeBytes": 5964,
-      "category": "implementation"
-    },
-    {
-      "path": "docs/standards/skills/orchestrator/SKILL.md",
-      "name": "SKILL.md",
-      "sizeBytes": 6788,
-      "category": "orchestrator"
-    },
-    {
-      "path": "docs/standards/skills/product-design/SKILL.md",
-      "name": "SKILL.md",
-      "sizeBytes": 3077,
-      "category": "product-design"
-    },
-    {
-      "path": "docs/standards/skills/review-council/SKILL.md",
-      "name": "SKILL.md",
-      "sizeBytes": 8261,
-      "category": "review-council"
-    },
-    {
-      "path": "docs/standards/skills/ssot-audit/SKILL.md",
-      "name": "SKILL.md",
-      "sizeBytes": 3575,
-      "category": "ssot-audit"
-    },
-    {
-      "path": "docs/standards/skills/technical-design/SKILL.md",
-      "name": "SKILL.md",
-      "sizeBytes": 5476,
-      "category": "technical-design"
+      "sizeBytes": 6217,
+      "category": "review"
     },
     {
       "path": "CLAUDE.md",
       "name": "CLAUDE.md",
-      "sizeBytes": 16416,
+      "sizeBytes": 15948,
       "category": "root"
     },
     {
       "path": "FRAMEWORK_v34_OPERATIONS.md",
       "name": "FRAMEWORK_v34_OPERATIONS.md",
-      "sizeBytes": 4342,
+      "sizeBytes": 3805,
+      "category": "root"
+    },
+    {
+      "path": "GATE_PROMPTS.md",
+      "name": "GATE_PROMPTS.md",
+      "sizeBytes": 2573,
       "category": "root"
     },
     {

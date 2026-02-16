@@ -220,3 +220,20 @@ export const SIGNUP_ERROR_MESSAGES = {
   INVITATION_ALREADY_USED: 'この招待リンクは既に使用されています',
   SIGNUP_FAILED: 'アカウント作成に失敗しました。再試行してください',
 } as const;
+
+/** AUTH-006 §8.1 パスワードリセットエラーメッセージ */
+export const PASSWORD_RESET_ERROR_MESSAGES = {
+  TOKEN_EXPIRED: 'リセットリンクの有効期限が切れています。再度リセットをリクエストしてください',
+  TOKEN_ALREADY_USED: 'このリセットリンクは既に使用されています',
+  INVALID_TOKEN: '無効なリセットリンクです',
+  SEND_FAILED: 'メールの送信に失敗しました。再試行してください',
+} as const;
+
+/** AUTH-007 §8.1 メール認証エラーメッセージ */
+export const EMAIL_VERIFICATION_ERROR_MESSAGES = {
+  TOKEN_EXPIRED: '確認リンクの有効期限が切れています。再送信してください',
+  INVALID_TOKEN: '無効な確認リンクです',
+  RESEND_SUCCESS: '確認メールを送信しました',
+  RESEND_FAILED: 'メール送信に失敗しました。しばらく時間をおいて再試行してください',
+  VERIFIED: 'メールアドレスが確認されました',
+} as const;

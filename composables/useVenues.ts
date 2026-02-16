@@ -188,7 +188,7 @@ export function useVenues() {
     isLoading.value = true
     error.value = null
     try {
-      await $fetch(`/api/v1/venues/${id}`, { method: 'DELETE' })
+      await $fetch<unknown>(`/api/v1/venues/${id}` as string, { method: 'DELETE' })
       await fetchVenues(pagination.value.page, pagination.value.perPage)
       return true
     } catch (err: unknown) {

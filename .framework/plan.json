@@ -16,7 +16,8 @@
           "size": "M",
           "type": "common",
           "dependencies": [],
-          "dependencyCount": 8
+          "dependencyCount": 8,
+          "status": "done"
         },
         {
           "id": "AUTH-005",
@@ -25,7 +26,8 @@
           "size": "S",
           "type": "common",
           "dependencies": ["AUTH-001"],
-          "dependencyCount": 0
+          "dependencyCount": 0,
+          "status": "done"
         },
         {
           "id": "AUTH-006-010",

@@ -3,7 +3,7 @@
 // URL: /events/:eid/reports
 definePageMeta({
   layout: 'dashboard',
-  middleware: 'auth',
+  middleware: ['auth'],
 })
 
 const route = useRoute()

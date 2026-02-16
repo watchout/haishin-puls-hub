@@ -1,0 +1,32 @@
+{
+  "id": "e98097af-7a6a-4f00-9bde-6deb332fe426",
+  "status": "in_progress",
+  "currentStage": 1,
+  "startedAt": "2026-02-16T02:11:48.264Z",
+  "updatedAt": "2026-02-16T02:18:48.392Z",
+  "stages": [
+    {
+      "stageNumber": 1,
+      "status": "in_progress"
+    },
+    {
+      "stageNumber": 2,
+      "status": "pending"
+    },
+    {
+      "stageNumber": 3,
+      "status": "pending"
+    },
+    {
+      "stageNumber": 4,
+      "status": "pending"
+    },
+    {
+      "stageNumber": 5,
+      "status": "pending"
+    }
+  ],
+  "answers": {
+    "Q1-1": "セミナー・イベント運営に関わる全プレイヤー（主催・会場・配信・企画代行・登壇者・営業マーケ・参加者）が1つのWebシステムで日程・タスク・締め切り・必要情報を一元管理し、AIに「聞く／頼む」ことで運営の手間を大幅に削減するセミナー／イベント運営OS"
+  }
+}

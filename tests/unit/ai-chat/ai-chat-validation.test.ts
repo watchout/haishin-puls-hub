@@ -13,7 +13,6 @@ import {
   MAX_CONVERSATIONS_LIMIT,
   DEFAULT_CONVERSATIONS_LIMIT,
   CONTEXT_TYPES,
-  TOOL_PERMISSIONS,
   TOOL_NAMES,
   ROLE_SCOPE,
 } from '~/server/utils/ai-chat-validation'

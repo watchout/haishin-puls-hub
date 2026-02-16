@@ -86,7 +86,7 @@ export default defineEventHandler(async (h3Event) => {
 
       if (venueResult.length > 0) {
         venueName = venueResult[0]!.name
-        venueAddress = venueResult[0]!.address
+        venueAddress = venueResult[0]!.address ?? ''
       }
     }
 

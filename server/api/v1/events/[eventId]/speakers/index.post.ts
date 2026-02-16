@@ -53,7 +53,7 @@ export default defineEventHandler(async (h3Event) => {
 
     const sortOrder = existingSpeakers.length
 
-    const [created] = await db.insert(speaker)
+    const created = (await db.insert(speaker)
       .values({
         id: speakerId,
         eventId,
@@ -64,7 +64,7 @@ export default defineEventHandler(async (h3Event) => {
         createdAt: new Date(),
         updatedAt: new Date(),
       })
-      .returning()
+      .returning())[0]!
 
     // TODO: メール送信機能 (§8.2) - data.email が存在する場合にフォームURLを送信
     const emailSent = false

@@ -9,7 +9,7 @@ import {
 } from '~/composables/useSpeakers'
 import type { SpeakerData, CreateSpeakerResult } from '~/composables/useSpeakers'
 
-definePageMeta({ layout: 'dashboard', middleware: 'auth' })
+definePageMeta({ layout: 'dashboard', middleware: ['auth'] })
 
 const route = useRoute()
 const eventId = route.params.id as string

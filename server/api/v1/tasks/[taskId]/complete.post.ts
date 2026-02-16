@@ -26,7 +26,7 @@ export default defineEventHandler(async (h3Event) => {
     }
 
     // §5.4: 既に完了済みの場合は 409
-    if (existing[0].status === 'completed') {
+    if (existing[0]!.status === 'completed') {
       throw createError({ statusCode: 409, statusMessage: 'CONFLICT', message: 'このタスクは既に完了しています' })
     }
 

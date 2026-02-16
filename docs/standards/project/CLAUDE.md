@@ -86,6 +86,53 @@
 
 ---
 
+## 🔒 Pre-Code Gate（CLI で構造的に強制）
+
+```
+コードを1行でも書く前に、3段階のGateを全て通過する必要がある。
+Gate は 2層の構造的強制で実行される。
+
+Layer 1: Claude Code hook（リアルタイム）
+  - PreToolUse フックが Edit/Write をインターセプト
+  - src/ 等のソースコードパスへの編集を Gate 未通過時にブロック
+  - .claude/hooks/pre-code-gate.sh → .framework/gates.json を参照
+  - docs/, config 等の非ソースファイルは制限なし
+
+Layer 2: Git pre-commit hook（コミット時）
+  - ソースファイルが含まれるコミットで `framework gate check` をフル実行
+  - 緊急時は `git commit --no-verify` でバイパス可能
+
+Gate A: 開発環境・インフラの準備
+  - package.json, node_modules, .env, docker-compose, CI/CD の存在確認
+
+Gate B: タスク分解・計画の完了
+  - .framework/plan.json（framework plan 実行済み）
+  - .framework/project.json の存在確認
+
+Gate C: SSOT 完全性チェック
+  - 各SSOT の §3-E/F/G/H セクションが記入されているか
+
+操作コマンド:
+  framework gate check       全Gate一括チェック → gates.json に保存
+  framework gate check-a     Gate A のみチェック
+  framework gate check-b     Gate B のみチェック
+  framework gate check-c     Gate C のみチェック
+  framework gate status      現在のGate状態を表示
+  framework gate reset       Gate 状態をリセット
+
+自動連動:
+  framework plan 成功時     → Gate B が自動パス
+  framework audit ssot 実行時 → Gate C が自動評価
+
+日常のワークフロー:
+  1. framework gate check   ← 全ゲートをチェック
+  2. framework gate status  ← 結果を確認
+  3. 未通過のGateがあれば修正
+  4. framework run          ← 全Gate通過後のみ実行可能
+```
+
+---
+
 ## 会社ナレッジ参照ルール
 
 > `.framework/project.json` に `knowledgeSource` が設定されている場合、
@@ -124,6 +171,7 @@
    - コーディング規約 → docs/standards/CODING_STANDARDS.md
    - テスト規約       → docs/standards/TESTING_STANDARDS.md
    - Git運用          → docs/standards/GIT_WORKFLOW.md
+   - 決済セキュリティ → docs/standards/SECURITY_STRIPE.md（Stripe利用時）
 4. PRD               → docs/requirements/SSOT-0_PRD.md
 ```
 
@@ -262,40 +310,41 @@ scope: 機能ID or モジュール名
 
 ---
 
-## Agent Skills（擬似マルチエージェント）
+## Workflow Orchestration
 
-> 各フェーズを専門化した Agent Skills で、LLM が「複数の専門家チーム」として振る舞う。
-> 詳細: ai-dev-framework/templates/skills/SKILLS_INDEX.md
+このプロジェクトには4つの専門スキルが .claude/skills/ に配置されている。
+各スキルには専門エージェントが定義されており、品質の高い成果物を生成する。
+詳細: .claude/skills/_INDEX.md
 
-### Skills 一覧（実行順）
+### スキル起動ルール
 
-```
-① framework-discovery     — ディスカバリー（対話ヒアリング）
-② framework-business      — 事業設計（IDEA_CANVAS 等）
-③ framework-product       — PRD・機能カタログ
-④ framework-feature-spec  — 機能仕様書（1機能ずつ対話）
-⑤ framework-technical     — 技術設計（Stack/API/DB）
-⑥ framework-implement     — 実装（TDD 判定付き）
-⑦ framework-code-audit    — Adversarial Code Review
-⑧ framework-ssot-audit    — SSOT 品質監査
-```
+**明示的なフェーズ指示**（以下のキーワード）→ 即座に Skill ツールで対応スキルを起動:
 
-### 配置方法
+| キーワード | 起動スキル |
+|-----------|-----------|
+| 「ディスカバリー」「何を作りたい？」「アイデア」 | /discovery |
+| 「設計」「仕様を作って」「スペック」「アーキテクチャ」 | /design |
+| 「実装開始」「コードを書いて」「タスク分解」 | /implement |
+| 「レビュー」「監査」「audit」 | /review |
 
-```
-Claude.ai  → 設定 > 機能 > スキル > ZIP アップロード
-Claude Code → .claude/skills/ に配置（自動検出）
-Cursor     → .cursor/rules/ にルールとして配置
-```
+**タスク指示**（「DEV-XXXを実装して」「〇〇機能を作って」等）→ 適切なスキルの起動を提案:
+- 新機能の場合: 「/design で設計してから /implement で実装しますか？」
+- 既存機能の修正: 「/implement で実装しますか？」
+- 品質確認: 「/review で監査しますか？」
+ユーザーが承認したら Skill ツールで起動。不要と判断されたらスキップ。
 
-### 効果
+**軽微な作業**（typo修正、設定変更、1ファイルの小修正等）→ スキル不要。直接作業。
 
-```
-- ステップ飛ばし防止: Skill が1ステップしか知らない（構造的に不可能）
-- 品質向上: 各 Skill が専門家として振る舞う
-- ヒアリング省略防止: Discovery Skill が対話を担当
-- 監査の厳格化: Audit Skill が甘い採点を禁止
-```
+### フェーズ遷移
+各スキル完了後、次のフェーズを提案する:
+discovery → design → implement → review
+ユーザー承認後に次スキルを Skill ツールで起動。
+
+### Pre-Code Gate 連携
+「実装開始」の場合:
+1. Skill ツールで /implement を起動
+2. /implement スキル内で .framework/gates.json を確認
+3. 全Gate passed なら実装開始。未通過なら報告。
 
 ---
 

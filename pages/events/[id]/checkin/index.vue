@@ -7,7 +7,7 @@ import {
 } from '~/composables/useParticipants'
 import type { ParticipantData, CheckinResult } from '~/composables/useParticipants'
 
-definePageMeta({ layout: 'dashboard', middleware: 'auth' })
+definePageMeta({ layout: 'dashboard', middleware: ['auth'] })
 
 const route = useRoute()
 const eventId = route.params.id as string

@@ -394,7 +394,7 @@ describe('isEmpty ロジック (FR-008)', () => {
 
   it('データあり → isEmpty=false', () => {
     const loading = false
-    const dataLength = 5
+    const dataLength = 5 as number
     const isEmpty = !loading && dataLength === 0
     expect(isEmpty).toBe(false)
   })

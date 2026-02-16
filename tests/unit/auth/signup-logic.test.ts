@@ -450,7 +450,7 @@ describe('forgotPasswordSchema (AUTH-006)', () => {
     const result = forgotPasswordSchema.safeParse({ email: '' });
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('メールアドレスを入力してください');
+      expect(result.error.issues[0]!.message).toBe('メールアドレスを入力してください');
     }
   });
 
@@ -458,7 +458,7 @@ describe('forgotPasswordSchema (AUTH-006)', () => {
     const result = forgotPasswordSchema.safeParse({ email: 'invalid' });
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('有効なメールアドレスを入力してください');
+      expect(result.error.issues[0]!.message).toBe('有効なメールアドレスを入力してください');
     }
   });
 

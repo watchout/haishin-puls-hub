@@ -40,7 +40,7 @@ export default defineEventHandler(async (h3Event) => {
       throw createError({ statusCode: 404, statusMessage: 'NOT_FOUND', message: 'タスクが見つかりません' })
     }
 
-    const current = existing[0]
+    const current = existing[0]!
 
     // ステータス遷移チェック
     if (data.status && data.status !== current.status) {

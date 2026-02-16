@@ -23,6 +23,8 @@ const showSidebar = computed(() => !isPortalLayout(tenantStore.currentRole))
 
       <!-- Main Content -->
       <main class="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-900 p-4 lg:p-6">
+        <!-- AUTH-007 §7.3: メール未確認バナー（ダッシュボード上部に表示） -->
+        <FeaturesAuthEmailVerificationBanner class="mb-4" />
         <slot />
       </main>
     </div>
@@ -31,6 +33,6 @@ const showSidebar = computed(() => !isPortalLayout(tenantStore.currentRole))
     <MobileBottomTabs v-if="showSidebar" />
 
     <!-- EVT-050-051: AIチャットパネル（スライドオーバー） -->
-    <FeaturesAiAIChatPanel />
+    <FeaturesAIChatPanel />
   </div>
 </template>

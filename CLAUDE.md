@@ -31,54 +31,40 @@
 
 ---
 
-## 🧠 スキル（専門家チーム）による合議制開発
+## Workflow Orchestration
 
-各フェーズには専門家チームが定義されており、合議制で意思決定を行う。
+このプロジェクトには4つの専門スキルが .claude/skills/ に配置されている。
+各スキルには専門エージェントが定義されており、品質の高い成果物を生成する。
 
-```
-.claude/skills/
-├── deliberation/      ← 合議制意思決定プロトコル
-├── discovery/         ← Discovery Phase専門家（D1-D4）
-├── business/          ← Business Phase専門家（B1-B4）
-├── product/           ← Product Phase専門家（P1-P5）
-├── technical/         ← Technical Phase専門家（T1-T5）
-├── implementation/    ← Implementation Phase専門家（I1-I5）
-└── review-council/    ← レビュー評議会（R1-R5）
-```
+### スキル起動ルール
 
-**スキル実行コマンド**:
-```
-「ディスカバリーを開始して」   → Discovery Phaseを実行
-「ビジネス設計を開始して」     → Business Phaseを実行
-「プロダクト設計を開始して」   → Product Phaseを実行
-「技術設計を開始して」         → Technical Phaseを実行
-「実装を開始して」             → Implementation Phaseを実行
-「レビュー評議会を開催して」   → Review Councilを実行
-```
+**明示的なフェーズ指示**（以下のキーワード）→ 即座に Skill ツールで対応スキルを起動:
 
-**個別エージェント実行**:
-```
-「D1を実行」  → Idea Excavator
-「P4を実行」  → Feature Spec Writer
-「I3を実行」  → Code Auditor
-```
+| キーワード | 起動スキル |
+|-----------|-----------|
+| 「ディスカバリー」「何を作りたい？」「アイデア」 | /discovery |
+| 「設計」「仕様を作って」「スペック」「アーキテクチャ」 | /design |
+| 「実装開始」「コードを書いて」「タスク分解」 | /implement |
+| 「レビュー」「監査」「audit」 | /review |
 
-**合議の実行**:
-```
-「合議して：[議題]」     → 自動で適切な専門家を選定
-「軽量合議：[議題]」     → DETAIL層の決定（2-3名）
-「標準合議：[議題]」     → CONTRACT層の決定（3-4名）
-「重量合議：[議題]」     → CORE層の決定（全専門家）
-```
+**タスク指示**（「DEV-XXXを実装して」「〇〇機能を作って」等）→ 適切なスキルの起動を提案:
+- 新機能の場合: 「/design で設計してから /implement で実装しますか？」
+- 既存機能の修正: 「/implement で実装しますか？」
+- 品質確認: 「/review で監査しますか？」
+ユーザーが承認したら Skill ツールで起動。不要と判断されたらスキップ。
 
-**合議トリガー（自動）**:
-- CORE層の変更提案 → 重量合議
-- CONTRACT層の新規定義 → 標準合議
-- 複数SSOTへの影響 → 標準合議
-- 技術的負債の可能性 → 軽量合議
-- セキュリティ関連 → 標準合議
+**軽微な作業**（typo修正、設定変更、1ファイルの小修正等）→ スキル不要。直接作業。
 
-詳細: .claude/skills/_INDEX.md 参照
+### フェーズ遷移
+各スキル完了後、次のフェーズを提案する:
+discovery → design → implement → review
+ユーザー承認後に次スキルを Skill ツールで起動。
+
+### Pre-Code Gate 連携
+「実装開始」の場合:
+1. Skill ツールで /implement を起動
+2. /implement スキル内で .framework/gates.json を確認
+3. 全Gate passed なら実装開始。未通過なら報告。
 
 ---
 
