@@ -1,0 +1,2462 @@
+{
+  "status": "running",
+  "currentTaskId": null,
+  "tasks": [
+    {
+      "taskId": "AUTH-001-TEST",
+      "featureId": "AUTH-001",
+      "taskKind": "test",
+      "name": "ログイン機能 - Testing (TDD)",
+      "status": "done",
+      "files": [
+        {
+          "path": "src/auth-001/__tests__/index.test.ts",
+          "action": "created"
+        }
+      ],
+      "startedAt": "2026-02-16T20:23:01.054Z",
+      "prompt": "# Implementation Task: AUTH-001-TEST\n\n## Feature: AUTH-001\n## Task: ログイン機能 - Testing (TDD)\n## Type: test\n\n## Instructions\n\n1. Write unit tests for business logic\n2. Write integration tests for API\n3. Cover normal, abnormal, boundary cases\n\n## Constraints\n- Follow CODING_STANDARDS.md\n- No `any` types\n- No console.log in production code\n- Handle all error cases\n\n## Acceptance Criteria\n- All MUST requirements from SSOT implemented\n- Code audit score: 100/100\n- Tests pass with adequate coverage",
+      "auditScore": 100,
+      "completedAt": "2026-02-16T20:23:01.055Z"
+    },
+    {
+      "taskId": "AUTH-001-DB",
+      "featureId": "AUTH-001",
+      "taskKind": "db",
+      "name": "ログイン機能 - Database",
+      "status": "done",
+      "files": [
+        {
+          "path": ".claude/rules/progress-report.md",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/framework.json",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/gates.json",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/plan.json",
+          "action": "modified"
+        },
+        {
+          "path": "docs/standards/ci/api.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/app.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/cli.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/common.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/docker.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/dokku.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/vercel.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/vps.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/hp.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/lp.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/pre-code-gate.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/pre-commit",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/skill-tracker.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/api.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/app.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/cli.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/hp.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/lp.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/.cursorrules",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/CLAUDE.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/code-reviewer.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/ssot-explorer.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/visual-tester.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/setup-project.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/SKILLS_INDEX.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/design/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/discovery/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/implement/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/review/SKILL.md",
+          "action": "deleted"
+        }
+      ],
+      "auditScore": 100,
+      "completedAt": "2026-02-16T20:41:44.989Z"
+    },
+    {
+      "taskId": "AUTH-001-API",
+      "featureId": "AUTH-001",
+      "taskKind": "api",
+      "name": "ログイン機能 - API",
+      "status": "done",
+      "files": [
+        {
+          "path": ".claude/rules/progress-report.md",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/framework.json",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/gates.json",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/plan.json",
+          "action": "modified"
+        },
+        {
+          "path": "docs/standards/ci/api.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/app.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/cli.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/common.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/docker.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/dokku.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/vercel.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/vps.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/hp.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/lp.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/pre-code-gate.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/pre-commit",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/skill-tracker.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/api.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/app.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/cli.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/hp.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/lp.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/.cursorrules",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/CLAUDE.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/code-reviewer.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/ssot-explorer.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/visual-tester.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/setup-project.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/SKILLS_INDEX.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/design/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/discovery/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/implement/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/review/SKILL.md",
+          "action": "deleted"
+        }
+      ],
+      "auditScore": 100,
+      "completedAt": "2026-02-16T20:41:49.446Z"
+    },
+    {
+      "taskId": "AUTH-001-UI",
+      "featureId": "AUTH-001",
+      "taskKind": "ui",
+      "name": "ログイン機能 - UI",
+      "status": "done",
+      "files": [
+        {
+          "path": ".claude/rules/progress-report.md",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/framework.json",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/gates.json",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/plan.json",
+          "action": "modified"
+        },
+        {
+          "path": "docs/standards/ci/api.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/app.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/cli.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/common.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/docker.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/dokku.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/vercel.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/vps.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/hp.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/lp.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/pre-code-gate.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/pre-commit",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/skill-tracker.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/api.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/app.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/cli.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/hp.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/lp.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/.cursorrules",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/CLAUDE.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/code-reviewer.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/ssot-explorer.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/visual-tester.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/setup-project.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/SKILLS_INDEX.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/design/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/discovery/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/implement/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/review/SKILL.md",
+          "action": "deleted"
+        }
+      ],
+      "auditScore": 100,
+      "completedAt": "2026-02-16T20:41:49.633Z"
+    },
+    {
+      "taskId": "AUTH-001-INTEGRATION",
+      "featureId": "AUTH-001",
+      "taskKind": "integration",
+      "name": "ログイン機能 - Integration",
+      "status": "done",
+      "files": [
+        {
+          "path": ".claude/rules/progress-report.md",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/framework.json",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/gates.json",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/plan.json",
+          "action": "modified"
+        },
+        {
+          "path": "docs/standards/ci/api.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/app.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/cli.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/common.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/docker.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/dokku.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/vercel.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/vps.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/hp.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/lp.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/pre-code-gate.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/pre-commit",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/skill-tracker.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/api.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/app.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/cli.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/hp.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/lp.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/.cursorrules",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/CLAUDE.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/code-reviewer.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/ssot-explorer.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/visual-tester.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/setup-project.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/SKILLS_INDEX.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/design/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/discovery/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/implement/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/review/SKILL.md",
+          "action": "deleted"
+        }
+      ],
+      "auditScore": 100,
+      "completedAt": "2026-02-16T20:41:49.817Z"
+    },
+    {
+      "taskId": "AUTH-001-REVIEW",
+      "featureId": "AUTH-001",
+      "taskKind": "review",
+      "name": "ログイン機能 - Code Audit",
+      "status": "done",
+      "files": [
+        {
+          "path": ".claude/rules/progress-report.md",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/framework.json",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/gates.json",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/plan.json",
+          "action": "modified"
+        },
+        {
+          "path": "docs/standards/ci/api.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/app.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/cli.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/common.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/docker.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/dokku.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/vercel.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/vps.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/hp.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/lp.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/pre-code-gate.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/pre-commit",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/skill-tracker.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/api.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/app.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/cli.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/hp.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/lp.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/.cursorrules",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/CLAUDE.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/code-reviewer.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/ssot-explorer.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/visual-tester.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/setup-project.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/SKILLS_INDEX.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/design/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/discovery/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/implement/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/review/SKILL.md",
+          "action": "deleted"
+        }
+      ],
+      "auditScore": 100,
+      "completedAt": "2026-02-16T20:41:50.000Z"
+    },
+    {
+      "taskId": "AUTH-005-TEST",
+      "featureId": "AUTH-005",
+      "taskKind": "test",
+      "name": "ログアウト機能 - Testing (TDD)",
+      "status": "done",
+      "files": [
+        {
+          "path": ".claude/rules/progress-report.md",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/framework.json",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/gates.json",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/plan.json",
+          "action": "modified"
+        },
+        {
+          "path": "docs/standards/ci/api.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/app.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/cli.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/common.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/docker.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/dokku.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/vercel.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/vps.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/hp.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/lp.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/pre-code-gate.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/pre-commit",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/skill-tracker.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/api.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/app.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/cli.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/hp.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/lp.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/.cursorrules",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/CLAUDE.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/code-reviewer.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/ssot-explorer.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/visual-tester.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/setup-project.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/SKILLS_INDEX.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/design/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/discovery/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/implement/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/review/SKILL.md",
+          "action": "deleted"
+        }
+      ],
+      "auditScore": 100,
+      "completedAt": "2026-02-16T20:41:54.071Z"
+    },
+    {
+      "taskId": "AUTH-005-DB",
+      "featureId": "AUTH-005",
+      "taskKind": "db",
+      "name": "ログアウト機能 - Database",
+      "status": "done",
+      "files": [
+        {
+          "path": ".claude/rules/progress-report.md",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/framework.json",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/gates.json",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/plan.json",
+          "action": "modified"
+        },
+        {
+          "path": "docs/standards/ci/api.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/app.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/cli.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/common.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/docker.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/dokku.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/vercel.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/vps.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/hp.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/lp.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/pre-code-gate.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/pre-commit",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/skill-tracker.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/api.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/app.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/cli.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/hp.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/lp.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/.cursorrules",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/CLAUDE.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/code-reviewer.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/ssot-explorer.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/visual-tester.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/setup-project.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/SKILLS_INDEX.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/design/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/discovery/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/implement/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/review/SKILL.md",
+          "action": "deleted"
+        }
+      ],
+      "auditScore": 100,
+      "completedAt": "2026-02-16T20:41:54.258Z"
+    },
+    {
+      "taskId": "AUTH-005-API",
+      "featureId": "AUTH-005",
+      "taskKind": "api",
+      "name": "ログアウト機能 - API",
+      "status": "done",
+      "files": [
+        {
+          "path": ".claude/rules/progress-report.md",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/framework.json",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/gates.json",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/plan.json",
+          "action": "modified"
+        },
+        {
+          "path": "docs/standards/ci/api.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/app.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/cli.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/common.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/docker.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/dokku.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/vercel.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/vps.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/hp.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/lp.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/pre-code-gate.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/pre-commit",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/skill-tracker.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/api.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/app.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/cli.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/hp.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/lp.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/.cursorrules",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/CLAUDE.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/code-reviewer.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/ssot-explorer.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/visual-tester.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/setup-project.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/SKILLS_INDEX.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/design/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/discovery/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/implement/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/review/SKILL.md",
+          "action": "deleted"
+        }
+      ],
+      "auditScore": 100,
+      "completedAt": "2026-02-16T20:41:54.442Z"
+    },
+    {
+      "taskId": "AUTH-005-UI",
+      "featureId": "AUTH-005",
+      "taskKind": "ui",
+      "name": "ログアウト機能 - UI",
+      "status": "done",
+      "files": [
+        {
+          "path": ".claude/rules/progress-report.md",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/framework.json",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/gates.json",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/plan.json",
+          "action": "modified"
+        },
+        {
+          "path": "docs/standards/ci/api.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/app.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/cli.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/common.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/docker.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/dokku.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/vercel.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/vps.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/hp.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/lp.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/pre-code-gate.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/pre-commit",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/skill-tracker.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/api.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/app.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/cli.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/hp.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/lp.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/.cursorrules",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/CLAUDE.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/code-reviewer.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/ssot-explorer.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/visual-tester.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/setup-project.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/SKILLS_INDEX.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/design/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/discovery/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/implement/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/review/SKILL.md",
+          "action": "deleted"
+        }
+      ],
+      "auditScore": 100,
+      "completedAt": "2026-02-16T20:41:54.628Z"
+    },
+    {
+      "taskId": "AUTH-005-INTEGRATION",
+      "featureId": "AUTH-005",
+      "taskKind": "integration",
+      "name": "ログアウト機能 - Integration",
+      "status": "done",
+      "files": [
+        {
+          "path": ".claude/rules/progress-report.md",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/framework.json",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/gates.json",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/plan.json",
+          "action": "modified"
+        },
+        {
+          "path": "docs/standards/ci/api.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/app.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/cli.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/common.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/docker.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/dokku.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/vercel.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/vps.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/hp.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/lp.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/pre-code-gate.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/pre-commit",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/skill-tracker.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/api.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/app.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/cli.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/hp.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/lp.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/.cursorrules",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/CLAUDE.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/code-reviewer.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/ssot-explorer.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/visual-tester.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/setup-project.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/SKILLS_INDEX.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/design/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/discovery/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/implement/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/review/SKILL.md",
+          "action": "deleted"
+        }
+      ],
+      "auditScore": 100,
+      "completedAt": "2026-02-16T20:41:54.812Z"
+    },
+    {
+      "taskId": "AUTH-005-REVIEW",
+      "featureId": "AUTH-005",
+      "taskKind": "review",
+      "name": "ログアウト機能 - Code Audit",
+      "status": "done",
+      "files": [
+        {
+          "path": ".claude/rules/progress-report.md",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/framework.json",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/gates.json",
+          "action": "modified"
+        },
+        {
+          "path": ".framework/plan.json",
+          "action": "modified"
+        },
+        {
+          "path": "docs/standards/ci/api.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/app.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/cli.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/common.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/docker.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/dokku.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/vercel.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/deploy/vps.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/hp.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/ci/lp.yml",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/pre-code-gate.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/pre-commit",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/hooks/skill-tracker.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/api.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/app.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/cli.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/hp.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/profiles/lp.json",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/.cursorrules",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/CLAUDE.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/code-reviewer.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/ssot-explorer.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/agents/visual-tester.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/project/setup-project.sh",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/SKILLS_INDEX.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/design/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/discovery/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/implement/SKILL.md",
+          "action": "deleted"
+        },
+        {
+          "path": "docs/standards/skills/review/SKILL.md",
+          "action": "deleted"
+        }
+      ],
+      "auditScore": 100,
+      "completedAt": "2026-02-16T20:41:54.994Z"
+    },
+    {
+      "taskId": "AUTH-006-010-TEST",
+      "featureId": "AUTH-006-010",
+      "taskKind": "test",
+      "name": "Better Auth統合 - Testing (TDD)",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "AUTH-006-010-DB",
+      "featureId": "AUTH-006-010",
+      "taskKind": "db",
+      "name": "Better Auth統合 - Database",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "AUTH-006-010-API",
+      "featureId": "AUTH-006-010",
+      "taskKind": "api",
+      "name": "Better Auth統合 - API",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "AUTH-006-010-UI",
+      "featureId": "AUTH-006-010",
+      "taskKind": "ui",
+      "name": "Better Auth統合 - UI",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "AUTH-006-010-INTEGRATION",
+      "featureId": "AUTH-006-010",
+      "taskKind": "integration",
+      "name": "Better Auth統合 - Integration",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "AUTH-006-010-REVIEW",
+      "featureId": "AUTH-006-010",
+      "taskKind": "review",
+      "name": "Better Auth統合 - Code Audit",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "ACCT-001-TEST",
+      "featureId": "ACCT-001",
+      "taskKind": "test",
+      "name": "サインアップ・招待 - Testing (TDD)",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "ACCT-001-DB",
+      "featureId": "ACCT-001",
+      "taskKind": "db",
+      "name": "サインアップ・招待 - Database",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "ACCT-001-API",
+      "featureId": "ACCT-001",
+      "taskKind": "api",
+      "name": "サインアップ・招待 - API",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "ACCT-001-UI",
+      "featureId": "ACCT-001",
+      "taskKind": "ui",
+      "name": "サインアップ・招待 - UI",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "ACCT-001-INTEGRATION",
+      "featureId": "ACCT-001",
+      "taskKind": "integration",
+      "name": "サインアップ・招待 - Integration",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "ACCT-001-REVIEW",
+      "featureId": "ACCT-001",
+      "taskKind": "review",
+      "name": "サインアップ・招待 - Code Audit",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "ROLE-001-004-TEST",
+      "featureId": "ROLE-001-004",
+      "taskKind": "test",
+      "name": "RBAC権限管理 - Testing (TDD)",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "ROLE-001-004-DB",
+      "featureId": "ROLE-001-004",
+      "taskKind": "db",
+      "name": "RBAC権限管理 - Database",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "ROLE-001-004-API",
+      "featureId": "ROLE-001-004",
+      "taskKind": "api",
+      "name": "RBAC権限管理 - API",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "ROLE-001-004-UI",
+      "featureId": "ROLE-001-004",
+      "taskKind": "ui",
+      "name": "RBAC権限管理 - UI",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "ROLE-001-004-INTEGRATION",
+      "featureId": "ROLE-001-004",
+      "taskKind": "integration",
+      "name": "RBAC権限管理 - Integration",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "ROLE-001-004-REVIEW",
+      "featureId": "ROLE-001-004",
+      "taskKind": "review",
+      "name": "RBAC権限管理 - Code Audit",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "SEC-001-007-TEST",
+      "featureId": "SEC-001-007",
+      "taskKind": "test",
+      "name": "セキュリティ基盤 - Testing (TDD)",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "SEC-001-007-DB",
+      "featureId": "SEC-001-007",
+      "taskKind": "db",
+      "name": "セキュリティ基盤 - Database",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "SEC-001-007-API",
+      "featureId": "SEC-001-007",
+      "taskKind": "api",
+      "name": "セキュリティ基盤 - API",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "SEC-001-007-UI",
+      "featureId": "SEC-001-007",
+      "taskKind": "ui",
+      "name": "セキュリティ基盤 - UI",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "SEC-001-007-INTEGRATION",
+      "featureId": "SEC-001-007",
+      "taskKind": "integration",
+      "name": "セキュリティ基盤 - Integration",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "SEC-001-007-REVIEW",
+      "featureId": "SEC-001-007",
+      "taskKind": "review",
+      "name": "セキュリティ基盤 - Code Audit",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "ERR-001-003-TEST",
+      "featureId": "ERR-001-003",
+      "taskKind": "test",
+      "name": "エラーページ - Testing (TDD)",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "ERR-001-003-DB",
+      "featureId": "ERR-001-003",
+      "taskKind": "db",
+      "name": "エラーページ - Database",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "ERR-001-003-API",
+      "featureId": "ERR-001-003",
+      "taskKind": "api",
+      "name": "エラーページ - API",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "ERR-001-003-UI",
+      "featureId": "ERR-001-003",
+      "taskKind": "ui",
+      "name": "エラーページ - UI",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "ERR-001-003-INTEGRATION",
+      "featureId": "ERR-001-003",
+      "taskKind": "integration",
+      "name": "エラーページ - Integration",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "ERR-001-003-REVIEW",
+      "featureId": "ERR-001-003",
+      "taskKind": "review",
+      "name": "エラーページ - Code Audit",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "NAV-001-002-006-TEST",
+      "featureId": "NAV-001-002-006",
+      "taskKind": "test",
+      "name": "ナビゲーション - Testing (TDD)",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "NAV-001-002-006-DB",
+      "featureId": "NAV-001-002-006",
+      "taskKind": "db",
+      "name": "ナビゲーション - Database",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "NAV-001-002-006-API",
+      "featureId": "NAV-001-002-006",
+      "taskKind": "api",
+      "name": "ナビゲーション - API",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "NAV-001-002-006-UI",
+      "featureId": "NAV-001-002-006",
+      "taskKind": "ui",
+      "name": "ナビゲーション - UI",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "NAV-001-002-006-INTEGRATION",
+      "featureId": "NAV-001-002-006",
+      "taskKind": "integration",
+      "name": "ナビゲーション - Integration",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "NAV-001-002-006-REVIEW",
+      "featureId": "NAV-001-002-006",
+      "taskKind": "review",
+      "name": "ナビゲーション - Code Audit",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "CRUD-001-004-TEST",
+      "featureId": "CRUD-001-004",
+      "taskKind": "test",
+      "name": "CRUD共通パターン - Testing (TDD)",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "CRUD-001-004-DB",
+      "featureId": "CRUD-001-004",
+      "taskKind": "db",
+      "name": "CRUD共通パターン - Database",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "CRUD-001-004-API",
+      "featureId": "CRUD-001-004",
+      "taskKind": "api",
+      "name": "CRUD共通パターン - API",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "CRUD-001-004-UI",
+      "featureId": "CRUD-001-004",
+      "taskKind": "ui",
+      "name": "CRUD共通パターン - UI",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "CRUD-001-004-INTEGRATION",
+      "featureId": "CRUD-001-004",
+      "taskKind": "integration",
+      "name": "CRUD共通パターン - Integration",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "CRUD-001-004-REVIEW",
+      "featureId": "CRUD-001-004",
+      "taskKind": "review",
+      "name": "CRUD共通パターン - Code Audit",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "LIST-001-003-TEST",
+      "featureId": "LIST-001-003",
+      "taskKind": "test",
+      "name": "リスト共通パターン - Testing (TDD)",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "LIST-001-003-DB",
+      "featureId": "LIST-001-003",
+      "taskKind": "db",
+      "name": "リスト共通パターン - Database",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "LIST-001-003-API",
+      "featureId": "LIST-001-003",
+      "taskKind": "api",
+      "name": "リスト共通パターン - API",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "LIST-001-003-UI",
+      "featureId": "LIST-001-003",
+      "taskKind": "ui",
+      "name": "リスト共通パターン - UI",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "LIST-001-003-INTEGRATION",
+      "featureId": "LIST-001-003",
+      "taskKind": "integration",
+      "name": "リスト共通パターン - Integration",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "LIST-001-003-REVIEW",
+      "featureId": "LIST-001-003",
+      "taskKind": "review",
+      "name": "リスト共通パターン - Code Audit",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "NOTIF-001-002-TEST",
+      "featureId": "NOTIF-001-002",
+      "taskKind": "test",
+      "name": "通知システム - Testing (TDD)",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "NOTIF-001-002-DB",
+      "featureId": "NOTIF-001-002",
+      "taskKind": "db",
+      "name": "通知システム - Database",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "NOTIF-001-002-API",
+      "featureId": "NOTIF-001-002",
+      "taskKind": "api",
+      "name": "通知システム - API",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "NOTIF-001-002-UI",
+      "featureId": "NOTIF-001-002",
+      "taskKind": "ui",
+      "name": "通知システム - UI",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "NOTIF-001-002-INTEGRATION",
+      "featureId": "NOTIF-001-002",
+      "taskKind": "integration",
+      "name": "通知システム - Integration",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "NOTIF-001-002-REVIEW",
+      "featureId": "NOTIF-001-002",
+      "taskKind": "review",
+      "name": "通知システム - Code Audit",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "ACCT-002-TEST",
+      "featureId": "ACCT-002",
+      "taskKind": "test",
+      "name": "プロフィール表示 - Testing (TDD)",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "ACCT-002-DB",
+      "featureId": "ACCT-002",
+      "taskKind": "db",
+      "name": "プロフィール表示 - Database",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "ACCT-002-API",
+      "featureId": "ACCT-002",
+      "taskKind": "api",
+      "name": "プロフィール表示 - API",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "ACCT-002-UI",
+      "featureId": "ACCT-002",
+      "taskKind": "ui",
+      "name": "プロフィール表示 - UI",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "ACCT-002-INTEGRATION",
+      "featureId": "ACCT-002",
+      "taskKind": "integration",
+      "name": "プロフィール表示 - Integration",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "ACCT-002-REVIEW",
+      "featureId": "ACCT-002",
+      "taskKind": "review",
+      "name": "プロフィール表示 - Code Audit",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-001-005-DB",
+      "featureId": "EVT-001-005",
+      "taskKind": "db",
+      "name": "イベント企画・管理 - Database",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-001-005-API",
+      "featureId": "EVT-001-005",
+      "taskKind": "api",
+      "name": "イベント企画・管理 - API",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-001-005-UI",
+      "featureId": "EVT-001-005",
+      "taskKind": "ui",
+      "name": "イベント企画・管理 - UI",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-001-005-INTEGRATION",
+      "featureId": "EVT-001-005",
+      "taskKind": "integration",
+      "name": "イベント企画・管理 - Integration",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-001-005-REVIEW",
+      "featureId": "EVT-001-005",
+      "taskKind": "review",
+      "name": "イベント企画・管理 - Code Audit",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-001-005-TEST",
+      "featureId": "EVT-001-005",
+      "taskKind": "test",
+      "name": "イベント企画・管理 - Testing",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "VENUE-001-004-DB",
+      "featureId": "VENUE-001-004",
+      "taskKind": "db",
+      "name": "会場管理 - Database",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "VENUE-001-004-API",
+      "featureId": "VENUE-001-004",
+      "taskKind": "api",
+      "name": "会場管理 - API",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "VENUE-001-004-UI",
+      "featureId": "VENUE-001-004",
+      "taskKind": "ui",
+      "name": "会場管理 - UI",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "VENUE-001-004-INTEGRATION",
+      "featureId": "VENUE-001-004",
+      "taskKind": "integration",
+      "name": "会場管理 - Integration",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "VENUE-001-004-REVIEW",
+      "featureId": "VENUE-001-004",
+      "taskKind": "review",
+      "name": "会場管理 - Code Audit",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "VENUE-001-004-TEST",
+      "featureId": "VENUE-001-004",
+      "taskKind": "test",
+      "name": "会場管理 - Testing",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "AI-001-003-008-DB",
+      "featureId": "AI-001-003-008",
+      "taskKind": "db",
+      "name": "AIプラットフォーム基盤 - Database",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "AI-001-003-008-API",
+      "featureId": "AI-001-003-008",
+      "taskKind": "api",
+      "name": "AIプラットフォーム基盤 - API",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "AI-001-003-008-UI",
+      "featureId": "AI-001-003-008",
+      "taskKind": "ui",
+      "name": "AIプラットフォーム基盤 - UI",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "AI-001-003-008-INTEGRATION",
+      "featureId": "AI-001-003-008",
+      "taskKind": "integration",
+      "name": "AIプラットフォーム基盤 - Integration",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "AI-001-003-008-REVIEW",
+      "featureId": "AI-001-003-008",
+      "taskKind": "review",
+      "name": "AIプラットフォーム基盤 - Code Audit",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "AI-001-003-008-TEST",
+      "featureId": "AI-001-003-008",
+      "taskKind": "test",
+      "name": "AIプラットフォーム基盤 - Testing",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-010-014-DB",
+      "featureId": "EVT-010-014",
+      "taskKind": "db",
+      "name": "マスタースケジュール - Database",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-010-014-API",
+      "featureId": "EVT-010-014",
+      "taskKind": "api",
+      "name": "マスタースケジュール - API",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-010-014-UI",
+      "featureId": "EVT-010-014",
+      "taskKind": "ui",
+      "name": "マスタースケジュール - UI",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-010-014-INTEGRATION",
+      "featureId": "EVT-010-014",
+      "taskKind": "integration",
+      "name": "マスタースケジュール - Integration",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-010-014-REVIEW",
+      "featureId": "EVT-010-014",
+      "taskKind": "review",
+      "name": "マスタースケジュール - Code Audit",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-010-014-TEST",
+      "featureId": "EVT-010-014",
+      "taskKind": "test",
+      "name": "マスタースケジュール - Testing",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-020-021-DB",
+      "featureId": "EVT-020-021",
+      "taskKind": "db",
+      "name": "登壇者管理 - Database",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-020-021-API",
+      "featureId": "EVT-020-021",
+      "taskKind": "api",
+      "name": "登壇者管理 - API",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-020-021-UI",
+      "featureId": "EVT-020-021",
+      "taskKind": "ui",
+      "name": "登壇者管理 - UI",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-020-021-INTEGRATION",
+      "featureId": "EVT-020-021",
+      "taskKind": "integration",
+      "name": "登壇者管理 - Integration",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-020-021-REVIEW",
+      "featureId": "EVT-020-021",
+      "taskKind": "review",
+      "name": "登壇者管理 - Code Audit",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-020-021-TEST",
+      "featureId": "EVT-020-021",
+      "taskKind": "test",
+      "name": "登壇者管理 - Testing",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-030-031-033-DB",
+      "featureId": "EVT-030-031-033",
+      "taskKind": "db",
+      "name": "参加者ポータル・チェックイン - Database",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-030-031-033-API",
+      "featureId": "EVT-030-031-033",
+      "taskKind": "api",
+      "name": "参加者ポータル・チェックイン - API",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-030-031-033-UI",
+      "featureId": "EVT-030-031-033",
+      "taskKind": "ui",
+      "name": "参加者ポータル・チェックイン - UI",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-030-031-033-INTEGRATION",
+      "featureId": "EVT-030-031-033",
+      "taskKind": "integration",
+      "name": "参加者ポータル・チェックイン - Integration",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-030-031-033-REVIEW",
+      "featureId": "EVT-030-031-033",
+      "taskKind": "review",
+      "name": "参加者ポータル・チェックイン - Code Audit",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-030-031-033-TEST",
+      "featureId": "EVT-030-031-033",
+      "taskKind": "test",
+      "name": "参加者ポータル・チェックイン - Testing",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-040-DB",
+      "featureId": "EVT-040",
+      "taskKind": "db",
+      "name": "サマリーレポートAI自動生成 - Database",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-040-API",
+      "featureId": "EVT-040",
+      "taskKind": "api",
+      "name": "サマリーレポートAI自動生成 - API",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-040-UI",
+      "featureId": "EVT-040",
+      "taskKind": "ui",
+      "name": "サマリーレポートAI自動生成 - UI",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-040-INTEGRATION",
+      "featureId": "EVT-040",
+      "taskKind": "integration",
+      "name": "サマリーレポートAI自動生成 - Integration",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-040-REVIEW",
+      "featureId": "EVT-040",
+      "taskKind": "review",
+      "name": "サマリーレポートAI自動生成 - Code Audit",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-040-TEST",
+      "featureId": "EVT-040",
+      "taskKind": "test",
+      "name": "サマリーレポートAI自動生成 - Testing",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-050-051-DB",
+      "featureId": "EVT-050-051",
+      "taskKind": "db",
+      "name": "AIアシスタントUI（HUBコンシェルジュ） - Database",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-050-051-API",
+      "featureId": "EVT-050-051",
+      "taskKind": "api",
+      "name": "AIアシスタントUI（HUBコンシェルジュ） - API",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-050-051-UI",
+      "featureId": "EVT-050-051",
+      "taskKind": "ui",
+      "name": "AIアシスタントUI（HUBコンシェルジュ） - UI",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-050-051-INTEGRATION",
+      "featureId": "EVT-050-051",
+      "taskKind": "integration",
+      "name": "AIアシスタントUI（HUBコンシェルジュ） - Integration",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-050-051-REVIEW",
+      "featureId": "EVT-050-051",
+      "taskKind": "review",
+      "name": "AIアシスタントUI（HUBコンシェルジュ） - Code Audit",
+      "status": "backlog",
+      "files": []
+    },
+    {
+      "taskId": "EVT-050-051-TEST",
+      "featureId": "EVT-050-051",
+      "taskKind": "test",
+      "name": "AIアシスタントUI（HUBコンシェルジュ） - Testing",
+      "status": "backlog",
+      "files": []
+    }
+  ],
+  "startedAt": "2026-02-16T20:23:01.050Z",
+  "updatedAt": "2026-02-16T20:41:54.995Z"
+}
