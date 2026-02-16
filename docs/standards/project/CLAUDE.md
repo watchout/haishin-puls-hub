@@ -86,6 +86,53 @@
 
 ---
 
+## 🔒 Pre-Code Gate（CLI で構造的に強制）
+
+```
+コードを1行でも書く前に、3段階のGateを全て通過する必要がある。
+Gate は 2層の構造的強制で実行される。
+
+Layer 1: Claude Code hook（リアルタイム）
+  - PreToolUse フックが Edit/Write をインターセプト
+  - src/ 等のソースコードパスへの編集を Gate 未通過時にブロック
+  - .claude/hooks/pre-code-gate.sh → .framework/gates.json を参照
+  - docs/, config 等の非ソースファイルは制限なし
+
+Layer 2: Git pre-commit hook（コミット時）
+  - ソースファイルが含まれるコミットで `framework gate check` をフル実行
+  - 緊急時は `git commit --no-verify` でバイパス可能
+
+Gate A: 開発環境・インフラの準備
+  - package.json, node_modules, .env, docker-compose, CI/CD の存在確認
+
+Gate B: タスク分解・計画の完了
+  - .framework/plan.json（framework plan 実行済み）
+  - .framework/project.json の存在確認
+
+Gate C: SSOT 完全性チェック
+  - 各SSOT の §3-E/F/G/H セクションが記入されているか
+
+操作コマンド:
+  framework gate check       全Gate一括チェック → gates.json に保存
+  framework gate check-a     Gate A のみチェック
+  framework gate check-b     Gate B のみチェック
+  framework gate check-c     Gate C のみチェック
+  framework gate status      現在のGate状態を表示
+  framework gate reset       Gate 状態をリセット
+
+自動連動:
+  framework plan 成功時     → Gate B が自動パス
+  framework audit ssot 実行時 → Gate C が自動評価
+
+日常のワークフロー:
+  1. framework gate check   ← 全ゲートをチェック
+  2. framework gate status  ← 結果を確認
+  3. 未通過のGateがあれば修正
+  4. framework run          ← 全Gate通過後のみ実行可能
+```
+
+---
+
 ## 会社ナレッジ参照ルール
 
 > `.framework/project.json` に `knowledgeSource` が設定されている場合、
@@ -124,6 +171,7 @@
    - コーディング規約 → docs/standards/CODING_STANDARDS.md
    - テスト規約       → docs/standards/TESTING_STANDARDS.md
    - Git運用          → docs/standards/GIT_WORKFLOW.md
+   - 決済セキュリティ → docs/standards/SECURITY_STRIPE.md（Stripe利用時）
 4. PRD               → docs/requirements/SSOT-0_PRD.md
 ```
 
