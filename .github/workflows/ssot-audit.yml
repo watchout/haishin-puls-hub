@@ -1,0 +1,100 @@
+# SSOT準拠監査ワークフロー
+# ai-dev-framework標準: PR時の自動SSOT監査
+
+name: SSOT Audit
+
+on:
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - 'docs/**'
+
+jobs:
+  ssot-compliance-check:
+    name: SSOT Compliance Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # 1. SSOTファイル構造チェック
+      - name: SSOT Structure Check
+        run: |
+          echo "## SSOT Structure Check" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Core SSOTs (requirements + design/core)
+          CORE_COUNT=0
+          for f in docs/requirements/SSOT-*.md docs/design/core/SSOT-*.md; do
+            [ -f "$f" ] && CORE_COUNT=$((CORE_COUNT + 1))
+          done
+          echo "Core SSOTs: $CORE_COUNT" >> $GITHUB_STEP_SUMMARY
+
+          # Feature SSOTs (design/features)
+          FEATURE_COUNT=$(find docs/design/features -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
+          echo "Feature SSOTs: $FEATURE_COUNT" >> $GITHUB_STEP_SUMMARY
+
+          # Check creation rules exist
+          if [ -f "docs/_SSOT_CREATION_RULES.md" ]; then
+            echo "SSOT Creation Rules: Present" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "SSOT Creation Rules: MISSING" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "All SSOTs:" >> $GITHUB_STEP_SUMMARY
+          find docs -name "SSOT*.md" -o -name "SSOT-*.md" 2>/dev/null | sort >> $GITHUB_STEP_SUMMARY
+          find docs/design/features -name "*.md" 2>/dev/null | sort >> $GITHUB_STEP_SUMMARY
+
+      # 2. Feature Spec必須セクション検証
+      - name: Feature Spec Required Sections Check
+        run: |
+          echo "## Feature Spec Required Sections" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          FAILED=0
+          for spec in $(find docs/design/features -name "*.md" 2>/dev/null); do
+            MISSING=""
+            grep -qi "acceptance\|受け入れ\|criteria\|AC-" "$spec" || MISSING="$MISSING Acceptance"
+            grep -qi "api\|endpoint\|contract" "$spec" || MISSING="$MISSING API"
+            grep -qi "database\|schema\|table\|model" "$spec" || MISSING="$MISSING DB"
+            grep -qi "test\|scenario\|E2E" "$spec" || MISSING="$MISSING Tests"
+
+            if [ -n "$MISSING" ]; then
+              echo "- $(basename $spec): Missing$MISSING" >> $GITHUB_STEP_SUMMARY
+              FAILED=$((FAILED + 1))
+            fi
+          done
+
+          if [ $FAILED -eq 0 ]; then
+            echo "All feature specs have required sections" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "$FAILED spec(s) have missing sections" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      # 3. Sensitive data check
+      - name: Sensitive Data Check
+        run: |
+          echo "## Security Check" >> $GITHUB_STEP_SUMMARY
+          if grep -rn "sk-\|PRIVATE_KEY\|password.*=.*['\"]" --include="*.ts" --include="*.js" --include="*.vue" . 2>/dev/null | grep -v node_modules | grep -v ".env.example"; then
+            echo "Potential sensitive data found" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+          echo "No sensitive data detected" >> $GITHUB_STEP_SUMMARY

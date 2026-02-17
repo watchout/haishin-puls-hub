@@ -1,0 +1,136 @@
+# Critical Quality Gates
+# ai-dev-framework標準: 製品化の絶対条件チェック
+
+name: Critical Quality Gates
+
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [main]
+
+jobs:
+  # Gate 1: Framework Gate Check
+  framework-gates:
+    name: Framework Gates (A/B/C)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Check .framework/ integrity
+        run: |
+          echo "## Framework Gate Status" >> $GITHUB_STEP_SUMMARY
+
+          # Check framework.json
+          if [ -f ".framework/framework.json" ]; then
+            echo "framework.json: Present" >> $GITHUB_STEP_SUMMARY
+            VERSION=$(cat .framework/framework.json | python3 -c "import json,sys; print(json.load(sys.stdin).get('version','unknown'))" 2>/dev/null || echo "parse-error")
+            echo "Version: $VERSION" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "framework.json: MISSING" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
+          # Check gates.json
+          if [ -f ".framework/gates.json" ]; then
+            python3 -c "
+          import json
+          with open('.framework/gates.json') as f:
+              data = json.load(f)
+          for gate_name in ['gateA', 'gateB', 'gateC']:
+              gate = data.get(gate_name, {})
+              status = gate.get('status', 'UNKNOWN')
+              print(f'{gate_name}: {status}')
+              if status != 'PASSED':
+                  print(f'  WARNING: {gate_name} is not PASSED')
+          " >> $GITHUB_STEP_SUMMARY
+          else
+            echo "gates.json: MISSING" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          # Check plan.json
+          if [ -f ".framework/plan.json" ]; then
+            FEATURES=$(python3 -c "
+          import json
+          with open('.framework/plan.json') as f:
+              data = json.load(f)
+          total = sum(len(w.get('features',[])) for w in data.get('waves',[]))
+          print(f'{total} features across {len(data.get(\"waves\",[]))} waves')
+          " 2>/dev/null || echo "parse-error")
+            echo "Plan: $FEATURES" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          # Check run-state.json
+          if [ -f ".framework/run-state.json" ]; then
+            python3 -c "
+          import json
+          with open('.framework/run-state.json') as f:
+              data = json.load(f)
+          tasks = data.get('tasks', [])
+          total = len(tasks)
+          done = len([t for t in tasks if t.get('status') == 'done'])
+          pct = (100*done//total) if total else 0
+          print(f'Tasks: {done}/{total} ({pct}%)')
+          " >> $GITHUB_STEP_SUMMARY 2>/dev/null
+          fi
+
+  # Gate 2: Security Scan
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Check for sensitive data
+        run: |
+          echo "## Security Scan" >> $GITHUB_STEP_SUMMARY
+          FOUND=0
+          if grep -rn "sk-[a-zA-Z0-9]" --include="*.ts" --include="*.js" --include="*.vue" . 2>/dev/null | grep -v node_modules; then
+            echo "API key pattern detected" >> $GITHUB_STEP_SUMMARY
+            FOUND=1
+          fi
+          if grep -rn "password\s*[:=]\s*['\"][^'\"]*['\"]" --include="*.ts" --include="*.js" . 2>/dev/null | grep -v node_modules | grep -v ".env" | grep -v "test" | grep -v "spec"; then
+            echo "Hardcoded password pattern detected" >> $GITHUB_STEP_SUMMARY
+            FOUND=1
+          fi
+          if [ $FOUND -eq 0 ]; then
+            echo "No sensitive data detected" >> $GITHUB_STEP_SUMMARY
+          else
+            exit 1
+          fi
+
+  # Summary
+  gates-summary:
+    name: Gates Summary
+    runs-on: ubuntu-latest
+    needs: [framework-gates, security-scan]
+    if: always()
+    steps:
+      - name: Check results
+        run: |
+          echo "## Critical Quality Gates Results"
+          echo ""
+          echo "Framework Gates: ${{ needs.framework-gates.result }}"
+          echo "Security Scan: ${{ needs.security-scan.result }}"
+
+          if [ "${{ needs.framework-gates.result }}" != "success" ] || \
+             [ "${{ needs.security-scan.result }}" != "success" ]; then
+            echo ""
+            echo "Critical Gates Failed"
+            exit 1
+          fi
+
+          echo ""
+          echo "All Critical Gates Passed!"
