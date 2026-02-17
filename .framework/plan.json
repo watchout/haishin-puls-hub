@@ -25,7 +25,9 @@
           "priority": "P0",
           "size": "S",
           "type": "common",
-          "dependencies": ["AUTH-001"],
+          "dependencies": [
+            "AUTH-001"
+          ],
           "dependencyCount": 0,
           "status": "done"
         },
@@ -35,8 +37,11 @@
           "priority": "P0",
           "size": "M",
           "type": "common",
-          "dependencies": ["AUTH-001"],
-          "dependencyCount": 2
+          "dependencies": [
+            "AUTH-001"
+          ],
+          "dependencyCount": 2,
+          "status": "done"
         },
         {
           "id": "ACCT-001",
@@ -44,7 +49,9 @@
           "priority": "P0",
           "size": "L",
           "type": "common",
-          "dependencies": ["AUTH-001"],
+          "dependencies": [
+            "AUTH-001"
+          ],
           "dependencyCount": 1
         },
         {
@@ -53,7 +60,9 @@
           "priority": "P0",
           "size": "L",
           "type": "common",
-          "dependencies": ["AUTH-001"],
+          "dependencies": [
+            "AUTH-001"
+          ],
           "dependencyCount": 6
         }
       ]
@@ -70,7 +79,9 @@
           "priority": "P0",
           "size": "L",
           "type": "common",
-          "dependencies": ["AUTH-001"],
+          "dependencies": [
+            "AUTH-001"
+          ],
           "dependencyCount": 5
         },
         {
@@ -88,7 +99,10 @@
           "priority": "P0",
           "size": "M",
           "type": "common",
-          "dependencies": ["AUTH-001", "ROLE-001-004"],
+          "dependencies": [
+            "AUTH-001",
+            "ROLE-001-004"
+          ],
           "dependencyCount": 0
         },
         {
@@ -97,7 +111,10 @@
           "priority": "P0",
           "size": "M",
           "type": "common",
-          "dependencies": ["AUTH-001", "ROLE-001-004"],
+          "dependencies": [
+            "AUTH-001",
+            "ROLE-001-004"
+          ],
           "dependencyCount": 4
         },
         {
@@ -106,7 +123,9 @@
           "priority": "P0",
           "size": "M",
           "type": "common",
-          "dependencies": ["CRUD-001-004"],
+          "dependencies": [
+            "CRUD-001-004"
+          ],
           "dependencyCount": 3
         },
         {
@@ -115,7 +134,9 @@
           "priority": "P0",
           "size": "M",
           "type": "common",
-          "dependencies": ["AUTH-001"],
+          "dependencies": [
+            "AUTH-001"
+          ],
           "dependencyCount": 0
         },
         {
@@ -124,7 +145,10 @@
           "priority": "P0",
           "size": "S",
           "type": "common",
-          "dependencies": ["AUTH-001", "ACCT-001"],
+          "dependencies": [
+            "AUTH-001",
+            "ACCT-001"
+          ],
           "dependencyCount": 0
         }
       ]
@@ -141,7 +165,11 @@
           "priority": "P0",
           "size": "XL",
           "type": "proprietary",
-          "dependencies": ["AUTH-001", "ROLE-001-004", "CRUD-001-004"],
+          "dependencies": [
+            "AUTH-001",
+            "ROLE-001-004",
+            "CRUD-001-004"
+          ],
           "dependencyCount": 4
         },
         {
@@ -150,7 +178,11 @@
           "priority": "P0",
           "size": "L",
           "type": "proprietary",
-          "dependencies": ["AUTH-001", "ROLE-001-004", "CRUD-001-004"],
+          "dependencies": [
+            "AUTH-001",
+            "ROLE-001-004",
+            "CRUD-001-004"
+          ],
           "dependencyCount": 2
         },
         {
@@ -159,7 +191,10 @@
           "priority": "P0",
           "size": "XL",
           "type": "proprietary",
-          "dependencies": ["AUTH-001", "SEC-001-007"],
+          "dependencies": [
+            "AUTH-001",
+            "SEC-001-007"
+          ],
           "dependencyCount": 2
         }
       ]
@@ -176,7 +211,9 @@
           "priority": "P0",
           "size": "XL",
           "type": "proprietary",
-          "dependencies": ["EVT-001-005"],
+          "dependencies": [
+            "EVT-001-005"
+          ],
           "dependencyCount": 1
         },
         {
@@ -185,7 +222,9 @@
           "priority": "P0",
           "size": "L",
           "type": "proprietary",
-          "dependencies": ["EVT-001-005"],
+          "dependencies": [
+            "EVT-001-005"
+          ],
           "dependencyCount": 1
         },
         {
@@ -194,7 +233,9 @@
           "priority": "P0",
           "size": "XL",
           "type": "proprietary",
-          "dependencies": ["EVT-001-005"],
+          "dependencies": [
+            "EVT-001-005"
+          ],
           "dependencyCount": 1
         }
       ]
@@ -211,7 +252,11 @@
           "priority": "P1",
           "size": "L",
           "type": "proprietary",
-          "dependencies": ["EVT-001-005", "EVT-030-031-033", "AI-001-003-008"],
+          "dependencies": [
+            "EVT-001-005",
+            "EVT-030-031-033",
+            "AI-001-003-008"
+          ],
           "dependencyCount": 0
         },
         {
@@ -220,7 +265,11 @@
           "priority": "P0",
           "size": "XL",
           "type": "proprietary",
-          "dependencies": ["AUTH-001", "ROLE-001-004", "AI-001-003-008"],
+          "dependencies": [
+            "AUTH-001",
+            "ROLE-001-004",
+            "AI-001-003-008"
+          ],
           "dependencyCount": 0
         }
       ]

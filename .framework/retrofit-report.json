@@ -1,7 +1,7 @@
 {
   "projectDir": "/Users/kaneko/haishin-plus-hub",
   "projectName": "haishin-plus-hub",
-  "scannedAt": "2026-02-15T22:55:19.239Z",
+  "scannedAt": "2026-02-16T21:04:06.840Z",
   "directory": {
     "hasSrc": false,
     "hasDocs": true,
@@ -23,6 +23,7 @@
       "plugins",
       "server",
       "stores",
+      "test-results",
       "tests",
       "types"
     ],
@@ -55,12 +56,12 @@
     }
   ],
   "fileStats": {
-    "totalFiles": 448,
-    "totalLines": 113262,
+    "totalFiles": 426,
+    "totalLines": 109048,
     "byExtension": {
-      ".md": 138,
-      ".json": 38,
-      ".ts": 268,
+      ".md": 104,
+      ".json": 47,
+      ".ts": 271,
       ".css": 3,
       ".js": 1
     }
@@ -421,6 +422,42 @@
       "category": "standards"
     },
     {
+      "path": "docs/standards/github/ISSUE_TEMPLATE/bug.md",
+      "name": "bug.md",
+      "sizeBytes": 468,
+      "category": "ISSUE_TEMPLATE"
+    },
+    {
+      "path": "docs/standards/github/ISSUE_TEMPLATE/feature-api.md",
+      "name": "feature-api.md",
+      "sizeBytes": 670,
+      "category": "ISSUE_TEMPLATE"
+    },
+    {
+      "path": "docs/standards/github/ISSUE_TEMPLATE/feature-db.md",
+      "name": "feature-db.md",
+      "sizeBytes": 682,
+      "category": "ISSUE_TEMPLATE"
+    },
+    {
+      "path": "docs/standards/github/ISSUE_TEMPLATE/feature-test.md",
+      "name": "feature-test.md",
+      "sizeBytes": 609,
+      "category": "ISSUE_TEMPLATE"
+    },
+    {
+      "path": "docs/standards/github/ISSUE_TEMPLATE/feature-ui.md",
+      "name": "feature-ui.md",
+      "sizeBytes": 650,
+      "category": "ISSUE_TEMPLATE"
+    },
+    {
+      "path": "docs/standards/github/PULL_REQUEST_TEMPLATE.md",
+      "name": "PULL_REQUEST_TEMPLATE.md",
+      "sizeBytes": 550,
+      "category": "github"
+    },
+    {
       "path": "docs/standards/growth/GROWTH_STRATEGY.md",
       "name": "GROWTH_STRATEGY.md",
       "sizeBytes": 9914,
@@ -487,69 +524,15 @@
       "category": "marketing"
     },
     {
-      "path": "docs/standards/project/CLAUDE.md",
-      "name": "CLAUDE.md",
-      "sizeBytes": 14322,
-      "category": "project"
-    },
-    {
-      "path": "docs/standards/project/agents/code-reviewer.md",
-      "name": "code-reviewer.md",
-      "sizeBytes": 2352,
-      "category": "agents"
-    },
-    {
-      "path": "docs/standards/project/agents/ssot-explorer.md",
-      "name": "ssot-explorer.md",
-      "sizeBytes": 2221,
-      "category": "agents"
-    },
-    {
-      "path": "docs/standards/project/agents/visual-tester.md",
-      "name": "visual-tester.md",
-      "sizeBytes": 2504,
-      "category": "agents"
-    },
-    {
-      "path": "docs/standards/skills/SKILLS_INDEX.md",
-      "name": "SKILLS_INDEX.md",
-      "sizeBytes": 1934,
-      "category": "skills"
-    },
-    {
-      "path": "docs/standards/skills/design/SKILL.md",
-      "name": "SKILL.md",
-      "sizeBytes": 7355,
-      "category": "design"
-    },
-    {
-      "path": "docs/standards/skills/discovery/SKILL.md",
-      "name": "SKILL.md",
-      "sizeBytes": 6527,
-      "category": "discovery"
-    },
-    {
-      "path": "docs/standards/skills/implement/SKILL.md",
-      "name": "SKILL.md",
-      "sizeBytes": 5226,
-      "category": "implement"
-    },
-    {
-      "path": "docs/standards/skills/review/SKILL.md",
-      "name": "SKILL.md",
-      "sizeBytes": 6217,
-      "category": "review"
-    },
-    {
       "path": "CLAUDE.md",
       "name": "CLAUDE.md",
-      "sizeBytes": 15948,
+      "sizeBytes": 15783,
       "category": "root"
     },
     {
       "path": "FRAMEWORK_v34_OPERATIONS.md",
       "name": "FRAMEWORK_v34_OPERATIONS.md",
-      "sizeBytes": 3805,
+      "sizeBytes": 3926,
       "category": "root"
     },
     {

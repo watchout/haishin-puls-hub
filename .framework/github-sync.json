@@ -1,0 +1,726 @@
+{
+  "repo": "watchout/haishin-puls-hub",
+  "syncedAt": "2026-02-17T01:03:16.324Z",
+  "featureIssues": [
+    {
+      "featureId": "AUTH-001",
+      "parentIssueNumber": 58,
+      "taskIssues": [
+        {
+          "taskId": "AUTH-001-DB",
+          "issueNumber": 76,
+          "status": "closed"
+        },
+        {
+          "taskId": "AUTH-001-API",
+          "issueNumber": 77,
+          "status": "closed"
+        },
+        {
+          "taskId": "AUTH-001-UI",
+          "issueNumber": 78,
+          "status": "closed"
+        },
+        {
+          "taskId": "AUTH-001-INTEGRATION",
+          "issueNumber": 79,
+          "status": "closed"
+        },
+        {
+          "taskId": "AUTH-001-REVIEW",
+          "issueNumber": 80,
+          "status": "closed"
+        },
+        {
+          "taskId": "AUTH-001-TEST",
+          "issueNumber": 81,
+          "status": "closed"
+        }
+      ]
+    },
+    {
+      "featureId": "AUTH-005",
+      "parentIssueNumber": 59,
+      "taskIssues": [
+        {
+          "taskId": "AUTH-005-DB",
+          "issueNumber": 82,
+          "status": "closed"
+        },
+        {
+          "taskId": "AUTH-005-API",
+          "issueNumber": 83,
+          "status": "closed"
+        },
+        {
+          "taskId": "AUTH-005-UI",
+          "issueNumber": 84,
+          "status": "closed"
+        },
+        {
+          "taskId": "AUTH-005-INTEGRATION",
+          "issueNumber": 85,
+          "status": "closed"
+        },
+        {
+          "taskId": "AUTH-005-REVIEW",
+          "issueNumber": 86,
+          "status": "closed"
+        },
+        {
+          "taskId": "AUTH-005-TEST",
+          "issueNumber": 87,
+          "status": "closed"
+        }
+      ]
+    },
+    {
+      "featureId": "AUTH-006-010",
+      "parentIssueNumber": 60,
+      "taskIssues": [
+        {
+          "taskId": "AUTH-006-010-DB",
+          "issueNumber": 88,
+          "status": "closed"
+        },
+        {
+          "taskId": "AUTH-006-010-API",
+          "issueNumber": 89,
+          "status": "closed"
+        },
+        {
+          "taskId": "AUTH-006-010-UI",
+          "issueNumber": 90,
+          "status": "closed"
+        },
+        {
+          "taskId": "AUTH-006-010-INTEGRATION",
+          "issueNumber": 91,
+          "status": "closed"
+        },
+        {
+          "taskId": "AUTH-006-010-REVIEW",
+          "issueNumber": 92,
+          "status": "closed"
+        },
+        {
+          "taskId": "AUTH-006-010-TEST",
+          "issueNumber": 93,
+          "status": "closed"
+        }
+      ]
+    },
+    {
+      "featureId": "ACCT-001",
+      "parentIssueNumber": 61,
+      "taskIssues": [
+        {
+          "taskId": "ACCT-001-DB",
+          "issueNumber": 94,
+          "status": "open"
+        },
+        {
+          "taskId": "ACCT-001-API",
+          "issueNumber": 95,
+          "status": "open"
+        },
+        {
+          "taskId": "ACCT-001-UI",
+          "issueNumber": 96,
+          "status": "open"
+        },
+        {
+          "taskId": "ACCT-001-INTEGRATION",
+          "issueNumber": 97,
+          "status": "open"
+        },
+        {
+          "taskId": "ACCT-001-REVIEW",
+          "issueNumber": 98,
+          "status": "open"
+        },
+        {
+          "taskId": "ACCT-001-TEST",
+          "issueNumber": 99,
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "featureId": "ROLE-001-004",
+      "parentIssueNumber": 62,
+      "taskIssues": [
+        {
+          "taskId": "ROLE-001-004-DB",
+          "issueNumber": 100,
+          "status": "open"
+        },
+        {
+          "taskId": "ROLE-001-004-API",
+          "issueNumber": 101,
+          "status": "open"
+        },
+        {
+          "taskId": "ROLE-001-004-UI",
+          "issueNumber": 102,
+          "status": "open"
+        },
+        {
+          "taskId": "ROLE-001-004-INTEGRATION",
+          "issueNumber": 103,
+          "status": "open"
+        },
+        {
+          "taskId": "ROLE-001-004-REVIEW",
+          "issueNumber": 104,
+          "status": "open"
+        },
+        {
+          "taskId": "ROLE-001-004-TEST",
+          "issueNumber": 105,
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "featureId": "SEC-001-007",
+      "parentIssueNumber": 63,
+      "taskIssues": [
+        {
+          "taskId": "SEC-001-007-DB",
+          "issueNumber": 106,
+          "status": "open"
+        },
+        {
+          "taskId": "SEC-001-007-API",
+          "issueNumber": 107,
+          "status": "open"
+        },
+        {
+          "taskId": "SEC-001-007-UI",
+          "issueNumber": 108,
+          "status": "open"
+        },
+        {
+          "taskId": "SEC-001-007-INTEGRATION",
+          "issueNumber": 109,
+          "status": "open"
+        },
+        {
+          "taskId": "SEC-001-007-REVIEW",
+          "issueNumber": 110,
+          "status": "open"
+        },
+        {
+          "taskId": "SEC-001-007-TEST",
+          "issueNumber": 111,
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "featureId": "ERR-001-003",
+      "parentIssueNumber": 64,
+      "taskIssues": [
+        {
+          "taskId": "ERR-001-003-DB",
+          "issueNumber": 112,
+          "status": "open"
+        },
+        {
+          "taskId": "ERR-001-003-API",
+          "issueNumber": 113,
+          "status": "open"
+        },
+        {
+          "taskId": "ERR-001-003-UI",
+          "issueNumber": 114,
+          "status": "open"
+        },
+        {
+          "taskId": "ERR-001-003-INTEGRATION",
+          "issueNumber": 115,
+          "status": "open"
+        },
+        {
+          "taskId": "ERR-001-003-REVIEW",
+          "issueNumber": 116,
+          "status": "open"
+        },
+        {
+          "taskId": "ERR-001-003-TEST",
+          "issueNumber": 117,
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "featureId": "NAV-001-002-006",
+      "parentIssueNumber": 65,
+      "taskIssues": [
+        {
+          "taskId": "NAV-001-002-006-DB",
+          "issueNumber": 118,
+          "status": "open"
+        },
+        {
+          "taskId": "NAV-001-002-006-API",
+          "issueNumber": 119,
+          "status": "open"
+        },
+        {
+          "taskId": "NAV-001-002-006-UI",
+          "issueNumber": 120,
+          "status": "open"
+        },
+        {
+          "taskId": "NAV-001-002-006-INTEGRATION",
+          "issueNumber": 121,
+          "status": "open"
+        },
+        {
+          "taskId": "NAV-001-002-006-REVIEW",
+          "issueNumber": 122,
+          "status": "open"
+        },
+        {
+          "taskId": "NAV-001-002-006-TEST",
+          "issueNumber": 123,
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "featureId": "CRUD-001-004",
+      "parentIssueNumber": 66,
+      "taskIssues": [
+        {
+          "taskId": "CRUD-001-004-DB",
+          "issueNumber": 124,
+          "status": "open"
+        },
+        {
+          "taskId": "CRUD-001-004-API",
+          "issueNumber": 125,
+          "status": "open"
+        },
+        {
+          "taskId": "CRUD-001-004-UI",
+          "issueNumber": 126,
+          "status": "open"
+        },
+        {
+          "taskId": "CRUD-001-004-INTEGRATION",
+          "issueNumber": 127,
+          "status": "open"
+        },
+        {
+          "taskId": "CRUD-001-004-REVIEW",
+          "issueNumber": 128,
+          "status": "open"
+        },
+        {
+          "taskId": "CRUD-001-004-TEST",
+          "issueNumber": 129,
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "featureId": "LIST-001-003",
+      "parentIssueNumber": 67,
+      "taskIssues": [
+        {
+          "taskId": "LIST-001-003-DB",
+          "issueNumber": 130,
+          "status": "open"
+        },
+        {
+          "taskId": "LIST-001-003-API",
+          "issueNumber": 131,
+          "status": "open"
+        },
+        {
+          "taskId": "LIST-001-003-UI",
+          "issueNumber": 132,
+          "status": "open"
+        },
+        {
+          "taskId": "LIST-001-003-INTEGRATION",
+          "issueNumber": 133,
+          "status": "open"
+        },
+        {
+          "taskId": "LIST-001-003-REVIEW",
+          "issueNumber": 134,
+          "status": "open"
+        },
+        {
+          "taskId": "LIST-001-003-TEST",
+          "issueNumber": 135,
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "featureId": "NOTIF-001-002",
+      "parentIssueNumber": 68,
+      "taskIssues": [
+        {
+          "taskId": "NOTIF-001-002-DB",
+          "issueNumber": 136,
+          "status": "open"
+        },
+        {
+          "taskId": "NOTIF-001-002-API",
+          "issueNumber": 137,
+          "status": "open"
+        },
+        {
+          "taskId": "NOTIF-001-002-UI",
+          "issueNumber": 138,
+          "status": "open"
+        },
+        {
+          "taskId": "NOTIF-001-002-INTEGRATION",
+          "issueNumber": 139,
+          "status": "open"
+        },
+        {
+          "taskId": "NOTIF-001-002-REVIEW",
+          "issueNumber": 140,
+          "status": "open"
+        },
+        {
+          "taskId": "NOTIF-001-002-TEST",
+          "issueNumber": 141,
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "featureId": "ACCT-002",
+      "parentIssueNumber": 69,
+      "taskIssues": [
+        {
+          "taskId": "ACCT-002-DB",
+          "issueNumber": 142,
+          "status": "open"
+        },
+        {
+          "taskId": "ACCT-002-API",
+          "issueNumber": 143,
+          "status": "open"
+        },
+        {
+          "taskId": "ACCT-002-UI",
+          "issueNumber": 144,
+          "status": "open"
+        },
+        {
+          "taskId": "ACCT-002-INTEGRATION",
+          "issueNumber": 145,
+          "status": "open"
+        },
+        {
+          "taskId": "ACCT-002-REVIEW",
+          "issueNumber": 146,
+          "status": "open"
+        },
+        {
+          "taskId": "ACCT-002-TEST",
+          "issueNumber": 147,
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "featureId": "EVT-001-005",
+      "parentIssueNumber": 70,
+      "taskIssues": [
+        {
+          "taskId": "EVT-001-005-DB",
+          "issueNumber": 148,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-001-005-API",
+          "issueNumber": 149,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-001-005-UI",
+          "issueNumber": 150,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-001-005-INTEGRATION",
+          "issueNumber": 151,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-001-005-REVIEW",
+          "issueNumber": 152,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-001-005-TEST",
+          "issueNumber": 153,
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "featureId": "VENUE-001-004",
+      "parentIssueNumber": 71,
+      "taskIssues": [
+        {
+          "taskId": "VENUE-001-004-DB",
+          "issueNumber": 154,
+          "status": "open"
+        },
+        {
+          "taskId": "VENUE-001-004-API",
+          "issueNumber": 155,
+          "status": "open"
+        },
+        {
+          "taskId": "VENUE-001-004-UI",
+          "issueNumber": 156,
+          "status": "open"
+        },
+        {
+          "taskId": "VENUE-001-004-INTEGRATION",
+          "issueNumber": 157,
+          "status": "open"
+        },
+        {
+          "taskId": "VENUE-001-004-REVIEW",
+          "issueNumber": 158,
+          "status": "open"
+        },
+        {
+          "taskId": "VENUE-001-004-TEST",
+          "issueNumber": 159,
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "featureId": "AI-001-003-008",
+      "parentIssueNumber": 72,
+      "taskIssues": [
+        {
+          "taskId": "AI-001-003-008-DB",
+          "issueNumber": 160,
+          "status": "open"
+        },
+        {
+          "taskId": "AI-001-003-008-API",
+          "issueNumber": 161,
+          "status": "open"
+        },
+        {
+          "taskId": "AI-001-003-008-UI",
+          "issueNumber": 162,
+          "status": "open"
+        },
+        {
+          "taskId": "AI-001-003-008-INTEGRATION",
+          "issueNumber": 163,
+          "status": "open"
+        },
+        {
+          "taskId": "AI-001-003-008-REVIEW",
+          "issueNumber": 164,
+          "status": "open"
+        },
+        {
+          "taskId": "AI-001-003-008-TEST",
+          "issueNumber": 165,
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "featureId": "EVT-010-014",
+      "parentIssueNumber": 73,
+      "taskIssues": [
+        {
+          "taskId": "EVT-010-014-DB",
+          "issueNumber": 166,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-010-014-API",
+          "issueNumber": 167,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-010-014-UI",
+          "issueNumber": 168,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-010-014-INTEGRATION",
+          "issueNumber": 169,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-010-014-REVIEW",
+          "issueNumber": 170,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-010-014-TEST",
+          "issueNumber": 171,
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "featureId": "EVT-020-021",
+      "parentIssueNumber": 74,
+      "taskIssues": [
+        {
+          "taskId": "EVT-020-021-DB",
+          "issueNumber": 172,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-020-021-API",
+          "issueNumber": 173,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-020-021-UI",
+          "issueNumber": 174,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-020-021-INTEGRATION",
+          "issueNumber": 175,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-020-021-REVIEW",
+          "issueNumber": 176,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-020-021-TEST",
+          "issueNumber": 177,
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "featureId": "EVT-030-031-033",
+      "parentIssueNumber": 75,
+      "taskIssues": [
+        {
+          "taskId": "EVT-030-031-033-DB",
+          "issueNumber": 178,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-030-031-033-API",
+          "issueNumber": 179,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-030-031-033-UI",
+          "issueNumber": 180,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-030-031-033-INTEGRATION",
+          "issueNumber": 181,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-030-031-033-REVIEW",
+          "issueNumber": 182,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-030-031-033-TEST",
+          "issueNumber": 183,
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "featureId": "EVT-040",
+      "parentIssueNumber": 184,
+      "taskIssues": [
+        {
+          "taskId": "EVT-040-DB",
+          "issueNumber": 185,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-040-API",
+          "issueNumber": 186,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-040-UI",
+          "issueNumber": 187,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-040-INTEGRATION",
+          "issueNumber": 188,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-040-REVIEW",
+          "issueNumber": 189,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-040-TEST",
+          "issueNumber": 190,
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "featureId": "EVT-050-051",
+      "parentIssueNumber": 191,
+      "taskIssues": [
+        {
+          "taskId": "EVT-050-051-DB",
+          "issueNumber": 192,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-050-051-API",
+          "issueNumber": 193,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-050-051-UI",
+          "issueNumber": 194,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-050-051-INTEGRATION",
+          "issueNumber": 195,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-050-051-REVIEW",
+          "issueNumber": 196,
+          "status": "open"
+        },
+        {
+          "taskId": "EVT-050-051-TEST",
+          "issueNumber": 197,
+          "status": "open"
+        }
+      ]
+    }
+  ]
+}

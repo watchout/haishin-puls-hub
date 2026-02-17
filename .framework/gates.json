@@ -33,7 +33,7 @@
         "message": "Framework management (.framework/): found"
       }
     ],
-    "checkedAt": "2026-02-16T02:32:19.463Z"
+    "checkedAt": "2026-02-17T06:46:55.666Z"
   },
   "gateB": {
     "status": "passed",
@@ -52,9 +52,14 @@
         "name": "Project profile configured (.framework/project.json)",
         "passed": true,
         "message": "Project profile found"
+      },
+      {
+        "name": "GitHub Issues synced (informational)",
+        "passed": true,
+        "message": "All 20 features synced to GitHub Issues"
       }
     ],
-    "checkedAt": "2026-02-16T02:32:19.464Z"
+    "checkedAt": "2026-02-17T06:46:55.669Z"
   },
   "gateC": {
     "status": "passed",
@@ -200,7 +205,7 @@
         "missingSections": []
       }
     ],
-    "checkedAt": "2026-02-16T02:32:19.478Z"
+    "checkedAt": "2026-02-17T06:46:55.693Z"
   },
-  "updatedAt": "2026-02-16T02:32:19.479Z"
+  "updatedAt": "2026-02-17T06:46:55.694Z"
 }

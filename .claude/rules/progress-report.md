@@ -40,3 +40,18 @@
 
 ## 技術メモ（任意）
 -
+
+---
+
+## IYASAKA CoS DB書き込み（自動）
+
+進捗報告ファイルを書き出す際、同時に以下のコマンドも実行すること:
+
+```bash
+python3 "/Users/kaneko/Library/CloudStorage/GoogleDrive-watchout.329@gmail.com/マイドライブ/IYASAKA/scripts/cos-db.py" progress-add '{"report_date":"YYYY-MM-DD","product":"haishin","mvp_progress":XX,"work_hours":X.X,"completed_items":["item1","item2"],"incomplete_items":["item1"],"blockers":["blocker1"],"next_priority":"次の最重要タスク","remaining_tasks":X,"estimated_completion":"YYYY-MM-DD"}'
+```
+
+- **product ID**: haishin
+- 日付・数値は実際の値を使うこと
+- DB書き込みに失敗してもファイル書き出しは続行すること
+- DB書き込みもユーザーに報告不要（黙って実行）
