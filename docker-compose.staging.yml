@@ -1,0 +1,83 @@
+# Haishin+ HUB - Staging 環境
+# ConoHa VPS 用 Docker Compose 構成
+#
+# 使用方法:
+#   docker compose -f docker-compose.staging.yml up -d --build
+
+services:
+  # ──────────────────────────────────────
+  # PostgreSQL 16
+  # ──────────────────────────────────────
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-haishin}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD is required}
+      POSTGRES_DB: ${DB_NAME:-haishin_plus_hub}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-haishin}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - internal
+
+  # ──────────────────────────────────────
+  # Nuxt 3 アプリケーション
+  # ──────────────────────────────────────
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://${DB_USER:-haishin}:${DB_PASSWORD}@db:5432/${DB_NAME:-haishin_plus_hub}
+      NUXT_DATABASE_URL: postgresql://${DB_USER:-haishin}:${DB_PASSWORD}@db:5432/${DB_NAME:-haishin_plus_hub}
+      NUXT_BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?BETTER_AUTH_SECRET is required}
+      NUXT_BETTER_AUTH_URL: ${APP_URL:-https://staging.haishin-plus.com}
+      NUXT_PUBLIC_APP_URL: ${APP_URL:-https://staging.haishin-plus.com}
+      NUXT_ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      NUXT_OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      NODE_ENV: production
+    networks:
+      - internal
+      - web
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # ──────────────────────────────────────
+  # Nginx リバースプロキシ
+  # ──────────────────────────────────────
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    depends_on:
+      app:
+        condition: service_healthy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/staging.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    networks:
+      - web
+
+volumes:
+  postgres_data:
+
+networks:
+  internal:
+    driver: bridge
+  web:
+    driver: bridge

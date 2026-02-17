@@ -1,0 +1,15 @@
+node_modules
+.output
+.nuxt
+.git
+.github
+.vscode
+*.md
+tests
+docs
+進捗報告
+coverage
+.env*
+!.env.example
+docker-compose*.yml
+nginx
