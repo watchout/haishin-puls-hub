@@ -63,7 +63,8 @@
           "dependencies": [
             "AUTH-001"
           ],
-          "dependencyCount": 6
+          "dependencyCount": 6,
+          "status": "done"
         }
       ]
     },

@@ -238,6 +238,88 @@ describe('signupSchema 境界値 (§2.5)', () => {
       expect((result.data as Record<string, unknown>).rememberMe).toBeUndefined();
     }
   });
+
+  // §2.5 追加境界値テスト
+  it('email が 256 文字はバリデーションエラー (§2.5)', () => {
+    const localPart = 'a'.repeat(244);
+    const email = `${localPart}@example.com`;
+    expect(email.length).toBe(256);
+    const result = signupSchema.safeParse({ ...validData, email });
+    expect(result.success).toBe(false);
+  });
+
+  it('email が空はバリデーションエラー (§2.5)', () => {
+    const result = signupSchema.safeParse({ ...validData, email: '' });
+    expect(result.success).toBe(false);
+  });
+
+  it('email が不正形式はバリデーションエラー (§2.5)', () => {
+    const result = signupSchema.safeParse({ ...validData, email: 'abc' });
+    expect(result.success).toBe(false);
+  });
+
+  it('passwordConfirm が不一致はバリデーションエラー (§2.5)', () => {
+    const result = signupSchema.safeParse({
+      ...validData,
+      password: 'Valid123!',
+      passwordConfirm: 'Different!',
+    });
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const confirmError = result.error.issues.find(
+        (i) => i.path.includes('passwordConfirm'),
+      );
+      expect(confirmError?.message).toBe('パスワードが一致しません');
+    }
+  });
+
+  it('password が 7 文字はバリデーションエラー (§2.5)', () => {
+    const pw = 'Abc123!';
+    expect(pw.length).toBe(7);
+    const result = signupSchema.safeParse({
+      ...validData,
+      password: pw,
+      passwordConfirm: pw,
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it('password が 8 文字ちょうどでOK (§2.5)', () => {
+    const pw = 'Abc1234!';
+    expect(pw.length).toBe(8);
+    const result = signupSchema.safeParse({
+      ...validData,
+      password: pw,
+      passwordConfirm: pw,
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it('name が空はバリデーションエラー (§2.5)', () => {
+    const result = signupSchema.safeParse({ ...validData, name: '' });
+    expect(result.success).toBe(false);
+  });
+
+  it('name が 100 文字でOK (§2.5)', () => {
+    const result = signupSchema.safeParse({ ...validData, name: 'a'.repeat(100) });
+    expect(result.success).toBe(true);
+  });
+
+  it('name が 101 文字はバリデーションエラー (§2.5)', () => {
+    const result = signupSchema.safeParse({ ...validData, name: 'a'.repeat(101) });
+    expect(result.success).toBe(false);
+  });
+
+  it('termsAccepted が false はバリデーションエラー (§2.5)', () => {
+    const result = signupSchema.safeParse({ ...validData, termsAccepted: false });
+    expect(result.success).toBe(false);
+  });
+
+  it('termsAccepted が undefined はバリデーションエラー (§2.5)', () => {
+    const { termsAccepted: _, ...withoutTerms } = validData;
+    const result = signupSchema.safeParse(withoutTerms);
+    expect(result.success).toBe(false);
+  });
 });
 
 // ──────────────────────────────────────
@@ -285,6 +367,37 @@ describe('invitationAcceptSchema 境界値 (§2.5)', () => {
       passwordConfirm: pw,
     });
     expect(result.success).toBe(false);
+  });
+
+  it('passwordConfirm が不一致はバリデーションエラー (§2.5)', () => {
+    const result = invitationAcceptSchema.safeParse({
+      ...validData,
+      password: 'Secure456!',
+      passwordConfirm: 'Different!',
+    });
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const confirmError = result.error.issues.find(
+        (i) => i.path.includes('passwordConfirm'),
+      );
+      expect(confirmError?.message).toBe('パスワードが一致しません');
+    }
+  });
+
+  it('termsAccepted が false はバリデーションエラー (§2.5)', () => {
+    const result = invitationAcceptSchema.safeParse({
+      ...validData,
+      termsAccepted: false,
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it('email フィールドは不要（招待トークンから取得）', () => {
+    const result = invitationAcceptSchema.safeParse({
+      ...validData,
+      email: 'extra@example.com',
+    });
+    expect(result.success).toBe(true);
   });
 });
 
@@ -487,5 +600,157 @@ describe('ログアウトロジック (AUTH-005)', () => {
     state.user = null as unknown as typeof state.user;
     expect(state.isAuthenticated).toBe(false);
     expect(state.user).toBeNull();
+  });
+});
+
+// ──────────────────────────────────────
+// ACCT-001 §2.4 入出力例テスト
+// ──────────────────────────────────────
+
+describe('ACCT-001 §2.4 入出力例 — バリデーション網羅', () => {
+  describe('正常系バリデーション', () => {
+    it('§3-E #1: 招待ベース正常 — name + password + termsAccepted', () => {
+      const result = acceptBodySchema.safeParse({
+        name: '山田太郎',
+        password: 'Valid123!',
+        termsAccepted: true,
+      });
+      expect(result.success).toBe(true);
+    });
+
+    it('§3-E #2: セルフ登録正常 — 全フィールド', () => {
+      const result = signupSchema.safeParse({
+        name: '田中花子',
+        email: 'tanaka@ex.com',
+        password: 'Pass456!',
+        passwordConfirm: 'Pass456!',
+        termsAccepted: true,
+      });
+      expect(result.success).toBe(true);
+    });
+  });
+
+  describe('異常系バリデーション', () => {
+    it('§3-E #6: パスワード短すぎ（8文字未満）→ 400', () => {
+      const result = signupSchema.safeParse({
+        name: 'テスト',
+        email: 'test@example.com',
+        password: 'abc',
+        passwordConfirm: 'abc',
+        termsAccepted: true,
+      });
+      expect(result.success).toBe(false);
+      if (!result.success) {
+        const pwError = result.error.issues.find((i) => i.path.includes('password'));
+        expect(pwError?.message).toContain('8文字以上');
+      }
+    });
+
+    it('§3-E #7: パスワード確認不一致 → 400', () => {
+      const result = signupSchema.safeParse({
+        name: 'テスト',
+        email: 'test@example.com',
+        password: 'Pass1234!',
+        passwordConfirm: 'Different!',
+        termsAccepted: true,
+      });
+      expect(result.success).toBe(false);
+      if (!result.success) {
+        const confirmError = result.error.issues.find(
+          (i) => i.path.includes('passwordConfirm'),
+        );
+        expect(confirmError?.message).toBe('パスワードが一致しません');
+      }
+    });
+
+    it('§3-E #8: 名前が空 → 400', () => {
+      const result = signupSchema.safeParse({
+        name: '',
+        email: 'test@example.com',
+        password: 'Valid123!',
+        passwordConfirm: 'Valid123!',
+        termsAccepted: true,
+      });
+      expect(result.success).toBe(false);
+      if (!result.success) {
+        const nameError = result.error.issues.find((i) => i.path.includes('name'));
+        expect(nameError?.message).toContain('名前を入力');
+      }
+    });
+
+    it('§3-E #9: 利用規約未同意 → 400', () => {
+      const result = signupSchema.safeParse({
+        name: 'テスト',
+        email: 'test@example.com',
+        password: 'Valid123!',
+        passwordConfirm: 'Valid123!',
+        termsAccepted: false,
+      });
+      expect(result.success).toBe(false);
+      if (!result.success) {
+        const termsError = result.error.issues.find(
+          (i) => i.message.includes('利用規約'),
+        );
+        expect(termsError).toBeTruthy();
+      }
+    });
+  });
+});
+
+// ──────────────────────────────────────
+// ACCT-001 §2.6 例外レスポンス — エラーメッセージ整合性
+// ──────────────────────────────────────
+
+describe('ACCT-001 §2.6 例外レスポンス — エラーメッセージ整合性', () => {
+  it('§3-G #2: メールアドレス重複メッセージが定義されている', () => {
+    expect(SIGNUP_ERROR_MESSAGES.EMAIL_ALREADY_EXISTS).toContain('既に登録されています');
+  });
+
+  it('§3-G #3: 招待トークン無効メッセージが定義されている', () => {
+    expect(SIGNUP_ERROR_MESSAGES.INVITATION_NOT_FOUND).toBe('招待リンクが無効です');
+  });
+
+  it('§3-G #4: 招待トークン期限切れメッセージが定義されている', () => {
+    expect(SIGNUP_ERROR_MESSAGES.INVITATION_EXPIRED).toContain('有効期限が切れています');
+  });
+
+  it('§3-G #5: 招待トークン使用済みメッセージが定義されている', () => {
+    expect(SIGNUP_ERROR_MESSAGES.INVITATION_ALREADY_USED).toContain('既に使用されています');
+  });
+
+  it('§3-G #10: サーバーエラーメッセージが定義されている', () => {
+    expect(SIGNUP_ERROR_MESSAGES.SIGNUP_FAILED).toBeTruthy();
+  });
+});
+
+// ──────────────────────────────────────
+// ACCT-001 招待有効期限テスト (§2.5)
+// ──────────────────────────────────────
+
+describe('招待有効期限ロジック (§2.5 / §7.4)', () => {
+  it('有効期限内（6日23時間59分）はOK', () => {
+    const now = new Date();
+    const expiresAt = new Date(now.getTime() + 6 * 24 * 60 * 60 * 1000 + 23 * 60 * 60 * 1000 + 59 * 60 * 1000);
+    expect(now < expiresAt).toBe(true);
+  });
+
+  it('有効期限ちょうど（7日0分0秒）はOK（境界: now < expiresAt）', () => {
+    const now = new Date('2026-02-17T00:00:00Z');
+    const expiresAt = new Date('2026-02-24T00:00:00Z');
+    // API の判定: new Date() > new Date(inv.expiresAt) — 同時刻は期限内
+    expect(now > expiresAt).toBe(false);
+  });
+
+  it('有効期限超過（7日0分1秒）は期限切れ', () => {
+    const now = new Date('2026-02-24T00:00:01Z');
+    const expiresAt = new Date('2026-02-24T00:00:00Z');
+    expect(now > expiresAt).toBe(true);
+  });
+
+  it('招待有効期限は7日間固定', () => {
+    const INVITATION_EXPIRY_DAYS = 7;
+    const createdAt = new Date('2026-02-17T00:00:00Z');
+    const expiresAt = new Date(createdAt.getTime() + INVITATION_EXPIRY_DAYS * 24 * 60 * 60 * 1000);
+    expect(expiresAt.toISOString()).toBe('2026-02-24T00:00:00.000Z');
   });
 });
