@@ -4,6 +4,14 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 // --------------------------------------------------
+// テスト対象のインポート
+// --------------------------------------------------
+import {
+  processError,
+  selectErrorComponent,
+} from '~/composables/useErrorHandler'
+
+// --------------------------------------------------
 // Nuxt auto-import モック
 // --------------------------------------------------
 
@@ -30,75 +38,6 @@ vi.stubGlobal('createError', (opts: Record<string, unknown>) => {
 vi.stubGlobal('crypto', {
   randomUUID: () => '00000000-0000-4000-8000-000000000000',
 })
-
-// --------------------------------------------------
-// テスト対象のインポート（モック適用後）
-// --------------------------------------------------
-// NOTE: useErrorHandler は Nuxt composable なので直接テストできる部分を検証
-// ここでは createError に渡すロジックを関数単位でテストする
-
-/**
- * useErrorHandler の handleError 相当のロジックを再実装してテスト
- * （Nuxt コンテキスト外で composable を直接呼べないため）
- */
-function handleErrorLogic(error: unknown): {
-  statusCode: number
-  message: string
-  data: unknown
-} {
-  const config = mockConfig
-
-  if (error !== null && typeof error === 'object' && 'statusCode' in error) {
-    const nuxtError = error as { statusCode: number; message?: string; data?: unknown }
-
-    switch (nuxtError.statusCode) {
-      case 401:
-      case 403:
-      case 404:
-        return {
-          statusCode: nuxtError.statusCode,
-          message: nuxtError.message || '',
-          data: nuxtError.data,
-        }
-      default:
-        return {
-          statusCode: nuxtError.statusCode >= 500 ? nuxtError.statusCode : 500,
-          message: 'サーバーエラーが発生しました',
-          data: {
-            requestId:
-              (nuxtError.data as Record<string, string> | undefined)?.requestId ||
-              crypto.randomUUID(),
-            supportEmail: config.public.supportEmail || 'support@example.com',
-            retryable: true,
-          },
-        }
-    }
-  }
-
-  return {
-    statusCode: 500,
-    message: '予期しないエラーが発生しました',
-    data: {
-      requestId: crypto.randomUUID(),
-      supportEmail: config.public.supportEmail || 'support@example.com',
-      retryable: true,
-    },
-  }
-}
-
-// --------------------------------------------------
-// エラーページ選択ロジック
-// --------------------------------------------------
-function selectErrorComponent(statusCode: number): string {
-  switch (statusCode) {
-    case 404:
-      return 'Error404'
-    case 403:
-      return 'Error403'
-    default:
-      return 'Error500'
-  }
-}
 
 // ──────────────────────────────────────
 // TC-ERR: エラーページ選択テスト
@@ -138,23 +77,25 @@ describe('エラーページ選択ロジック', () => {
 // エラーハンドリングロジックテスト
 // ──────────────────────────────────────
 
+const SUPPORT_EMAIL = 'support@haishin-plus-hub.com'
+
 describe('handleError ロジック', () => {
   beforeEach(() => {
     vi.restoreAllMocks()
   })
 
   it('401 エラーはそのまま statusCode=401 で返す', () => {
-    const result = handleErrorLogic({ statusCode: 401, message: 'Unauthorized' })
+    const result = processError({ statusCode: 401, message: 'Unauthorized' }, SUPPORT_EMAIL)
     expect(result.statusCode).toBe(401)
     expect(result.message).toBe('Unauthorized')
   })
 
   it('403 エラーはロール情報を data に保持する', () => {
-    const result = handleErrorLogic({
+    const result = processError({
       statusCode: 403,
       message: 'Forbidden',
       data: { requiredRole: 'admin', currentRole: 'participant' },
-    })
+    }, SUPPORT_EMAIL)
     expect(result.statusCode).toBe(403)
     const data = result.data as Record<string, string>
     expect(data.requiredRole).toBe('admin')
@@ -162,12 +103,12 @@ describe('handleError ロジック', () => {
   })
 
   it('404 エラーはそのまま statusCode=404 で返す', () => {
-    const result = handleErrorLogic({ statusCode: 404, message: 'Not Found' })
+    const result = processError({ statusCode: 404, message: 'Not Found' }, SUPPORT_EMAIL)
     expect(result.statusCode).toBe(404)
   })
 
   it('500 エラーは requestId と supportEmail を付与する', () => {
-    const result = handleErrorLogic({ statusCode: 500, message: 'Internal Server Error' })
+    const result = processError({ statusCode: 500, message: 'Internal Server Error' }, SUPPORT_EMAIL)
     expect(result.statusCode).toBe(500)
     expect(result.message).toBe('サーバーエラーが発生しました')
     const data = result.data as Record<string, unknown>
@@ -177,45 +118,45 @@ describe('handleError ロジック', () => {
   })
 
   it('503 エラーは statusCode=503 で返す（500フォールバック対象外）', () => {
-    const result = handleErrorLogic({ statusCode: 503, message: 'Service Unavailable' })
+    const result = processError({ statusCode: 503, message: 'Service Unavailable' }, SUPPORT_EMAIL)
     expect(result.statusCode).toBe(503)
     expect(result.message).toBe('サーバーエラーが発生しました')
   })
 
   it('400 エラーは statusCode=500 に変換される', () => {
-    const result = handleErrorLogic({ statusCode: 400, message: 'Bad Request' })
+    const result = processError({ statusCode: 400, message: 'Bad Request' }, SUPPORT_EMAIL)
     expect(result.statusCode).toBe(500)
     expect(result.message).toBe('サーバーエラーが発生しました')
   })
 
   it('既存の requestId がある場合はそれを使用する', () => {
-    const result = handleErrorLogic({
+    const result = processError({
       statusCode: 500,
       message: 'Error',
       data: { requestId: 'existing-request-id' },
-    })
+    }, SUPPORT_EMAIL)
     const data = result.data as Record<string, string>
     expect(data.requestId).toBe('existing-request-id')
   })
 
   it('予期しないエラー（statusCode なし）は 500 として処理', () => {
-    const result = handleErrorLogic(new Error('Unexpected'))
+    const result = processError(new Error('Unexpected'), SUPPORT_EMAIL)
     expect(result.statusCode).toBe(500)
     expect(result.message).toBe('予期しないエラーが発生しました')
   })
 
   it('null エラーは 500 として処理', () => {
-    const result = handleErrorLogic(null)
+    const result = processError(null, SUPPORT_EMAIL)
     expect(result.statusCode).toBe(500)
   })
 
   it('undefined エラーは 500 として処理', () => {
-    const result = handleErrorLogic(undefined)
+    const result = processError(undefined, SUPPORT_EMAIL)
     expect(result.statusCode).toBe(500)
   })
 
   it('文字列エラーは 500 として処理', () => {
-    const result = handleErrorLogic('something went wrong')
+    const result = processError('something went wrong', SUPPORT_EMAIL)
     expect(result.statusCode).toBe(500)
   })
 })
@@ -226,19 +167,19 @@ describe('handleError ロジック', () => {
 
 describe('境界値テスト（§3-F）', () => {
   it('requestId が N/A の場合（data なし）', () => {
-    const result = handleErrorLogic({ statusCode: 500 })
+    const result = processError({ statusCode: 500 }, SUPPORT_EMAIL)
     const data = result.data as Record<string, string>
     // requestId は UUID モックが適用される
     expect(data.requestId).toBeTruthy()
   })
 
   it('メッセージが空文字の場合', () => {
-    const result = handleErrorLogic({ statusCode: 404, message: '' })
+    const result = processError({ statusCode: 404, message: '' }, SUPPORT_EMAIL)
     expect(result.message).toBe('')
   })
 
   it('data が undefined の場合', () => {
-    const result = handleErrorLogic({ statusCode: 403, message: 'Forbidden', data: undefined })
+    const result = processError({ statusCode: 403, message: 'Forbidden', data: undefined }, SUPPORT_EMAIL)
     expect(result.data).toBeUndefined()
   })
 })
@@ -477,17 +418,17 @@ describe('Error500 ロジック（§3-F / §3-H）', () => {
 
 describe('例外レスポンスマッピング（§3-G）', () => {
   it('NOT_FOUND → 404 → Error404', () => {
-    const result = handleErrorLogic({ statusCode: 404, message: 'ページが見つかりません' })
+    const result = processError({ statusCode: 404, message: 'ページが見つかりません' }, SUPPORT_EMAIL)
     expect(result.statusCode).toBe(404)
     expect(selectErrorComponent(result.statusCode)).toBe('Error404')
   })
 
   it('FORBIDDEN → 403 → Error403 + ロール情報', () => {
-    const result = handleErrorLogic({
+    const result = processError({
       statusCode: 403,
       message: 'アクセス権限がありません',
       data: { requiredRole: 'admin', currentRole: 'viewer' },
-    })
+    }, SUPPORT_EMAIL)
     expect(result.statusCode).toBe(403)
     expect(selectErrorComponent(result.statusCode)).toBe('Error403')
     const data = result.data as Record<string, string>
@@ -495,17 +436,17 @@ describe('例外レスポンスマッピング（§3-G）', () => {
   })
 
   it('INTERNAL_SERVER_ERROR → 500 → Error500 + requestId', () => {
-    const result = handleErrorLogic({
+    const result = processError({
       statusCode: 500,
       message: 'Internal Server Error',
       data: { requestId: 'abc-123', supportEmail: 'test@test.com', retryable: true },
-    })
+    }, SUPPORT_EMAIL)
     expect(result.statusCode).toBe(500)
     expect(selectErrorComponent(result.statusCode)).toBe('Error500')
   })
 
   it('UNAUTHORIZED → 401 → ログインリダイレクト（ページ表示なし）', () => {
-    const result = handleErrorLogic({ statusCode: 401, message: '' })
+    const result = processError({ statusCode: 401, message: '' }, SUPPORT_EMAIL)
     expect(result.statusCode).toBe(401)
     // 401 は error.vue でリダイレクト処理される
     const shouldRedirect = result.statusCode === 401
@@ -513,7 +454,7 @@ describe('例外レスポンスマッピング（§3-G）', () => {
   })
 
   it('SERVICE_UNAVAILABLE → 503 → Error500 フォールバック', () => {
-    const result = handleErrorLogic({ statusCode: 503, message: 'Service Unavailable' })
+    const result = processError({ statusCode: 503, message: 'Service Unavailable' }, SUPPORT_EMAIL)
     expect(result.statusCode).toBe(503)
     expect(selectErrorComponent(result.statusCode)).toBe('Error500')
     expect(result.message).toBe('サーバーエラーが発生しました')
@@ -521,7 +462,7 @@ describe('例外レスポンスマッピング（§3-G）', () => {
 
   it('その他の 4xx → 500 に変換 → Error500 フォールバック', () => {
     for (const code of [400, 405, 408, 429]) {
-      const result = handleErrorLogic({ statusCode: code, message: `Error ${code}` })
+      const result = processError({ statusCode: code, message: `Error ${code}` }, SUPPORT_EMAIL)
       expect(result.statusCode).toBe(500)
       expect(selectErrorComponent(500)).toBe('Error500')
     }
@@ -529,7 +470,7 @@ describe('例外レスポンスマッピング（§3-G）', () => {
 
   it('その他の 5xx → statusCode 維持 → Error500 フォールバック', () => {
     for (const code of [502, 504]) {
-      const result = handleErrorLogic({ statusCode: code, message: `Error ${code}` })
+      const result = processError({ statusCode: code, message: `Error ${code}` }, SUPPORT_EMAIL)
       expect(result.statusCode).toBe(code)
       expect(selectErrorComponent(code)).toBe('Error500')
     }
@@ -542,17 +483,17 @@ describe('例外レスポンスマッピング（§3-G）', () => {
 
 describe('入出力シナリオ（§3-E）', () => {
   it('#1: /events/999999 → 404 + タイトル「ページが見つかりません」', () => {
-    const result = handleErrorLogic({ statusCode: 404, message: 'ページが見つかりません' })
+    const result = processError({ statusCode: 404, message: 'ページが見つかりません' }, SUPPORT_EMAIL)
     expect(result.statusCode).toBe(404)
     expect(selectErrorComponent(404)).toBe('Error404')
   })
 
   it('#2: viewer で /admin/settings → 403 + ロール情報', () => {
-    const result = handleErrorLogic({
+    const result = processError({
       statusCode: 403,
       message: 'アクセス権限がありません',
       data: { requiredRole: 'admin', currentRole: 'viewer' },
-    })
+    }, SUPPORT_EMAIL)
     expect(result.statusCode).toBe(403)
     const info = extractRoleInfo(result.data as Record<string, string>)
     expect(info.currentRole).toBe('viewer')
@@ -560,7 +501,7 @@ describe('入出力シナリオ（§3-E）', () => {
   })
 
   it('#3: DB接続障害 → 500 + requestId（UUID形式）', () => {
-    const result = handleErrorLogic({ statusCode: 500, message: 'DB connection failed' })
+    const result = processError({ statusCode: 500, message: 'DB connection failed' }, SUPPORT_EMAIL)
     const data = result.data as Record<string, string>
     expect(data.requestId).toMatch(
       /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/,
@@ -568,7 +509,7 @@ describe('入出力シナリオ（§3-E）', () => {
   })
 
   it('#4: 未認証で /dashboard → 401 リダイレクト', () => {
-    const result = handleErrorLogic({ statusCode: 401 })
+    const result = processError({ statusCode: 401 }, SUPPORT_EMAIL)
     expect(result.statusCode).toBe(401)
     const redirectUrl = `/login?redirect=${encodeURIComponent('/dashboard')}`
     expect(redirectUrl).toBe('/login?redirect=%2Fdashboard')
