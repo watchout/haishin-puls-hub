@@ -8,6 +8,7 @@ import {
   getRoleLabel,
   formatRelativeTime,
   formatAbsoluteTime,
+  extractLastLoginAt,
 } from '~/composables/useProfile'
 
 definePageMeta({
@@ -42,10 +43,10 @@ const avatarInitials = computed(() => {
 
 /** 最終ログイン表示 */
 const lastLoginRelative = computed(() =>
-  formatRelativeTime((user.value as Record<string, unknown> | null)?.lastLoginAt as string | null),
+  formatRelativeTime(extractLastLoginAt(user.value as Record<string, unknown> | null)),
 )
 const lastLoginAbsolute = computed(() =>
-  formatAbsoluteTime((user.value as Record<string, unknown> | null)?.lastLoginAt as string | null),
+  formatAbsoluteTime(extractLastLoginAt(user.value as Record<string, unknown> | null)),
 )
 
 // ──────────────────────────────────────

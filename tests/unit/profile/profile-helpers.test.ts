@@ -5,6 +5,7 @@ import {
   getRoleLabel,
   formatRelativeTime,
   formatAbsoluteTime,
+  extractLastLoginAt,
   ROLE_LABELS,
   type TenantMembership,
 } from '~/composables/useProfile'
@@ -407,5 +408,34 @@ describe('デフォルトテナント識別ロジック (§2.7 Gherkin)', () => 
       const label = getRoleLabel(t.role)
       expect(label).not.toBe(t.role) // 全て変換済み
     }
+  })
+})
+
+// ──────────────────────────────────────
+// extractLastLoginAt テスト (REVIEW で追加)
+// ──────────────────────────────────────
+
+describe('extractLastLoginAt', () => {
+  it('正常な lastLoginAt を取得', () => {
+    const user = { lastLoginAt: '2026-02-09T14:32:00Z' }
+    expect(extractLastLoginAt(user)).toBe('2026-02-09T14:32:00Z')
+  })
+
+  it('lastLoginAt が存在しない → null', () => {
+    const user = { name: 'test' }
+    expect(extractLastLoginAt(user)).toBeNull()
+  })
+
+  it('user が null → null', () => {
+    expect(extractLastLoginAt(null)).toBeNull()
+  })
+
+  it('user が undefined → null', () => {
+    expect(extractLastLoginAt(undefined)).toBeNull()
+  })
+
+  it('lastLoginAt が数値 → null (string以外)', () => {
+    const user = { lastLoginAt: 12345 }
+    expect(extractLastLoginAt(user)).toBeNull()
   })
 })
