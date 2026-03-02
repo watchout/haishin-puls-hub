@@ -47,8 +47,8 @@ export function getRoleLabel(role: string): string {
 
 /**
  * 名前からイニシャルを抽出（最大2文字）
- * - "山田 太郎" → "YT" (各パーツの先頭)
- * - "山田" → "Y"
+ * - "山田 太郎" → "山太" (各パーツの先頭文字)
+ * - "山田" → "山"
  * - "John Doe" → "JD"
  */
 export function getInitials(name: string): string {
@@ -101,6 +101,15 @@ export function formatRelativeTime(isoString: string | null): string {
     hour: '2-digit',
     minute: '2-digit',
   })
+}
+
+/**
+ * ユーザーオブジェクトから lastLoginAt を安全に取得する
+ */
+export function extractLastLoginAt(user: Record<string, unknown> | null | undefined): string | null {
+  if (!user) return null
+  const val = user.lastLoginAt
+  return typeof val === 'string' ? val : null
 }
 
 /**
